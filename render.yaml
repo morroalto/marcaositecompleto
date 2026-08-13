@@ -1,0 +1,39 @@
+# Deploy no Render, como Web Service.
+#
+# NÃO usar "Static Site": este site tem rota de API (/api/apoiador), o proxy com
+# os cabeçalhos de segurança e a imagem de Open Graph gerada no servidor. Num
+# site estático, os três deixam de existir.
+#
+# Para usar: no Render, New > Blueprint, e aponte para este repositório.
+# O Render lê este arquivo e cria o serviço já configurado.
+
+services:
+  - type: web
+    name: marcao-vivacqua-36028
+    runtime: node
+    plan: starter          # o plano free hiberna e a primeira visita demora ~50 s
+    region: oregon
+    branch: main
+
+    # o app não está na raiz do repositório
+    rootDir: site
+
+    buildCommand: npm ci && npm run build
+    startCommand: npm run start
+
+    healthCheckPath: /
+
+    autoDeploy: true
+
+    envVars:
+      - key: NODE_VERSION
+        value: 24.9.0
+
+      # Destino do cadastro de apoiador. Enquanto estiver vazio, o formulário
+      # valida e responde certo, mas o lead não é entregue a lugar nenhum.
+      # Preencher com a URL da planilha, CRM ou webhook antes do go-live.
+      - key: APOIADOR_WEBHOOK
+        sync: false
+
+      # NÃO defina NEXT_PUBLIC_MOSTRAR_PENDENCIAS aqui.
+      # Com ela ligada, as caixas vermelhas de revisão aparecem em produção.
