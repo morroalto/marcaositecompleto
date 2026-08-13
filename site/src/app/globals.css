@@ -1,0 +1,315 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════════════════
+   1 · TOKENS
+   FORA de camada, com TODOS os overrides junto. No Tailwind 4 regra sem
+   camada vence qualquer camada, inclusive utilities. Separar token de
+   override quebra o layout (erro já registrado na vault).
+   Fonte dos hex: idmarcão.pdf, página 4.
+   ═══════════════════════════════════════════════════════════════════════ */
+:root {
+  /* marca, direto do manual */
+  --petroleo: #003B44;
+  --marinho:  #12406F;
+  --verde:    #45872C;
+  --laranja:  #FF7A00;
+  --amarelo:  #FFD400;
+
+  /* derivadas para TEXTO. O verde puro dá 4,42:1 e reprova AA. */
+  --verde-fundo: #3A7325;   /* branco em cima: 5,74:1 */
+  --verde-tinta: #2F5C1B;   /* sobre papel:    7,66:1 */
+  --petroleo-2:  #00505C;
+  --marinho-2:   #0B2F52;
+
+  /* superfícies */
+  --branco: #FFFFFF;
+  --papel:  #F4F7F5;
+  --tinta:  #08222A;
+  --tinta-fraca: #45605F;   /* sobre papel: 6,49:1 */
+  --linha: #CFDCD7;
+  --erro:  #B3241C;
+
+  /* pares calculados. A cor do texto é consequência do fundo, não escolha. */
+  --sobre-laranja:  #08222A;  /*  6,31:1 */
+  --sobre-amarelo:  #003B44;  /*  8,58:1 */
+  --sobre-petroleo: #FFFFFF;  /* 12,29:1 */
+  --sobre-marinho:  #FFFFFF;  /* 10,56:1 */
+  --claro-petroleo: #CBDDD7;  /*  9,03:1 sobre petróleo */
+  --claro-marinho:  #C9DCF0;  /*  7,54:1 sobre marinho  */
+
+  /* medida */
+  --shell: 78rem;
+  --pad: clamp(1.15rem, 5vw, 4rem);
+  --secao: clamp(3.5rem, 8vw, 7rem);
+  --topo-h: 60px;
+  --barra-h: 68px;
+
+  --r-btn: 6px;
+  --r-card: 10px;
+  --r-chip: 999px;
+  --ease: cubic-bezier(.16, 1, .3, 1);
+}
+@media (min-width: 1024px) {
+  :root { --topo-h: 72px; --barra-h: 0px; }
+}
+
+/* mapeia para utilitários do Tailwind com nome DIFERENTE do token,
+   senão a declaração vira auto-referência */
+@theme inline {
+  --color-petroleo: var(--petroleo);
+  --color-marinho: var(--marinho);
+  --color-verde: var(--verde);
+  --color-laranja: var(--laranja);
+  --color-amarelo: var(--amarelo);
+  --color-papel: var(--papel);
+  --color-tinta: var(--tinta);
+  --color-fraca: var(--tinta-fraca);
+  --color-linha: var(--linha);
+  /* vindas do next/font/local, declaradas no <html> */
+  --font-display: var(--fonte-display), system-ui, sans-serif;
+  --font-corpo: var(--fonte-corpo), system-ui, sans-serif;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   2 · ELEMENTO
+   ═══════════════════════════════════════════════════════════════════════ */
+@layer base {
+  * { box-sizing: border-box; }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--topo-h) + 12px);
+  }
+
+  body {
+    margin: 0;
+    background: var(--branco);
+    color: var(--tinta);
+    /* piso de 17 px. É restrição de projeto, não preferência:
+       o leitor tem 30 a 65 anos e lê no celular, no sol. */
+    font: 400 1.0625rem/1.65 var(--font-corpo);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    margin: 0;
+    font-family: var(--font-display);
+    text-wrap: balance;
+    line-height: 1.05;
+  }
+  p { margin: 0; text-wrap: pretty; }
+  ul, ol { margin: 0; padding: 0; list-style: none; }
+  a { color: inherit; text-underline-offset: .2em; }
+  img, svg { max-width: 100%; display: block; }
+  button { font: inherit; color: inherit; }
+
+  :focus-visible {
+    outline: 3px solid var(--amarelo);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   3 · PRIMITIVOS
+   ═══════════════════════════════════════════════════════════════════════ */
+@layer components {
+  .mv-shell {
+    max-width: var(--shell);
+    margin-inline: auto;
+    padding-inline: var(--pad);
+  }
+  .mv-secao { padding-block: var(--secao); position: relative; }
+
+  /* texto só para leitor de tela */
+  .mv-sr {
+    position: absolute; width: 1px; height: 1px;
+    margin: -1px; overflow: hidden;
+    clip-path: inset(50%); white-space: nowrap; border: 0;
+  }
+
+  /* ── LOCKUP OFICIAL: MARCÃO / VIVACQUA + barra tricolor + 36.028 ──
+     Reconstruído em HTML porque não existe vetor do lockup no acervo:
+     ele só aparece dentro de PSD e rasterizado no manual. */
+  .mv-lockup {
+    display: inline-grid;
+    grid-template-columns: auto auto;
+    gap: 0 .38em;
+    align-items: end;
+    line-height: 1;
+    font-family: var(--font-display);
+  }
+  .mv-lockup .nome {
+    grid-column: 1 / -1;
+    font-weight: 800; font-size: 1em;
+    letter-spacing: -.03em; font-stretch: 100%;
+  }
+  .mv-lockup .sob {
+    font-weight: 700; font-size: .42em;
+    letter-spacing: .01em; align-self: end; padding-bottom: .15em;
+  }
+  .mv-lockup .num {
+    font-weight: 700; font-size: .63em;
+    letter-spacing: -.01em; font-variant-numeric: tabular-nums;
+  }
+  .mv-lockup .barra {
+    grid-column: 1;
+    display: flex; height: .085em; min-height: 3px; margin-top: .06em;
+  }
+  .mv-lockup .barra i { flex: 1; }
+  .mv-lockup .barra i:nth-child(1) { background: var(--verde); }
+  .mv-lockup .barra i:nth-child(2) { background: var(--laranja); }
+  .mv-lockup .barra i:nth-child(3) { background: var(--amarelo); }
+
+  /* ── CARTAZ: a assinatura tipográfica do manual (págs. 2, 3, 5, 12) ──
+     paint-order garante que o contorno fique ATRÁS do preenchimento. */
+  .mv-cartaz {
+    font-family: var(--font-display);
+    font-weight: 900; font-stretch: 115%;
+    text-transform: uppercase;
+    line-height: .92; letter-spacing: -.02em;
+    transform: skewX(-9deg); transform-origin: left bottom;
+    display: inline-block;
+    paint-order: stroke fill;
+    -webkit-text-stroke: .13em var(--branco);
+    filter: drop-shadow(.05em .055em 0 rgb(0 0 0 / .28));
+  }
+
+  /* ── HACHURA: elemento gráfico das páginas 2 e 3 ── */
+  .mv-hachura {
+    background-image: repeating-linear-gradient(
+      70deg, currentColor 0 7px, transparent 7px 18px);
+  }
+
+  /* ── BOTÕES: alvo mínimo de 52 px, acima dos 48 exigidos ── */
+  .mv-btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: .55rem;
+    min-height: 52px; padding: .85rem 1.5rem;
+    border: 2px solid transparent; border-radius: var(--r-btn);
+    font-family: var(--font-display); font-weight: 800; font-size: 1.0625rem;
+    letter-spacing: -.01em; text-decoration: none; cursor: pointer;
+    transition: background-color .16s ease, border-color .16s ease,
+                color .16s ease, transform .12s ease, box-shadow .12s ease;
+  }
+  .mv-btn-laranja { background: var(--laranja); color: var(--sobre-laranja); box-shadow: 0 4px 0 #C45E00; }
+  .mv-btn-laranja:hover { background: #FF8A1F; }
+  .mv-btn-laranja:active { transform: translateY(3px); box-shadow: 0 1px 0 #C45E00; }
+  .mv-btn-amarelo { background: var(--amarelo); color: var(--sobre-amarelo); box-shadow: 0 4px 0 #C9A800; }
+  .mv-btn-amarelo:hover { background: #FFDE33; }
+  .mv-btn-amarelo:active { transform: translateY(3px); box-shadow: 0 1px 0 #C9A800; }
+  .mv-btn-linha { background: transparent; color: #fff; border-color: rgb(255 255 255 / .62); }
+  .mv-btn-linha:hover { border-color: #fff; background: rgb(255 255 255 / .12); }
+  .mv-btn-escuro { background: var(--petroleo); color: #fff; }
+  .mv-btn-escuro:hover { background: var(--petroleo-2); }
+  .mv-btn[disabled] { background: var(--linha); color: var(--tinta-fraca); box-shadow: none; cursor: not-allowed; }
+
+  .mv-chip {
+    display: inline-flex; align-items: center; gap: .4rem;
+    border-radius: var(--r-chip); border: 2px solid currentColor;
+    padding: .35rem .9rem;
+    font-family: var(--font-display); font-weight: 700; font-size: 1rem;
+  }
+  .mv-kicker {
+    font-family: var(--font-display); font-weight: 800;
+    font-size: .875rem; letter-spacing: .16em; text-transform: uppercase;
+  }
+  .mv-badge {
+    display: inline-block; background: var(--marinho); color: #fff;
+    font-family: var(--font-display); font-weight: 800; font-size: .8125rem;
+    letter-spacing: .1em; text-transform: uppercase;
+    padding: .35rem .75rem; border-radius: 4px;
+  }
+
+  .mv-card {
+    background: #fff; border-radius: var(--r-card); padding: 1.6rem 1.5rem;
+    border: 1px solid var(--linha); box-shadow: 0 2px 0 var(--linha);
+  }
+
+  /* caixa de pendência: existe só antes do go-live */
+  .mv-todo {
+    border: 2px dashed var(--erro); border-radius: var(--r-card);
+    background: repeating-linear-gradient(135deg, #FFF3F2 0 12px, #fff 12px 24px);
+    padding: 1rem 1.15rem; color: var(--erro); font-size: 1rem; font-weight: 600;
+  }
+  .mv-todo b {
+    display: block; font-family: var(--font-display); font-weight: 800;
+    letter-spacing: .08em; text-transform: uppercase;
+    font-size: .8125rem; margin-bottom: .3rem;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   4 · FUNDOS
+   Nada de lavado translúcido por cima de foto: no manual o retrato entra
+   RECORTADO sobre o degradê. Foto de ambiente entra limpa, sem véu.
+   ═══════════════════════════════════════════════════════════════════════ */
+/* Prefixo mv- obrigatório: `bg-amarelo`, `bg-petroleo` e companhia JÁ são
+   utilitários gerados pelo @theme acima. Regra sem camada vence utilitário,
+   então uma classe com o mesmo nome sequestraria silenciosamente a cor. */
+.mv-duo { background: linear-gradient(118deg, var(--verde) 0%, var(--petroleo) 46%, var(--marinho) 100%); color: #fff; }
+.mv-duo-inv { background: linear-gradient(118deg, var(--marinho) 0%, var(--petroleo) 54%, var(--verde) 100%); color: #fff; }
+
+/* corte diagonal entre seções */
+.corte-baixo { clip-path: polygon(0 0, 100% 0, 100% calc(100% - 3vw), 0 100%); }
+.corte-cima  { clip-path: polygon(0 3vw, 100% 0, 100% 100%, 0 100%); margin-top: -3vw; }
+.corte-duplo { clip-path: polygon(0 3vw, 100% 0, 100% calc(100% - 3vw), 0 100%);
+               margin-block: -3vw; padding-block: calc(var(--secao) + 3vw); }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   5 · MOVIMENTO — três comportamentos na página inteira, nunca mais
+   ═══════════════════════════════════════════════════════════════════════ */
+@keyframes mv-entra { to { opacity: 1; transform: none; } }
+.mv-entra { opacity: 0; transform: translateY(16px); animation: mv-entra .6s var(--ease) forwards; }
+.mv-d1 { animation-delay: .06s } .mv-d2 { animation-delay: .13s }
+.mv-d3 { animation-delay: .2s }  .mv-d4 { animation-delay: .27s }
+.mv-d5 { animation-delay: .34s }
+
+/* ── TELA DE ABERTURA ─────────────────────────────────────────────────
+   Toda a saída é CSS. Não depende de hidratação: se o JS falhar, ela
+   some do mesmo jeito. `pointer-events: none` desde o começo, para nunca
+   engolir um toque do eleitor. */
+@keyframes mv-abertura-sai {
+  0%, 62%   { opacity: 1; visibility: visible; }
+  100%      { opacity: 0; visibility: hidden; }
+}
+@keyframes mv-abertura-barra { from { transform: scaleX(.06) } to { transform: scaleX(1) } }
+
+.mv-abertura {
+  position: fixed; inset: 0; z-index: 200;
+  display: grid; place-items: center;
+  background: var(--petroleo);
+  pointer-events: none;
+  animation: mv-abertura-sai 1.5s var(--ease) forwards;
+}
+.mv-abertura-cx {
+  display: flex; flex-direction: column; align-items: center; gap: 1.5rem;
+  width: min(78vw, 26rem);
+}
+.mv-abertura-trilho {
+  height: 6px; width: 100%; overflow: hidden; border-radius: 999px;
+  background: rgb(255 255 255 / .16);
+}
+.mv-abertura-barra {
+  display: block; height: 100%; width: 100%; transform-origin: left;
+  background: linear-gradient(90deg, var(--verde) 0%, var(--laranja) 55%, var(--amarelo) 100%);
+  animation: mv-abertura-barra .95s var(--ease) forwards;
+}
+/* já viu nesta sessão, ou pediu menos movimento: nem aparece */
+.mv-visto .mv-abertura { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mv-abertura { display: none; }
+  .mv-entra { animation: none; opacity: 1; transform: none; }
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    transition-duration: .001ms !important;
+  }
+}
+
+@media print {
+  .mv-nao-imprime { display: none !important; }
+  body { background: #fff; color: #000; }
+}

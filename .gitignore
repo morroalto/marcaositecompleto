@@ -1,0 +1,35 @@
+# ── dependências e build ──
+node_modules/
+.next/
+out/
+build/
+dist/
+*.tsbuildinfo
+next-env.d.ts
+
+# ── ambiente ──
+.env
+.env.local
+.env*.local
+
+# ── sistema ──
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
+npm-debug.log*
+
+# ── editor ──
+.vscode/
+.idea/
+
+# ── MATERIAL DE ORIGEM ──
+# 77 MB de acervo do cliente: manual de marca, comprovante de CNPJ e fotos de
+# família. Não é necessário para build nem deploy, e material assim fica
+# cacheado num repositório mesmo depois de removido.
+# As fotos que o site realmente usa estão em `site/public/fotos/`.
+# Para incluir mesmo assim, comente a linha abaixo.
+fontes/
+
+# HTML e PDF gerados a partir dos .md da pasta docs
+docs/_build/
