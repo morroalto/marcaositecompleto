@@ -43,18 +43,18 @@ export function Discagem() {
   }, [digitos.length])
 
   return (
-    <div className="w-full">
+    <div className="mv-fone">
       {/* altura travada: o número cresce dígito a dígito e não pode empurrar
           o que vem embaixo a cada 420 ms */}
-      <div className="flex h-[7rem] flex-col justify-center">
+      <div className="flex h-[3.6rem] flex-col justify-center">
         <p
           aria-hidden="true"
-          className="font-display text-[clamp(2.6rem,9vw,3.6rem)] leading-none font-black tracking-[.16em] text-white tabular-nums"
+          className="font-display text-[clamp(1.9rem,6vw,2.4rem)] leading-none font-black tracking-[.16em] text-white tabular-nums"
         >
           {digitos.slice(0, ate)}
           <span className="mv-cursor text-amarelo">|</span>
         </p>
-        <p className="mv-pisca mt-3 font-display text-[0.8125rem] font-extrabold tracking-[.14em] text-white/65 uppercase">
+        <p className="mv-pisca mt-2 font-display text-[0.6875rem] font-extrabold tracking-[.14em] text-white/65 uppercase">
           Chamando o Sul…
         </p>
       </div>

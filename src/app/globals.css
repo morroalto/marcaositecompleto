@@ -316,10 +316,18 @@
   }
 
   /* ── VISOR DE DISCAGEM ──
-     Sem caixa: era um retângulo escuro com borda clara em cima de um fundo já
-     escuro, e a borda só marcava o contorno de uma caixa que não precisava
-     existir. Agora o número vive direto sobre o fundo da seção. */
-  .mv-fone { padding: 0; }
+     Volta a ser uma caixa, mas SEM BORDA: o que marcava o contorno antes era
+     um fio branco a 14%, e era ele que incomodava. Agora o que separa o visor
+     do fundo é o preto quase opaco mais a sombra projetada.
+     A caixa existe de novo porque ela é posicionada por cima da foto,
+     sobrepondo o pé dele, e ali precisa de fundo próprio para o número não
+     brigar com a calça jeans. */
+  .mv-fone {
+    border-radius: 14px;
+    background: rgb(3 18 23 / .9);
+    padding: .85rem 1.35rem;
+    box-shadow: 0 18px 38px rgb(0 0 0 / .55);
+  }
 
   /* ── CARD DE FOTO ──
      Legenda POR CIMA da imagem, não solta embaixo. Texto solto sob a foto

@@ -36,7 +36,7 @@ export function Numero() {
             e o poste do orelhão à direita, então a sombra do chão vai em 32%
             da largura, e não no meio, que cairia no vão entre os dois. */}
         <div
-          className="mv-profundidade mx-auto w-full max-w-[32rem]"
+          className="mv-profundidade relative mx-auto w-full max-w-[32rem]"
           style={{ '--pe-x': '32%', '--pe-y': '4%' } as React.CSSProperties}
         >
           <Image
@@ -46,6 +46,14 @@ export function Numero() {
             priority
             className="h-auto w-full"
           />
+
+          {/* O visor pousa SOBRE a foto, na altura do pé dele. Solto na coluna
+              de texto, ele era só mais um bloco numa lista; aqui ele amarra as
+              duas coisas, porque o número aparece no mesmo lugar em que ele
+              está falando ao telefone. */}
+          <div className="absolute bottom-[6%] left-1/2 z-10 w-[min(17rem,72%)] -translate-x-1/2">
+            <Discagem />
+          </div>
         </div>
 
         {/* ── o argumento ── */}
@@ -56,8 +64,6 @@ export function Numero() {
               O número que você já conhece de cor.
             </h2>
           </div>
-
-          <Discagem />
 
           <div className="flex w-full gap-3 sm:w-auto sm:gap-4">
             <div className="flex-1 rounded-xl bg-[#3A7325] px-5 py-4 text-center shadow-[0_5px_0_rgba(0,0,0,.32)] sm:flex-none sm:min-w-[8.5rem]">
