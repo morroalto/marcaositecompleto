@@ -53,13 +53,19 @@ export function Territorio() {
           o "A FORÇA DO" primeiro, que é o pior lugar possível.
 
           80vh: cabe na tela junto com o cabeçalho, sem rolagem. */}
-      <figure className="m-0 h-[80vh] w-full">
+      {/* NO CELULAR A ARTE VAI INTEIRA, sem recorte. O corte de 80vh existe
+          para o desktop, onde a janela é mais larga que 16 por 9 e a peça
+          inteira obrigaria a rolar. Na tela do celular, que é estreita e alta,
+          `object-cover` faz o contrário: aperta pelas laterais e sobra só o
+          miolo, sem o título e sem o mapa. Foto pequena e inteira é melhor que
+          foto grande e decepada. */}
+      <figure className="m-0 w-full lg:h-[80vh]">
         <Image
           src={mapa}
           alt="Mapa do Espírito Santo com o Triângulo do Sul destacado, ligando Marataízes, Itapemirim e Presidente Kennedy"
           sizes="100vw"
           loading="lazy"
-          className="h-full w-full object-cover object-top"
+          className="h-auto w-full lg:h-full lg:object-cover lg:object-top"
         />
       </figure>
 
