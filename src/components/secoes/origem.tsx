@@ -46,28 +46,35 @@ export function Origem() {
           ))}
         </div>
 
-        {/* LARGURA CHEIA. A foto saiu da coluna: em meia largura ela nunca ia
-            passar de um quadradinho, e o pedido é justamente que a família
-            apareça.
+        {/* ARQUIVO TROCADO em 14/08/2026: chegou o original
+            (`ESPOSA ADRIANA - FILHAS E NETO.jpg`, 1066 por 1600), e com ele
+            acabou o corte. O antigo `familia-todos.webp` era um recorte 16 por
+            9 tirado dessa mesma foto, e o recorte decepava a cabeça das três
+            filhas, que estão em pé atrás. Era problema de arquivo, não de CSS.
+            O .webp continua em `public/fotos/`, sem uso.
 
-            Sobre o corte no alto: ele está no ARQUIVO. `familia-todos.webp`
-            tem 1200 por 675, um recorte 16 por 9 tirado de uma foto vertical,
-            e nesse recorte a cabeça de quem está em pé atrás já foi embora.
-            Nenhum tamanho, nenhum `object-position` e nenhum CSS traz de volta
-            pixel que não foi salvo. Para resolver, é preciso o arquivo
-            original, sem o corte, trocado aqui em `public/fotos/`. Procurei
-            outra versão no acervo do repositório e no protótipo: não existe. */}
-        <Image
-          src="/fotos/familia-todos.webp"
-          alt="Marcão sentado com a esposa Adriana e o neto Marco Antônio, com as filhas atrás"
-          width={1200} height={675}
-          sizes="(max-width: 1279px) 92vw, 74rem"
-          loading="lazy"
-          className="h-auto w-full rounded-[10px]"
-        />
+            Como agora ela é VERTICAL, volta para o lado do texto: em largura
+            cheia uma foto 2 por 3 tomaria três telas de altura. */}
+        <div className="grid gap-8 lg:grid-cols-[.45fr_.55fr] lg:items-center lg:gap-12">
+          <Image
+            src="/fotos/familia-todos.jpg"
+            alt="Marcão sentado com a esposa Adriana e o neto Marco Antônio no colo, com as três filhas em pé atrás"
+            width={1066} height={1600}
+            sizes="(max-width: 1023px) 92vw, 30rem"
+            loading="lazy"
+            className="mx-auto h-auto w-full max-w-[30rem] rounded-[10px]"
+          />
 
-        {/* selos e citação em largura inteira: em coluna estreita os chips
-            viravam uma pilha de barras, um por linha */}
+          <blockquote className="m-0 border-l-4 border-amarelo pl-6 text-left">
+            <p className="max-w-[46ch] font-display text-[clamp(1.15rem,3.6vw,1.5rem)] leading-snug font-extrabold">
+              “{trajetoria.citacao}”
+            </p>
+            <footer className="mt-2 text-[1rem] text-[#C9DCF0]">— Marcão Vivacqua</footer>
+          </blockquote>
+        </div>
+
+        {/* selos em largura inteira: em coluna estreita os chips viravam uma
+            pilha de barras, um por linha */}
         <ul className="flex flex-wrap justify-center gap-2 sm:justify-start">
           {selos.map((s) => (
             <li key={s.texto}>
@@ -77,13 +84,6 @@ export function Origem() {
             </li>
           ))}
         </ul>
-
-        <blockquote className="m-0 border-l-4 border-amarelo pl-6 text-left">
-          <p className="max-w-[52ch] font-display text-[clamp(1.15rem,3.6vw,1.5rem)] leading-snug font-extrabold">
-            “{trajetoria.citacao}”
-          </p>
-          <footer className="mt-2 text-[1rem] text-[#C9DCF0]">— Marcão Vivacqua</footer>
-        </blockquote>
 
         {/* ── o movimento, que é a ponte para a candidatura ── */}
         <div className="flex flex-col gap-5 rounded-[10px] border border-white/20 bg-white/[.07] p-7 text-center sm:p-9 sm:text-left">
