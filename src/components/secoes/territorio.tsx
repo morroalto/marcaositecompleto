@@ -87,9 +87,9 @@ export function Territorio() {
             <li key={t.slug}>
               <figure className="mv-foto aspect-4/3">
                 <Image
-                  src={`/fotos/${t.foto}.webp`}
+                  src={`/fotos/${t.foto}.${t.ext}`}
                   alt={t.alt}
-                  width={1400} height={788}
+                  width={1170} height={658}
                   sizes="(max-width: 639px) 92vw, 23rem"
                   loading="lazy"
                 />

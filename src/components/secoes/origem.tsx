@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { Cartaz } from '@/components/ui/marca'
+import { FundoEconomias } from '@/components/ui/simbolos'
 import { triangulo } from '@/content/territorio'
 import { biografia } from '@/content/facetas'
 import { selos, trajetoria } from '@/content/trajetoria'
@@ -25,8 +26,9 @@ import { selos, trajetoria } from '@/content/trajetoria'
  */
 export function Origem() {
   return (
-    <section id="origem" className="mv-secao bg-marinho text-white">
-      <div className="mv-shell flex flex-col gap-10">
+    <section id="origem" className="mv-secao bg-marinho text-white relative overflow-hidden">
+      <FundoEconomias variante="c" className="text-white opacity-[.06]" />
+      <div className="mv-shell relative flex flex-col gap-10">
 
         <div className="flex max-w-[62ch] flex-col gap-4 text-center sm:text-left">
           <p className="mv-kicker text-amarelo">De onde eu venho</p>
@@ -35,42 +37,43 @@ export function Origem() {
           </h2>
         </div>
 
-        <div className="flex max-w-[68ch] flex-col gap-5 text-center sm:text-left">
-          {biografia.blocos.map((b) => (
-            <p
-              key={b.titulo}
-              className="text-[1.0625rem] leading-relaxed text-[#D8E4F0] sm:text-[1.15rem]"
-            >
-              {b.texto}
-            </p>
-          ))}
-        </div>
+        {/* FOTO À ESQUERDA, TEXTO À DIREITA, lado a lado e alinhados pelo topo.
+            A prosa estava sozinha em cima e a foto embaixo, com a citação de
+            companhia: a leitura descia, encontrava um retrato de meia página e
+            voltava.
 
-        {/* ARQUIVO TROCADO em 14/08/2026: chegou o original
-            (`ESPOSA ADRIANA - FILHAS E NETO.jpg`, 1066 por 1600), e com ele
-            acabou o corte. O antigo `familia-todos.webp` era um recorte 16 por
-            9 tirado dessa mesma foto, e o recorte decepava a cabeça das três
-            filhas, que estão em pé atrás. Era problema de arquivo, não de CSS.
-            O .webp continua em `public/fotos/`, sem uso.
-
-            Como agora ela é VERTICAL, volta para o lado do texto: em largura
-            cheia uma foto 2 por 3 tomaria três telas de altura. */}
-        <div className="grid gap-8 lg:grid-cols-[.45fr_.55fr] lg:items-center lg:gap-12">
+            O arquivo é o ORIGINAL (`ESPOSA ADRIANA - FILHAS E NETO.jpg`, 1066
+            por 1600), que chegou em 14/08/2026 e resolveu o corte: o antigo
+            `familia-todos.webp` era um recorte 16 por 9 tirado desta mesma
+            foto, e decepava a cabeça das três filhas, em pé atrás. O .webp
+            segue em `public/fotos/`, sem uso. */}
+        <div className="grid gap-8 lg:grid-cols-[.42fr_.58fr] lg:items-start lg:gap-12">
           <Image
             src="/fotos/familia-todos.jpg"
             alt="Marcão sentado com a esposa Adriana e o neto Marco Antônio no colo, com as três filhas em pé atrás"
             width={1066} height={1600}
-            sizes="(max-width: 1023px) 92vw, 30rem"
+            sizes="(max-width: 1023px) 92vw, 28rem"
             loading="lazy"
-            className="mx-auto h-auto w-full max-w-[30rem] rounded-[10px]"
+            className="mx-auto h-auto w-full max-w-[28rem] rounded-[10px] lg:mx-0 lg:max-w-none"
           />
 
-          <blockquote className="m-0 border-l-4 border-amarelo pl-6 text-left">
-            <p className="max-w-[46ch] font-display text-[clamp(1.15rem,3.6vw,1.5rem)] leading-snug font-extrabold">
-              “{trajetoria.citacao}”
-            </p>
-            <footer className="mt-2 text-[1rem] text-[#C9DCF0]">— Marcão Vivacqua</footer>
-          </blockquote>
+          <div className="flex flex-col gap-5 text-center sm:text-left">
+            {biografia.blocos.map((b) => (
+              <p
+                key={b.titulo}
+                className="text-[1.0625rem] leading-relaxed text-[#D8E4F0] sm:text-[1.15rem]"
+              >
+                {b.texto}
+              </p>
+            ))}
+
+            <blockquote className="m-0 mt-1 border-l-4 border-amarelo pl-6 text-left">
+              <p className="font-display text-[clamp(1.15rem,3.6vw,1.5rem)] leading-snug font-extrabold">
+                “{trajetoria.citacao}”
+              </p>
+              <footer className="mt-2 text-[1rem] text-[#C9DCF0]">— Marcão Vivacqua</footer>
+            </blockquote>
+          </div>
         </div>
 
         {/* selos em largura inteira: em coluna estreita os chips viravam uma

@@ -1,3 +1,4 @@
+import { FundoEconomias } from '@/components/ui/simbolos'
 import { facetas } from '@/content/facetas'
 import { candidato } from '@/content/candidato'
 import { MOSTRAR_PENDENCIAS } from '@/content/flags'
@@ -22,8 +23,9 @@ export function QuemE() {
   const faltando = facetas.filter((f) => !f.fala).length
 
   return (
-    <section id="quem-e" className="mv-secao bg-papel">
-      <div className="mv-shell flex flex-col gap-9">
+    <section id="quem-e" className="mv-secao bg-papel relative overflow-hidden">
+      <FundoEconomias variante="a" className="text-verde opacity-[.05]" />
+      <div className="mv-shell relative flex flex-col gap-9">
         <div className="flex max-w-[62ch] flex-col gap-4 text-center sm:text-left">
           <p className="mv-kicker text-[#2F5C1B]">Quem é</p>
           <h2 className="text-[clamp(1.45rem,4.6vw,2.25rem)] font-extrabold tracking-tight">

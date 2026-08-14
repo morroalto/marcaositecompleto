@@ -1,4 +1,5 @@
 import { IconeMegafone, IconeSeta } from '@/components/ui/icones'
+import { FundoEconomias } from '@/components/ui/simbolos'
 import { bandeiras, type Bandeira } from '@/content/bandeiras'
 import { MOSTRAR_PENDENCIAS } from '@/content/flags'
 
@@ -37,8 +38,9 @@ export function Bandeiras() {
   if (visiveis.length === 0) return null
 
   return (
-    <section id="bandeiras" className="bg-papel mv-secao">
-      <div className="mv-shell flex flex-col gap-9">
+    <section id="bandeiras" className="bg-papel mv-secao relative overflow-hidden">
+      <FundoEconomias variante="b" className="text-marinho opacity-[.05]" />
+      <div className="mv-shell relative flex flex-col gap-9">
         <div className="mx-auto flex max-w-[58ch] flex-col items-center gap-4 text-center sm:mx-0 sm:items-start sm:text-left">
           <p className="mv-kicker text-[#2F5C1B]">O que eu vou fazer</p>
           <h2 className="text-[clamp(1.45rem,4.6vw,2.25rem)] font-extrabold tracking-tight">
