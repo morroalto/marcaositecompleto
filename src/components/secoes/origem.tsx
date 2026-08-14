@@ -40,14 +40,19 @@ export function Origem() {
             selos entravam um embaixo do outro ocupando a largura toda, e
             sobrava um vão de meia tela sob a foto. Agora a foto ocupa a coluna
             estreita, que é onde ela cabe bem, e o texto ganha a larga. */}
-        <div className="grid gap-8 lg:grid-cols-[.4fr_.6fr] lg:items-start lg:gap-12">
+        <div className="grid gap-8 lg:grid-cols-2 lg:items-center lg:gap-12">
+          {/* metade da largura, sem teto: espremida em 24 rem a família ficava
+              do tamanho de uma miniatura e não dava para reconhecer ninguém.
+              O arquivo já é um recorte 16 por 9 de uma foto vertical, com as
+              cabeças de trás cortadas na origem, então ele precisa de tamanho
+              para mostrar o que ainda tem. */}
           <Image
             src="/fotos/familia-todos.webp"
             alt="Marcão sentado com a esposa Adriana e o neto Marco Antônio, com as filhas atrás"
             width={1200} height={675}
-            sizes="(max-width: 1023px) 88vw, 22rem"
+            sizes="(max-width: 1023px) 92vw, 36rem"
             loading="lazy"
-            className="mx-auto h-auto w-full max-w-[24rem] rounded-[10px] lg:mx-0 lg:max-w-none"
+            className="h-auto w-full rounded-[10px]"
           />
 
           <div className="flex flex-col gap-5 text-center sm:text-left">

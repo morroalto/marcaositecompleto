@@ -37,18 +37,29 @@ export function Territorio() {
           recorte, sem teto de altura e sem nada em volta. Toda tentativa de
           conter essa peça (max-height, object-cover) só serviu para decepar o
           título dela: arte fechada pelo designer se mostra inteira. */}
-      {/* 100% DA LARGURA DA TELA, sem exceção e sem limite.
-          Já errei isto duas vezes nesta seção, então fica escrito: qualquer
-          `max-width` aqui vira faixa branca nas laterais, e qualquer
-          `max-height` com `object-cover` decepa o título da peça. A arte é
-          largura cheia e altura natural, igual à do hero. Ponto. */}
-      <figure className="m-0 w-full">
+      {/* A GEOMETRIA DESTA SEÇÃO, escrita porque três tentativas erradas
+          passaram por aqui.
+
+          A arte é 16 por 9. A janela de um desktop é mais larga que isso.
+          Então, com largura cheia, a altura natural passa da tela e obriga a
+          rolar. Três saídas existem e duas já foram recusadas:
+          · encolher a largura  → faixa branca nas laterais. Recusada.
+          · encolher a altura mostrando tudo → mesma faixa, deitada. Recusada.
+          · cortar → é esta.
+
+          O corte é ancorado no TOPO (`object-top`), então quem sai é a faixa
+          de baixo, que é água e areia. Título, rosto e o mapa com o triângulo
+          ficam todos preservados. Se o corte fosse centralizado, ele comeria
+          o "A FORÇA DO" primeiro, que é o pior lugar possível.
+
+          80vh: cabe na tela junto com o cabeçalho, sem rolagem. */}
+      <figure className="m-0 h-[80vh] w-full">
         <Image
           src={mapa}
           alt="Mapa do Espírito Santo com o Triângulo do Sul destacado, ligando Marataízes, Itapemirim e Presidente Kennedy"
           sizes="100vw"
           loading="lazy"
-          className="h-auto w-full"
+          className="h-full w-full object-cover object-top"
         />
       </figure>
 
