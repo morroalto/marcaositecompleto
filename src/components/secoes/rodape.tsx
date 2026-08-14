@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { Lockup, BarraTricolor } from '@/components/ui/marca'
+import { FundoEconomias } from '@/components/ui/simbolos'
 import {
   IconeInstagram, IconeFacebook, IconeEmail, IconeLocal, IconeSeta,
 } from '@/components/ui/icones'
@@ -30,12 +31,18 @@ const NAVEGACAO = [
  */
 export function Rodape() {
   return (
-    <footer className="bg-petroleo text-white">
+    <footer className="bg-petroleo text-white relative overflow-hidden">
       <BarraTricolor altura={8} />
+
+      {/* Aqui as três economias entram MAIORES que nas outras seções, e um
+          pouco mais fortes. O rodapé é bloco de cor cheia, sem foto e sem
+          card: é onde a marca d'água tem espaço para respirar sem disputar
+          com nada. */}
+      <FundoEconomias variante="b" className="text-white opacity-[.08] [&>svg]:scale-150" />
 
       {/* o respiro extra embaixo era para a barra fixa do celular não cobrir o
           bloco legal. A barra saiu, então o rodapé volta ao padding normal. */}
-      <div className="mv-shell flex flex-col gap-12 pt-14 pb-16">
+      <div className="mv-shell relative flex flex-col gap-12 pt-14 pb-16">
 
         {/* ── marca ── */}
         <div className="flex flex-col items-center gap-5 text-center sm:items-start sm:text-left">
