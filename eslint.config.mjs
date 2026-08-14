@@ -6,7 +6,9 @@ import typescript from 'eslint-config-next/typescript'
  * `@eslint/eslintrc`: o pacote já exporta os arrays prontos.
  */
 const config = [
-  { ignores: ['.next/**', 'node_modules/**', 'next-env.d.ts'] },
+  // `prototipo/` e `docs/` nao sao do app: sao o prototipo vanilla anterior ao
+  // Next e a documentacao. Passaram a ser varridos quando o app veio para a raiz.
+  { ignores: ['.next/**', 'node_modules/**', 'next-env.d.ts', 'prototipo/**', 'docs/**'] },
   ...coreWebVitals,
   ...typescript,
 ]

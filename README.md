@@ -23,7 +23,6 @@ Zero dependência de UI: sem shadcn, sem Radix, sem lucide, sem react-hook-form,
 ## Rodar
 
 ```bash
-cd site
 npm install
 npm run dev      # http://localhost:3000
 npm run build    # produção
@@ -32,7 +31,7 @@ npm run lint
 
 ### Modo de revisão
 
-Crie `site/.env.local`:
+Crie `.env.local`:
 
 ```
 NEXT_PUBLIC_MOSTRAR_PENDENCIAS=1
@@ -47,15 +46,21 @@ renderiza.
 ## Estrutura
 
 ```
-site/src/
+src/
   app/          rotas, layout, OG, sitemap, robots, manifest, api
   components/   secoes/ (as 8 seções) · ui/ (marca, ícones, vídeo, mapa)
   content/      TODO o texto e os dados vivem aqui
   lib/          utilitários
   proxy.ts      cabeçalhos de segurança e limite por IP
+public/         fontes, fotos e o vetor do partido
 docs/           design system, prompts, as 50 personas de revisão
 prototipo/      protótipo estático em HTML, anterior ao Next
 ```
+
+> O app fica na **raiz do repositório**, de propósito. Com ele dentro de uma
+> subpasta, todo serviço de deploy exige configurar "Root Directory", e errar
+> esse campo produz um 404 que não parece ter relação com a causa. Na raiz,
+> Vercel, Render e Netlify detectam o Next sozinhos, sem configuração.
 
 **Nenhum texto mora dentro de componente.** Para trocar qualquer palavra do site, edite
 `src/content/`.

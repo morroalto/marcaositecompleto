@@ -15,9 +15,6 @@ services:
     region: oregon
     branch: main
 
-    # o app não está na raiz do repositório
-    rootDir: site
-
     buildCommand: npm ci && npm run build
     startCommand: npm run start
 
