@@ -37,15 +37,16 @@ export function Territorio() {
           recorte, sem teto de altura e sem nada em volta. Toda tentativa de
           conter essa peça (max-height, object-cover) só serviu para decepar o
           título dela: arte fechada pelo designer se mostra inteira. */}
-      {/* O `max-w` de 86 rem é o único freio: em monitor largo a arte crescia
-          sem parar e a figura dele ficava do tamanho de uma pessoa. Abaixo
-          desse limite, que é a maioria das telas, ela continua ocupando os
-          100% da largura. */}
-      <figure className="mx-auto m-0 w-full max-w-[86rem]">
+      {/* 100% DA LARGURA DA TELA, sem exceção e sem limite.
+          Já errei isto duas vezes nesta seção, então fica escrito: qualquer
+          `max-width` aqui vira faixa branca nas laterais, e qualquer
+          `max-height` com `object-cover` decepa o título da peça. A arte é
+          largura cheia e altura natural, igual à do hero. Ponto. */}
+      <figure className="m-0 w-full">
         <Image
           src={mapa}
           alt="Mapa do Espírito Santo com o Triângulo do Sul destacado, ligando Marataízes, Itapemirim e Presidente Kennedy"
-          sizes="(max-width: 1376px) 100vw, 86rem"
+          sizes="100vw"
           loading="lazy"
           className="h-auto w-full"
         />
