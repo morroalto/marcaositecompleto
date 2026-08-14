@@ -147,8 +147,8 @@
   }
   .mv-lockup .nome {
     grid-column: 1 / -1;
-    font-weight: 800; font-size: 1em;
-    letter-spacing: -.03em; font-stretch: 100%;
+    font-weight: 400; font-size: 1em;
+    letter-spacing: -.01em;
   }
   .mv-lockup .sob {
     font-weight: 700; font-size: .42em;
@@ -168,10 +168,12 @@
   .mv-lockup .barra i:nth-child(3) { background: var(--amarelo); }
 
   /* ── CARTAZ: a assinatura tipográfica do manual (págs. 2, 3, 5, 12) ──
-     paint-order garante que o contorno fique ATRÁS do preenchimento. */
+     paint-order garante que o contorno fique ATRÁS do preenchimento.
+     `font-stretch` saiu: Anton não é fonte variável e não tem eixo de largura,
+     então a propriedade não fazia nada, e ela já é condensada de fábrica. */
   .mv-cartaz {
     font-family: var(--font-display);
-    font-weight: 900; font-stretch: 115%;
+    font-weight: 400;
     text-transform: uppercase;
     line-height: .92; letter-spacing: -.02em;
     transform: skewX(-9deg); transform-origin: left bottom;

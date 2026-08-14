@@ -5,21 +5,36 @@ import { Carregando } from '@/components/carregando'
 import './globals.css'
 
 /**
- * Duas famílias, self-hosted, com `display: swap`.
- * Archivo faz papel duplo: display e dado tabular. Montserrat é a grotesca
- * geométrica do lockup e do corpo, como nas peças do manual.
+ * AS DUAS FAMÍLIAS DA CAMPANHA, self-hosted, com `display: swap`.
+ *
+ * Trocadas em 14/08/2026 para as corretas: ANTON no display e POPPINS no
+ * corpo. Antes eram Archivo e Montserrat.
+ *
+ * Anton tem UM peso só, o 400, e é desenhada pesada e condensada de fábrica.
+ * Por isso ela é declarada com `weight: '100 900'`: assim o navegador aceita
+ * qualquer peso pedido pelo CSS (a página inteira pede 800 e 900 nos títulos)
+ * e usa este arquivo, em vez de engordar as letras sozinho. Negrito sintético
+ * em fonte já pesada borra o contorno, e o estilo cartaz da marca depende do
+ * contorno limpo.
+ *
+ * Poppins vem em quatro pesos reais, os que a página usa: 400 no corpo, 600 e
+ * 700 nos destaques, 800 nos rótulos.
  */
-const archivo = localFont({
-  src: '../fonts/archivo.woff2',
+const anton = localFont({
+  src: '../fonts/anton.woff2',
   variable: '--fonte-display',
   weight: '100 900',
   display: 'swap',
   preload: true,
 })
-const montserrat = localFont({
-  src: '../fonts/montserrat.woff2',
+const poppins = localFont({
+  src: [
+    { path: '../fonts/poppins-400.woff2', weight: '400', style: 'normal' },
+    { path: '../fonts/poppins-600.woff2', weight: '600', style: 'normal' },
+    { path: '../fonts/poppins-700.woff2', weight: '700', style: 'normal' },
+    { path: '../fonts/poppins-800.woff2', weight: '800', style: 'normal' },
+  ],
   variable: '--fonte-corpo',
-  weight: '400 900',
   display: 'swap',
   preload: true,
 })
@@ -59,7 +74,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR" className={`${archivo.variable} ${montserrat.variable}`}>
+    <html lang="pt-BR" className={`${anton.variable} ${poppins.variable}`}>
       <body>
         <a
           href="#conteudo"

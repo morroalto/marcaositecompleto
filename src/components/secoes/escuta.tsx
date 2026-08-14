@@ -3,6 +3,7 @@
 import { useMemo, useState } from 'react'
 import Image from 'next/image'
 import { Cartaz } from '@/components/ui/marca'
+import { IconeSeta } from '@/components/ui/icones'
 import { escutas, triangulo, type SlugCidade } from '@/content/territorio'
 import { videosEscuta } from '@/content/videos'
 import { Player } from '@/components/ui/video'
@@ -29,11 +30,30 @@ export function Escuta() {
     return m
   }, [])
 
-  /** posição de cada lóbulo dentro do quadro do logotipo, em porcentagem */
-  const POS: Record<string, { left: string; top: string }> = {
-    marataizes: { left: '50%', top: '26%' },
-    itapemirim: { left: '26%', top: '72%' },
-    'presidente-kennedy': { left: '74%', top: '72%' },
+  /**
+   * Onde cada card fica, FORA do logotipo, e para onde a seta dele aponta.
+   *
+   * Os cards ficavam por cima da arte, tapando justamente o abacaxi, o peixe e
+   * a plataforma, que são o conteúdo do símbolo. Agora eles vivem na margem: o
+   * de Marataízes acima do vértice de cima, os outros dois nas laterais, na
+   * altura da base. Quem liga o nome ao lóbulo é a seta.
+   */
+  const POS: Record<string, { caixa: string; seta: string; ordem: 'antes' | 'depois' }> = {
+    marataizes: {
+      caixa: 'top-0 left-1/2 -translate-x-1/2 flex-col',
+      seta: 'rotate-90',
+      ordem: 'depois',
+    },
+    itapemirim: {
+      caixa: 'bottom-[16%] left-0 flex-row',
+      seta: '',
+      ordem: 'depois',
+    },
+    'presidente-kennedy': {
+      caixa: 'bottom-[16%] right-0 flex-row',
+      seta: 'rotate-180',
+      ordem: 'antes',
+    },
   }
 
   return (
@@ -54,13 +74,15 @@ export function Escuta() {
         </div>
 
         <div className="grid gap-10 lg:grid-cols-2 lg:items-start">
-          <div className="relative mx-auto w-full max-w-[27rem]">
+          {/* o quadro é maior que o logotipo de propósito: a folga em volta é
+              onde os cards das cidades ficam, sem cobrir a arte */}
+          <div className="relative mx-auto w-full max-w-[30rem] px-[3.5rem] pt-[3.25rem] pb-2 sm:px-[5.5rem]">
             <Image
               src="/marca/triangulo-do-sul.webp"
               alt=""
               aria-hidden="true"
               width={900} height={850}
-              sizes="(max-width: 1023px) 84vw, 27rem"
+              sizes="(max-width: 1023px) 72vw, 22rem"
               loading="lazy"
               className="h-auto w-full drop-shadow-[0_10px_22px_rgba(0,0,0,.3)]"
             />
@@ -69,27 +91,40 @@ export function Escuta() {
               const regs = porCidade.get(c.slug) ?? []
               const p = POS[c.slug]
               const sel = ativa === c.slug
+              const seta = (
+                <IconeSeta
+                  tamanho={18}
+                  className={`shrink-0 ${p.seta}`}
+                />
+              )
               return (
                 <button
                   key={c.slug}
                   type="button"
                   aria-pressed={sel}
                   onClick={() => setAtiva((v) => (v === c.slug ? null : c.slug))}
-                  style={{ left: p.left, top: p.top }}
                   className={[
-                    'absolute flex min-h-[56px] min-w-[56px] -translate-x-1/2 -translate-y-1/2',
-                    'flex-col items-center justify-center rounded-lg px-3 py-2',
-                    'text-center font-display leading-tight transition-colors',
-                    sel
-                      ? 'bg-amarelo text-[#08222A]'
-                      : 'bg-[rgb(0_35_40/.68)] text-white hover:bg-[rgb(0_35_40/.85)]',
+                    'absolute flex min-h-[44px] items-center justify-center gap-1',
+                    'font-display leading-tight transition-colors',
+                    p.caixa,
                   ].join(' ')}
                 >
-                  <b className="text-[clamp(.9rem,3.2vw,1.05rem)] font-black">{c.nome}</b>
+                  {p.ordem === 'antes' && seta}
+                  <span
+                    className={[
+                      'rounded-lg px-3 py-2 text-center text-[clamp(.8rem,2.6vw,.95rem)] font-black',
+                      sel
+                        ? 'bg-amarelo text-[#08222A]'
+                        : 'bg-[rgb(0_35_40/.9)] text-white hover:bg-[rgb(0_35_40/1)]',
+                    ].join(' ')}
+                  >
+                    {c.nome}
+                  </span>
+                  {p.ordem === 'depois' && seta}
                   <span className="mv-sr">
                     {regs.length
                       ? `${regs.length} registro de escuta, o mais recente em ${dataBR(regs.at(-1)!.data)}`
-                      : 'ainda não temos registro de escuta publicado aqui'}
+                      : `${c.economia}. ${c.evidencia ?? ''}`}
                   </span>
                 </button>
               )
