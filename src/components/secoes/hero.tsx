@@ -83,7 +83,7 @@ export function Hero() {
           {/* a contagem: o único número da tela que muda sozinho, então ganha
               caixa própria em vez de disputar espaço dentro do parágrafo */}
           <div className="mv-entra mv-d3 flex flex-col items-center gap-1 rounded-[14px] border border-white/20 bg-white/[.08] px-7 py-6 text-center">
-            <span className="font-display text-[clamp(3.4rem,14vw,4.6rem)] leading-none font-black text-amarelo tabular-nums">
+            <span className="font-display text-[clamp(2.6rem,10vw,3.5rem)] leading-none font-black text-amarelo tabular-nums">
               {dias}
             </span>
             <span className="font-display text-[0.8125rem] font-extrabold tracking-[0.14em] text-white/75 uppercase">

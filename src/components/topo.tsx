@@ -17,18 +17,35 @@ const LINKS = [
 /**
  * CABEÇALHO
  *
- * Desktop: barra alta, com respiro. A navegação ocupa a linha inteira abaixo do
- * lockup, em vez de espremer seis itens ao lado dele. Cabeçalho de campanha tem
- * que respirar: é a única moldura fixa da página.
+ * Refeito em 14/08/2026, no modelo de nikolasferreira.com.br e
+ * brunopeixoto.com: TRANSPARENTE sobre a arte de abertura, e sólido a partir
+ * do momento em que a página rola. Antes era uma barra petróleo opaca ocupando
+ * duas linhas (lockup em cima, seis itens de menu embaixo), que empurrava o
+ * hero para baixo e roubava a primeira tela inteira.
  *
- * Celular: três barras. O painel abre por baixo do cabeçalho, ocupa só a altura
- * do conteúdo e escurece o resto, sem tomar a tela inteira. Fecha no Esc, no
- * toque fora e ao escolher um item.
+ * Agora é UMA linha: marca à esquerda, navegação no meio, ação à direita.
+ *
+ * `fixed`, não `sticky`: é o que deixa a arte do hero começar debaixo dele.
+ * Como o cabeçalho some do fluxo, ele não desloca o conteúdo, e o
+ * `scroll-padding-top` do `html` continua respondendo pela âncora.
  *
  * Sem `backdrop-filter`, que custa FPS no aparelho do público.
  */
 export function Topo() {
   const [aberto, setAberto] = useState(false)
+  const [rolou, setRolou] = useState(false)
+
+  useEffect(() => {
+    const aoRolar = () => setRolou(window.scrollY > 24)
+    // no próximo quadro, e não no corpo do efeito: cobre quem recarrega a
+    // página já rolada sem disparar render em cascata
+    const quadro = requestAnimationFrame(aoRolar)
+    window.addEventListener('scroll', aoRolar, { passive: true })
+    return () => {
+      cancelAnimationFrame(quadro)
+      window.removeEventListener('scroll', aoRolar)
+    }
+  }, [])
 
   useEffect(() => {
     if (!aberto) return
@@ -37,20 +54,42 @@ export function Topo() {
     return () => document.removeEventListener('keydown', aoTeclar)
   }, [aberto])
 
+  // aberto no celular conta como "sólido": menu transparente é ilegível
+  const solido = rolou || aberto
+
   return (
-    <header className="sticky top-0 z-50 bg-petroleo text-white">
-      {/* ── linha da marca ── */}
-      <div className="mv-shell flex h-[var(--topo-h)] items-center justify-between gap-4">
+    <header
+      className={[
+        'mv-nao-imprime fixed inset-x-0 top-0 z-50 text-white transition-colors duration-300',
+        solido ? 'bg-petroleo shadow-[0_6px_18px_rgba(0,0,0,.28)]' : 'bg-transparent',
+      ].join(' ')}
+    >
+      <div className="mv-shell flex h-[var(--topo-h)] items-center justify-between gap-5">
         <a
           href="#topo"
           onClick={() => setAberto(false)}
-          className="shrink-0 no-underline"
+          className="shrink-0 no-underline drop-shadow-[0_2px_6px_rgba(0,0,0,.45)]"
           aria-label={`${candidato.nomeUrna}, ir para o topo`}
         >
-          <Lockup className="text-[1.4rem] sm:text-[1.7rem] lg:text-[2rem]" />
+          <Lockup className="text-[1.15rem] sm:text-[1.3rem] lg:text-[1.45rem]" />
         </a>
 
-        <a href="#apoie" className="mv-btn mv-btn-amarelo hidden lg:inline-flex">
+        <nav aria-label="Navegação principal" className="hidden lg:block">
+          <ul className="flex items-center gap-6">
+            {LINKS.map((l) => (
+              <li key={l.href}>
+                <a
+                  href={l.href}
+                  className="flex h-[var(--topo-h)] items-center border-b-[3px] border-transparent font-display text-[0.9375rem] font-bold no-underline drop-shadow-[0_2px_6px_rgba(0,0,0,.45)] transition-colors hover:border-amarelo hover:text-amarelo"
+                >
+                  {l.texto}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <a href="#apoie" className="mv-btn mv-btn-amarelo hidden shrink-0 lg:inline-flex">
           Quero ajudar
           <IconeSeta tamanho={20} />
         </a>
@@ -61,13 +100,13 @@ export function Topo() {
           aria-expanded={aberto}
           aria-controls="menu-mobile"
           aria-label={aberto ? 'Fechar o menu' : 'Abrir o menu'}
-          className="grid h-[52px] w-[52px] shrink-0 place-items-center rounded-md border-2 border-white/40 lg:hidden"
+          className="grid h-[48px] w-[48px] shrink-0 place-items-center rounded-md border-2 border-white/45 bg-[rgb(0_31_36/.35)] lg:hidden"
         >
           <span className="grid gap-[5px]" aria-hidden="true">
             {[0, 1, 2].map((i) => (
               <span
                 key={i}
-                className="block h-[3px] w-[24px] rounded-full bg-white transition-transform duration-200"
+                className="block h-[3px] w-[22px] rounded-full bg-white transition-transform duration-200"
                 style={
                   aberto
                     ? i === 0
@@ -83,25 +122,10 @@ export function Topo() {
         </button>
       </div>
 
-      {/* ── navegação do desktop: linha própria, com respiro ── */}
-      <nav aria-label="Navegação principal" className="hidden border-t border-white/15 lg:block">
-        <ul className="mv-shell flex items-stretch gap-8">
-          {LINKS.map((l) => (
-            <li key={l.href}>
-              <a
-                href={l.href}
-                className="flex h-[52px] items-center border-b-[3px] border-transparent font-display text-[1.0625rem] font-bold no-underline transition-colors hover:border-amarelo hover:text-amarelo"
-              >
-                {l.texto}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
+      {/* o fio tricolor só existe quando a barra é sólida: sobre a arte ele
+          vira uma listra solta atravessando a peça */}
+      {solido && <BarraTricolor altura={3} />}
 
-      <BarraTricolor altura={4} />
-
-      {/* ── painel do celular: só a altura do conteúdo ── */}
       {aberto && (
         <>
           <button
@@ -122,7 +146,7 @@ export function Topo() {
                   <a
                     href={l.href}
                     onClick={() => setAberto(false)}
-                    className="flex min-h-[56px] items-center justify-center border-b border-white/12 font-display text-[1.125rem] font-bold no-underline last:border-b-0"
+                    className="flex min-h-[54px] items-center justify-center border-b border-white/12 font-display text-[1.0625rem] font-bold no-underline last:border-b-0"
                   >
                     {l.texto}
                   </a>

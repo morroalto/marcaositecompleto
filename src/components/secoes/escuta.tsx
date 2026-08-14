@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useMemo, useState } from 'react'
 import Image from 'next/image'
@@ -11,14 +11,14 @@ import { dataBR } from '@/lib/utils'
 /**
  * O QUE EU OUVI
  *
- * O símbolo é o logotipo REAL do Triângulo do Sul, do acervo da campanha
- * (`ANTIGOS/TRIANGULO_DO_SUL/1500h/Ativo 25TDS.png`), não um desenho meu. Os
- * três lóbulos já carregam abacaxi, peixe e plataforma, ou seja, as três
- * economias. Redesenhar isso seria perder a marca e não ganhar nada.
+ * O sÃ­mbolo Ã© o logotipo REAL do TriÃ¢ngulo do Sul, do acervo da campanha
+ * (`ANTIGOS/TRIANGULO_DO_SUL/1500h/Ativo 25TDS.png`), nÃ£o um desenho meu. Os
+ * trÃªs lÃ³bulos jÃ¡ carregam abacaxi, peixe e plataforma, ou seja, as trÃªs
+ * economias. Redesenhar isso seria perder a marca e nÃ£o ganhar nada.
  *
- * Os controles são `<button>` HTML posicionados sobre a imagem, com alvo de
- * 56 px. A imagem é decorativa. A lista abaixo tem a mesma informação e está
- * sempre no DOM: ninguém depende de acertar um lóbulo com o dedo.
+ * Os controles sÃ£o `<button>` HTML posicionados sobre a imagem, com alvo de
+ * 56 px. A imagem Ã© decorativa. A lista abaixo tem a mesma informaÃ§Ã£o e estÃ¡
+ * sempre no DOM: ninguÃ©m depende de acertar um lÃ³bulo com o dedo.
  */
 export function Escuta() {
   const [ativa, setAtiva] = useState<SlugCidade | null>(null)
@@ -29,7 +29,7 @@ export function Escuta() {
     return m
   }, [])
 
-  /** posição de cada lóbulo dentro do quadro do logotipo, em porcentagem */
+  /** posiÃ§Ã£o de cada lÃ³bulo dentro do quadro do logotipo, em porcentagem */
   const POS: Record<string, { left: string; top: string }> = {
     marataizes: { left: '50%', top: '26%' },
     itapemirim: { left: '26%', top: '72%' },
@@ -41,11 +41,11 @@ export function Escuta() {
       <div className="mv-shell flex flex-col gap-8">
         <div className="flex flex-col items-center gap-4 text-center sm:items-start sm:text-left">
           <p className="mv-kicker text-amarelo">O que eu ouvi</p>
-          <h2 className="text-[clamp(1.9rem,8.5vw,3.6rem)]">
-            <Cartaz className="text-amarelo">O TRIÂNGULO<br />TEM VOZ</Cartaz>
+          <h2 className="text-[clamp(1.6rem,5.6vw,2.7rem)]">
+            <Cartaz className="text-amarelo">O TRIÃ‚NGULO<br />TEM VOZ</Cartaz>
           </h2>
           <p className="max-w-[62ch] text-[1.0625rem] leading-relaxed text-[#DCEAE4] sm:text-[1.15rem]">
-            Abacaxi, peixe e plataforma. Os três lados do símbolo são três economias e três
+            Abacaxi, peixe e plataforma. Os trÃªs lados do sÃ­mbolo sÃ£o trÃªs economias e trÃªs
             cidades. Toque em uma delas.
           </p>
           <p className="max-w-[62ch] text-[1rem] leading-relaxed text-[#B7CEC7]">
@@ -89,7 +89,7 @@ export function Escuta() {
                   <span className="mv-sr">
                     {regs.length
                       ? `${regs.length} registro de escuta, o mais recente em ${dataBR(regs.at(-1)!.data)}`
-                      : 'ainda não temos registro de escuta publicado aqui'}
+                      : 'ainda nÃ£o temos registro de escuta publicado aqui'}
                   </span>
                 </button>
               )
@@ -98,7 +98,7 @@ export function Escuta() {
 
           <div className="flex flex-col gap-4 text-center sm:text-left">
             <h3 className="text-[1.25rem] font-extrabold text-white">
-              As três cidades, do norte ao sul
+              As trÃªs cidades, do norte ao sul
             </h3>
             <ul className="flex flex-col">
               {triangulo.map((c) => {
@@ -118,7 +118,7 @@ export function Escuta() {
                     </p>
                     {regs.length === 0 ? (
                       <p className="mt-1 text-[1.0625rem] text-[#BFD4CE]">
-                        Ainda não temos registro de escuta publicado aqui.
+                        Ainda nÃ£o temos registro de escuta publicado aqui.
                       </p>
                     ) : (
                       <ul className="mt-2 flex flex-col gap-3">
@@ -138,8 +138,8 @@ export function Escuta() {
               })}
             </ul>
             <p className="text-[1rem] leading-relaxed text-[#BFD4CE]">
-              O símbolo mostra o vínculo entre as três cidades. A ordem da lista é a
-              geográfica, do norte para o sul.
+              O sÃ­mbolo mostra o vÃ­nculo entre as trÃªs cidades. A ordem da lista Ã© a
+              geogrÃ¡fica, do norte para o sul.
             </p>
 
             {videosEscuta.length > 0 && (

@@ -37,11 +37,16 @@
   --claro-petroleo: #CBDDD7;  /*  9,03:1 sobre petróleo */
   --claro-marinho:  #C9DCF0;  /*  7,54:1 sobre marinho  */
 
-  /* medida */
-  --shell: 78rem;
-  --pad: clamp(1.15rem, 5vw, 4rem);
-  --secao: clamp(3.5rem, 8vw, 7rem);
-  --topo-h: 60px;
+  /* medida
+     Reduzida em 14/08/2026: a página inteira dava a impressão de estar com
+     zoom aplicado. Título, respiro de seção e altura de cabeçalho encolheram
+     juntos, porque diminuir só a fonte deixaria buraco entre os blocos.
+     O corpo continua em 17 px: esse piso é restrição de projeto, o leitor tem
+     de 30 a 65 anos e lê no celular, no sol. */
+  --shell: 74rem;
+  --pad: clamp(1.15rem, 4.5vw, 3.25rem);
+  --secao: clamp(2.6rem, 5.5vw, 4.75rem);
+  --topo-h: 56px;
   --barra-h: 68px;
 
   --r-btn: 6px;
