@@ -406,6 +406,21 @@
 /* Prefixo mv- obrigatório: `bg-amarelo`, `bg-petroleo` e companhia JÁ são
    utilitários gerados pelo @theme acima. Regra sem camada vence utilitário,
    então uma classe com o mesmo nome sequestraria silenciosamente a cor. */
+/* ── EMENDA DA ARTE COM O FUNDO ──
+   A arte do hero acaba num corte reto, e embaixo dela começa o gradiente da
+   seção: duas superfícies parecidas separadas por uma linha dura, que é o que
+   deixava a emenda feia. A máscara dissolve os últimos 14% da imagem, e o
+   gradiente da seção aparece por baixo. Como a base da arte tem verde à
+   esquerda e azul à direita, e o gradiente da seção também, a passagem some.
+
+   Vale para qualquer arte que termine em cor chapada. Se um dia a peça tiver
+   um detalhe importante rente à base, tire esta classe: a máscara come o pé
+   da imagem. */
+.mv-arte-funde img {
+  -webkit-mask-image: linear-gradient(to bottom, #000 86%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 86%, transparent 100%);
+}
+
 /* fundo da seção do orelhão: escuro, com um foco de luz atrás da figura */
 .mv-fundo-fone {
   background:

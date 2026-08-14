@@ -36,7 +36,7 @@ export function Hero() {
       {/* A arte sangra de borda a borda: ela É a abertura, não uma ilustração
           dentro de uma caixa. Sem raio, sem sombra e sem o respiro lateral do
           shell, que a transformavam num card no meio da tela. */}
-      <figure className="mv-entra m-0 w-full">
+      <figure className="mv-arte-funde mv-entra m-0 w-full">
         <Image
           src={capa}
           alt={`${candidato.nomeUrna}, ${candidato.slogan}. Arte da campanha.`}
@@ -98,6 +98,15 @@ export function Hero() {
           </div>
         </div>
       </div>
+
+      {/* A saída do hero para a seção do orelhão. Sem isso, o gradiente daqui
+          encosta no fundo escuro de lá e a emenda aparece como uma linha reta
+          atravessando a tela. O tom do fim é o mesmo tom com que a próxima
+          seção começa, então a passagem não tem fronteira. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-[linear-gradient(to_bottom,transparent,#0A4C57)]"
+      />
     </section>
   )
 }
