@@ -2,16 +2,20 @@
 
 import { useEffect, useState } from 'react'
 import { Lockup, BarraTricolor } from '@/components/ui/marca'
-import { IconeSeta } from '@/components/ui/icones'
 import { candidato } from '@/content/candidato'
 
+/**
+ * Seis itens, e não os nove que a página tem. Menu de campanha é atalho, não
+ * sumário: com nove, nenhum é lido. Ficaram de fora "De onde venho", "O que eu
+ * vejo" e "O que eu ouvi", que a pessoa alcança rolando a partir de Trajetória.
+ */
 const LINKS = [
-  { href: '#numero',    texto: 'O 028' },
-  { href: '#quem-e',    texto: 'Quem é' },
-  { href: '#origem',    texto: 'De onde venho' },
-  { href: '#vejo',      texto: 'O que eu vejo' },
-  { href: '#escuta',    texto: 'O que eu ouvi' },
-  { href: '#bandeiras', texto: 'O que vou fazer' },
+  { href: '#numero',     texto: 'O 028' },
+  { href: '#quem-e',     texto: 'Quem é' },
+  { href: '#trajetoria', texto: 'Trajetória' },
+  { href: '#bandeiras',  texto: 'O que defendemos' },
+  { href: '#presenca',   texto: 'Presença' },
+  { href: '#agenda',     texto: 'Agenda' },
 ]
 
 /**
@@ -23,7 +27,9 @@ const LINKS = [
  * duas linhas (lockup em cima, seis itens de menu embaixo), que empurrava o
  * hero para baixo e roubava a primeira tela inteira.
  *
- * Agora é UMA linha: marca à esquerda, navegação no meio, ação à direita.
+ * Agora é UMA linha: marca à esquerda e navegação à direita. O botão "Quero
+ * ajudar" que ficava aqui saiu em 14/08/2026, junto com o formulário e com a
+ * barra fixa do celular: o site deixou de pedir cadastro.
  *
  * `fixed`, não `sticky`: é o que deixa a arte do hero começar debaixo dele.
  * Como o cabeçalho some do fluxo, ele não desloca o conteúdo, e o
@@ -89,10 +95,6 @@ export function Topo() {
           </ul>
         </nav>
 
-        <a href="#apoie" className="mv-btn mv-btn-amarelo hidden shrink-0 lg:inline-flex">
-          Quero ajudar
-          <IconeSeta tamanho={20} />
-        </a>
 
         <button
           type="button"
@@ -152,16 +154,6 @@ export function Topo() {
                   </a>
                 </li>
               ))}
-              <li className="pt-3 pb-2">
-                <a
-                  href="#apoie"
-                  onClick={() => setAberto(false)}
-                  className="mv-btn mv-btn-amarelo w-full"
-                >
-                  Quero ajudar
-                  <IconeSeta tamanho={20} />
-                </a>
-              </li>
             </ul>
           </nav>
         </>

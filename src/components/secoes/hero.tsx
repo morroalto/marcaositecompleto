@@ -24,7 +24,7 @@ export function Hero() {
   const dias = diasAte(candidato.eleicao.data)
 
   return (
-    <section id="topo" className="mv-duo corte-baixo relative overflow-hidden">
+    <section id="topo" className="mv-duo relative overflow-hidden">
       {/* a hachura decorativa saiu daqui: com a arte encostada no topo da
           seção, ela caía por cima da peça do designer */}
       <h1 className="mv-sr">
@@ -68,13 +68,15 @@ export function Hero() {
               inteiro disca todo dia, e são os três últimos dígitos do meu número na urna.
             </p>
 
+            {/* sem o formulário, o site não pede cadastro: os dois botões
+                levam a ler e a conhecer, não a se inscrever */}
             <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap">
-              <a href="#apoie" className="mv-btn mv-btn-laranja w-full sm:w-auto">
-                Quero ajudar
+              <a href="#bandeiras" className="mv-btn mv-btn-laranja w-full sm:w-auto">
+                O que defendemos
                 <IconeSeta tamanho={20} />
               </a>
-              <a href="#bandeiras" className="mv-btn mv-btn-linha w-full sm:w-auto">
-                Ver as bandeiras
+              <a href="#quem-e" className="mv-btn mv-btn-linha w-full sm:w-auto">
+                Quem é o Marcão
                 <IconeSeta tamanho={20} />
               </a>
             </div>

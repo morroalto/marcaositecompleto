@@ -1,106 +1,58 @@
-﻿'use client'
-
-import { useEffect, useRef, useState } from 'react'
-import Link from 'next/link'
 import { Cartaz } from '@/components/ui/marca'
-import { IconeGente, IconeCompartilhar, IconeCerto, IconeMegafone } from '@/components/ui/icones'
+import { IconeGente, IconeCompartilhar, IconeMegafone, IconeInstagram } from '@/components/ui/icones'
 import { candidato } from '@/content/candidato'
-import { cidades } from '@/content/territorio'
 import { videoFechamento } from '@/content/videos'
 import { Player } from '@/components/ui/video'
 
-type Estado = 'repouso' | 'enviando' | 'erro' | 'ok'
-
 /**
- * APOIE
+ * BORA JUNTO
  *
- * FormulÃ¡rio da casa: `useState` por campo, validaÃ§Ã£o simples, honeypot.
- * Sem react-hook-form e sem zod, que a vault proÃ­be.
+ * O FORMULÁRIO SAIU em 14/08/2026, a pedido. Com ele saíram o cadastro de
+ * apoiador, a validação por campo, o honeypot e o consentimento de LGPD que
+ * viviam aqui. A seção deixou de ser client component: sem estado, ela volta a
+ * ser HTML renderizado no servidor.
  *
- * Os oito estados que importam estÃ£o implementados: repouso, foco, erro por
- * campo, erro geral com `aria-live`, enviando com largura travada (para nÃ£o
- * gerar CLS), sucesso, e o caso do bot silenciado pelo honeypot.
+ * Duas consequências ficam registradas, porque voltam a valer no dia em que o
+ * formulário voltar:
+ *
+ * · o site não coleta mais nenhum dado pessoal. A Política de Privacidade
+ *   continua no ar, o que é correto, mas hoje ela descreve uma coleta que não
+ *   acontece. Revisar o texto antes do go-live.
+ * · a rota `app/api/apoiador/route.ts` ficou sem quem a chame. Foi mantida no
+ *   repositório de propósito, funcionando, para o formulário voltar sem
+ *   precisar ser reescrito.
+ *
+ * A seção continua sendo o fechamento da página, e agora manda a pessoa para
+ * onde a campanha de fato conversa: as redes.
  */
 export function Apoie() {
-  const [estado, setEstado] = useState<Estado>('repouso')
-  // instante em que o formulÃ¡rio apareceu: preenchido em menos de 3 s Ã© robÃ´.
-  // O carimbo vai no efeito, nÃ£o no render: `Date.now()` durante o render Ã©
-  // chamada impura e o React Compiler barra.
-  const aberto = useRef(0)
-  const [erro, setErro] = useState('')
-  const [campoRuim, setCampoRuim] = useState<string | null>(null)
-
-  useEffect(() => { aberto.current = Date.now() }, [])
-
-  async function enviar(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    const form = e.currentTarget
-    const d = new FormData(form)
-
-    if (d.get('site')) return                      // honeypot: bot, silÃªncio
-
-    const falhar = (msg: string, campo: string) => {
-      setErro(msg); setCampoRuim(campo); setEstado('erro')
-      form.querySelector<HTMLElement>(`[name="${campo}"]`)?.focus()
-    }
-
-    const nome = String(d.get('nome') ?? '').trim()
-    if (nome.split(/\s+/).filter(Boolean).length < 2)
-      return falhar('Escreva seu nome e sobrenome.', 'nome')
-
-    const zap = String(d.get('zap') ?? '').replace(/\D/g, '')
-    if (zap.length < 10)
-      return falhar('O WhatsApp precisa ter DDD e nÃºmero. Exemplo: (28) 90000-0000.', 'zap')
-
-    if (!d.get('cidade')) return falhar('Escolha sua cidade.', 'cidade')
-    if (!d.get('lgpd'))
-      return falhar('Marque a autorizaÃ§Ã£o de contato para a gente poder falar com vocÃª.', 'lgpd')
-
-    setEstado('enviando'); setErro(''); setCampoRuim(null)
-    try {
-      const r = await fetch('/api/apoiador', {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ ...Object.fromEntries(d), aberto: aberto.current }),
-      })
-      if (!r.ok) throw new Error('falha')
-      setEstado('ok'); form.reset()
-    } catch {
-      setErro('NÃ£o deu para enviar agora. Tente de novo, ou chame direto no WhatsApp.')
-      setEstado('erro')
-    }
-  }
-
-  const ruim = (c: string) => (campoRuim === c ? 'border-[#FF8A80]' : 'border-white/45')
-  const campo =
-    'w-full min-h-[52px] rounded-md border-2 bg-white/[.08] px-3 py-2 text-[1.0625rem] ' +
-    'text-white placeholder:text-white/50 focus:border-amarelo focus:outline-none ' +
-    'focus:ring-4 focus:ring-amarelo/30 transition-colors'
-
   return (
-    <section id="apoie" className="bg-petroleo text-white corte-cima mv-secao">
+    <section id="apoie" className="bg-petroleo text-white mv-secao">
       <div className="mv-shell grid gap-10 lg:grid-cols-2 lg:gap-14">
-        <div className="flex flex-col items-center gap-5 text-center sm:items-start sm:text-left">
+        <div className="flex flex-col gap-5 text-center sm:text-left">
           <p className="mv-kicker text-amarelo">Bora junto</p>
           <h2 className="text-[clamp(1.5rem,5vw,2.4rem)]">
             <Cartaz className="text-laranja">{candidato.hashtag}</Cartaz>
           </h2>
-          <p className="max-w-[52ch] text-[1.0625rem] leading-relaxed text-[#CFE0DA] sm:text-[1.15rem]">
-            O MarcÃ£o Ã© a ponte para levar a voz e a necessidade da nossa gente atÃ© onde as
-            decisÃµes acontecem. Campanha no Sul nÃ£o se ganha com dinheiro, se ganha com gente
-            falando com gente. Escolha por onde vocÃª quer entrar:
+          <p className="max-w-[56ch] text-[1.0625rem] leading-relaxed text-[#CFE0DA] sm:text-[1.15rem]">
+            O Marcão é a ponte para levar a voz e a necessidade da nossa gente até onde as
+            decisões acontecem. Campanha no Sul não se ganha com dinheiro, se ganha com gente
+            falando com gente.
           </p>
 
           <ul className="flex flex-col gap-3">
             {[
-              { Icone: IconeMegafone, t: 'Receber a agenda',
+              { Icone: IconeMegafone, t: 'Acompanhe a agenda',
                 d: 'Onde ele vai estar, o que rolou em cada cidade e material para compartilhar.' },
-              { Icone: IconeGente, t: 'Ser voluntÃ¡rio na sua cidade',
-                d: 'Ã‰ o formulÃ¡rio aqui do lado. Leva dois minutos.' },
-              { Icone: IconeCompartilhar, t: 'Compartilhar',
-                d: 'Material pronto para story, com o nÃºmero grande e legÃ­vel no celular.' },
+              { Icone: IconeGente, t: 'Chame o Marcão para o seu grupo',
+                d: 'Associação de bairro, colônia de pesca, cooperativa, igreja, time. É assim que a conversa começa.' },
+              { Icone: IconeCompartilhar, t: 'Espalhe o número',
+                d: 'Fale de 36.028 para quem mora aqui. Quem disca 028 todo dia não esquece mais.' },
             ].map(({ Icone, t, d }) => (
-              <li key={t} className="flex gap-4 rounded-[10px] border border-white/20 bg-white/[.07] px-5 py-4">
+              <li
+                key={t}
+                className="flex gap-4 rounded-[10px] border border-white/20 bg-white/[.07] px-5 py-4 text-left"
+              >
                 <Icone className="mt-1 shrink-0 text-amarelo" tamanho={26} />
                 <div>
                   <strong className="font-display text-[1.0625rem]">{t}</strong>
@@ -109,83 +61,43 @@ export function Apoie() {
               </li>
             ))}
           </ul>
-
-          <Player video={videoFechamento} className="mt-2" />
         </div>
 
-        <form onSubmit={enviar} noValidate className="flex flex-col gap-4">
-          <label className="block">
-            <span className="mb-1 block font-display text-[1rem] font-bold">Seu nome</span>
-            <input name="nome" type="text" autoComplete="name" required className={`${campo} ${ruim('nome')}`} />
-          </label>
+        <div className="flex flex-col gap-6">
+          <Player video={videoFechamento} />
 
-          <label className="block">
-            <span className="mb-1 block font-display text-[1rem] font-bold">WhatsApp</span>
-            <input
-              name="zap" type="tel" inputMode="tel" autoComplete="tel"
-              placeholder="(28) 90000-0000" required className={`${campo} ${ruim('zap')}`}
-            />
-          </label>
-
-          <label className="block">
-            <span className="mb-1 block font-display text-[1rem] font-bold">Sua cidade</span>
-            <select name="cidade" required className={`${campo} ${ruim('cidade')}`}>
-              <option value="" className="text-tinta">Escolha</option>
-              {cidades.map((c) => (
-                <option key={c.slug} value={c.nome} className="text-tinta">{c.nome}</option>
+          <div className="flex flex-col gap-4 rounded-[10px] border border-white/20 bg-white/[.07] p-6 text-center sm:text-left">
+            <h3 className="font-display text-[1.15rem] font-extrabold">
+              A campanha conversa por aqui
+            </h3>
+            <ul className="flex flex-col gap-2">
+              {[
+                { href: candidato.redes.instagram, texto: 'Instagram do Marcão' },
+                { href: candidato.redes.instagramMovimento, texto: 'Instagram do Triângulo do Sul' },
+                { href: candidato.redes.facebook, texto: 'Facebook' },
+              ].map((r) => (
+                <li key={r.texto}>
+                  <a
+                    href={r.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex min-h-[44px] items-center gap-3 font-display text-[1.0625rem] font-bold no-underline hover:text-amarelo"
+                  >
+                    <IconeInstagram tamanho={22} className="shrink-0 text-amarelo" />
+                    {r.texto}
+                  </a>
+                </li>
               ))}
-              <option value="Outra" className="text-tinta">Outra</option>
-            </select>
-          </label>
-
-          <label className="block">
-            <span className="mb-1 block font-display text-[1rem] font-bold">Como vocÃª quer ajudar?</span>
-            <select name="ajuda" className={`${campo} border-white/45`}>
-              <option value="" className="text-tinta">Escolha</option>
-              {['Divulgar no meu bairro', 'Levar o MarcÃ£o para conversar com meu grupo',
-                'Ajudar no dia da eleiÃ§Ã£o', 'SÃ³ quero acompanhar'].map((o) => (
-                <option key={o} className="text-tinta">{o}</option>
-              ))}
-            </select>
-          </label>
-
-          {/* honeypot: fora do fluxo de foco e invisÃ­vel para leitor de tela */}
-          <input
-            type="text" name="site" tabIndex={-1} autoComplete="off" aria-hidden="true"
-            className="absolute left-[-9999px]"
-          />
-
-          <label className="flex items-start gap-3 text-[1.0625rem] leading-relaxed text-[#CFE0DA]">
-            <input
-              type="checkbox" name="lgpd" required
-              className="mt-1 h-7 w-7 shrink-0 accent-laranja"
-            />
-            <span>
-              Autorizo o contato da campanha pelo WhatsApp com os dados acima. Posso pedir a
-              exclusÃ£o quando quiser.{' '}
-              <Link href="/privacidade" className="underline">PolÃ­tica de Privacidade</Link>.
-            </span>
-          </label>
-
-          <p role="alert" aria-live="polite" className="min-h-[1.5rem] text-[1.0625rem] font-semibold text-[#FFB3AD]">
-            {estado === 'erro' ? erro : ''}
-          </p>
-
-          <button
-            type="submit"
-            disabled={estado === 'enviando'}
-            className="mv-btn mv-btn-laranja w-full"
-            style={estado === 'enviando' ? { width: '100%' } : undefined}
-          >
-            {estado === 'enviando' ? 'Enviandoâ€¦' : 'Enviar meu cadastro'}
-          </button>
-
-          {estado === 'ok' && (
-            <p className="flex items-center gap-2 rounded-[10px] bg-amarelo p-4 font-bold text-[#003B44]">
-              <IconeCerto tamanho={22} /> Cadastro enviado. A gente chama vocÃª no WhatsApp.
+            </ul>
+            <p className="text-[1rem] leading-relaxed text-[#CBDDD7]">
+              Ou escreva para{' '}
+              <a href={`mailto:${candidato.campanha.email}`} className="underline">
+                {candidato.campanha.email}
+              </a>
+              .
             </p>
-          )}
-        </form>
+          </div>
+        </div>
       </div>
     </section>
   )

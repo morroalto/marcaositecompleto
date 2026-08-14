@@ -1,55 +1,66 @@
-﻿import Image from 'next/image'
+import Image from 'next/image'
 import { candidato } from '@/content/candidato'
 import { cidades } from '@/content/territorio'
 import { Discagem } from '@/components/ui/discagem'
-import { IconeSeta } from '@/components/ui/icones'
-import fone from '@/../public/fotos/marcao-telefone.png'
+import fone from '@/../public/fotos/marcao-orelhao.png'
 
 /**
- * O NÃšMERO
+ * O NÚMERO
  *
  * A ideia mais forte da campanha, e por isso ela vem logo abaixo do hero:
- * 36 Ã© o partido, 028 Ã© o DDD que a regiÃ£o inteira jÃ¡ disca. O eleitor nÃ£o
- * precisa decorar nada.
+ * 36 é o partido, 028 é o DDD que a região inteira já disca.
  *
- * Em 14/08/2026 a seÃ§Ã£o ganhou a foto do MarcÃ£o no orelhÃ£o, do acervo da
- * campanha, e o visor que digita o nÃºmero sozinho, vindo do protÃ³tipo
- * "Sul em Foco". A piada visual Ã© o argumento inteiro numa imagem sÃ³: ele
- * estÃ¡ literalmente ligando para o Sul, e o cÃ³digo da ligaÃ§Ã£o Ã© o voto.
+ * A foto do orelhão é a piada visual que sustenta o argumento inteiro: ele
+ * está literalmente ligando para o Sul, e o código da ligação é o voto.
  *
- * O recorte em PNG sem fundo entra direto sobre o amarelo da marca, do jeito
- * que o manual faz. Nada de foto com vÃ©u translÃºcido por cima.
+ * MUDANÇAS DE 14/08/2026
+ *
+ * O fundo era amarelo cheio. A foto do orelhão tem fundo próprio, escuro e
+ * difuso, então sobre o amarelo ela virava um retângulo escuro colado na tela.
+ * Agora a seção é escura (`.mv-fundo-fone`) e a figura entra com halo quente
+ * atrás, sombra no chão e as bordas dissolvidas por máscara
+ * (`.mv-profundidade`, no globals.css): ela deixa de estar EM CIMA da seção e
+ * passa a estar DENTRO dela. Fora de card e grande, porque é a imagem que
+ * carrega a ideia. O amarelo continua na página, nos números e no destaque.
  */
 export function Numero() {
   const nomes = cidades.map((c) => c.nome)
   const lista = `${nomes.slice(0, -1).join(', ')} e ${nomes.at(-1)}`
 
   return (
-    <section id="numero" className="bg-amarelo text-[#003B44] corte-cima mv-secao">
-      <div className="mv-shell grid gap-10 lg:grid-cols-[.85fr_1.15fr] lg:items-center lg:gap-14">
+    <section id="numero" className="mv-fundo-fone mv-secao">
+      <div className="mv-shell grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
 
-        {/* â”€â”€ ele no orelhÃ£o, com o visor discando por cima â”€â”€ */}
-        <div className="relative mx-auto w-full max-w-[24rem]">
+        {/* ── ele no orelhão ── */}
+        {/* `--pe-x` marca onde ele pisa dentro do arquivo: ele está à esquerda
+            e o poste do orelhão à direita, então a sombra do chão vai em 32%
+            da largura, e não no meio, que cairia no vão entre os dois. */}
+        <div
+          className="mv-profundidade mx-auto w-full max-w-[32rem]"
+          style={{ '--pe-x': '32%', '--pe-y': '4%' } as React.CSSProperties}
+        >
           <Image
             src={fone}
-            alt="MarcÃ£o falando em um orelhÃ£o, de camiseta do TriÃ¢ngulo do Sul, com a mÃ£o estendida"
-            sizes="(max-width: 1023px) 78vw, 24rem"
-            className="mx-auto h-auto w-full max-w-[19rem] drop-shadow-[0_18px_26px_rgba(0,0,0,.22)]"
+            alt="Marcão falando em um orelhão, de camiseta do Triângulo do Sul, com a mão estendida"
+            sizes="(max-width: 1023px) 92vw, 32rem"
+            priority
+            className="h-auto w-full"
           />
-          <div className="relative z-10 -mt-14 sm:-mt-16">
-            <Discagem />
-          </div>
         </div>
 
-        {/* â”€â”€ o argumento â”€â”€ */}
-        <div className="flex flex-col items-center gap-5 text-center sm:items-start sm:text-left">
-          <p className="mv-kicker">O Sul tem nÃºmero</p>
-          <h2 className="text-[clamp(1.45rem,4.6vw,2.25rem)] font-extrabold tracking-tight">
-            O nÃºmero que vocÃª jÃ¡ conhece de cor.
-          </h2>
+        {/* ── o argumento ── */}
+        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
+          <div className="flex flex-col items-center gap-3 sm:items-start">
+            <p className="mv-kicker text-amarelo">O Sul tem número</p>
+            <h2 className="text-[clamp(1.45rem,4.6vw,2.25rem)] font-extrabold tracking-tight text-white">
+              O número que você já conhece de cor.
+            </h2>
+          </div>
+
+          <Discagem />
 
           <div className="flex w-full gap-3 sm:w-auto sm:gap-4">
-            <div className="flex-1 rounded-xl bg-[#3A7325] px-5 py-4 text-center shadow-[0_5px_0_rgba(0,0,0,.22)] sm:flex-none sm:min-w-[9rem]">
+            <div className="flex-1 rounded-xl bg-[#3A7325] px-5 py-4 text-center shadow-[0_5px_0_rgba(0,0,0,.32)] sm:flex-none sm:min-w-[8.5rem]">
               <b className="block font-display text-[clamp(2.1rem,8vw,2.9rem)] leading-none font-black text-white tabular-nums">
                 {candidato.numeroPartido}
               </b>
@@ -57,7 +68,7 @@ export function Numero() {
                 O partido
               </span>
             </div>
-            <div className="flex-1 rounded-xl bg-laranja px-5 py-4 text-center shadow-[0_5px_0_rgba(0,0,0,.22)] sm:flex-none sm:min-w-[9rem]">
+            <div className="flex-1 rounded-xl bg-laranja px-5 py-4 text-center shadow-[0_5px_0_rgba(0,0,0,.32)] sm:flex-none sm:min-w-[8.5rem]">
               <b className="block font-display text-[clamp(2.1rem,8vw,2.9rem)] leading-none font-black text-[#08222A] tabular-nums">
                 {candidato.numeroDDD}
               </b>
@@ -67,14 +78,18 @@ export function Numero() {
             </div>
           </div>
 
-          <p className="max-w-[58ch] text-[1.0625rem] leading-relaxed sm:text-[1.15rem]">
-            <strong>{candidato.numeroDDD}</strong> Ã© o DDD de {lista}. Ã‰ o cÃ³digo que
-            identifica a regiÃ£o inteira, a nossa. E deputado estadual se elege pelo estado
-            todo: <strong>o voto do Sul conta igual em qualquer cidade do EspÃ­rito Santo</strong>.
+          <p className="max-w-[58ch] text-[1.0625rem] leading-relaxed text-[#D7E8E4] sm:text-[1.15rem]">
+            <strong className="text-white">{candidato.numeroDDD}</strong> é o DDD de {lista}.
+            É o código que identifica a região inteira, a nossa. E deputado estadual se elege
+            pelo estado todo:{' '}
+            <strong className="text-white">
+              o voto do Sul conta igual em qualquer cidade do Espírito Santo
+            </strong>
+            .
           </p>
 
-          <p className="font-display text-[1.15rem] leading-snug font-extrabold sm:text-[1.35rem]">
-            â€œMeu nÃºmero termina com o DDD do Sul. Porque eu sou daqui.â€
+          <p className="font-display text-[1.15rem] leading-snug font-extrabold text-amarelo sm:text-[1.35rem]">
+            “Meu número termina com o DDD do Sul. Porque eu sou daqui.”
           </p>
 
           <ul className="flex flex-wrap justify-center gap-2 sm:justify-start">
@@ -83,8 +98,8 @@ export function Numero() {
                 <span
                   className={
                     c.triangulo
-                      ? 'mv-chip border-[#003B44] bg-[#003B44] text-amarelo'
-                      : 'mv-chip border-[#003B44]/45 text-[#003B44]'
+                      ? 'mv-chip border-amarelo bg-amarelo text-[#003B44]'
+                      : 'mv-chip border-white/40 text-white'
                   }
                 >
                   {c.nome}
@@ -92,16 +107,13 @@ export function Numero() {
               </li>
             ))}
           </ul>
-          <p className="max-w-[58ch] text-[1.0625rem] leading-relaxed">
-            Em destaque, as trÃªs cidades do TriÃ¢ngulo do Sul, o movimento que deu origem a
-            esta candidatura. <strong>A origem sÃ£o trÃªs. A regiÃ£o sÃ£o nove. O mandato Ã© do
-            EspÃ­rito Santo inteiro.</strong>
+          <p className="max-w-[58ch] text-[1.0625rem] leading-relaxed text-[#D7E8E4]">
+            Em destaque, as três cidades do Triângulo do Sul, o movimento que deu origem a
+            esta candidatura.{' '}
+            <strong className="text-white">
+              A origem são três. A região são nove. O mandato é do Espírito Santo inteiro.
+            </strong>
           </p>
-
-          <a href="#apoie" className="mv-btn mv-btn-escuro w-full sm:w-auto">
-            Grave agora: {candidato.numero}
-            <IconeSeta tamanho={20} />
-          </a>
         </div>
       </div>
     </section>

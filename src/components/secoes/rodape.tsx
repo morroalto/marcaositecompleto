@@ -5,13 +5,17 @@ import {
 } from '@/components/ui/icones'
 import { candidato } from '@/content/candidato'
 
+/** o rodapé lista TODAS as seções, inclusive as que não cabem no menu do topo */
 const NAVEGACAO = [
-  { href: '#numero',    texto: 'O 028' },
-  { href: '#quem-e',    texto: 'Quem é' },
-  { href: '#origem',    texto: 'De onde venho' },
-  { href: '#vejo',      texto: 'O que eu vejo' },
-  { href: '#escuta',    texto: 'O que eu ouvi' },
-  { href: '#bandeiras', texto: 'O que vou fazer' },
+  { href: '#numero',     texto: 'O 028' },
+  { href: '#quem-e',     texto: 'Quem é' },
+  { href: '#trajetoria', texto: 'Trajetória' },
+  { href: '#origem',     texto: 'De onde venho' },
+  { href: '#vejo',       texto: 'O que eu vejo' },
+  { href: '#escuta',     texto: 'O que eu ouvi' },
+  { href: '#bandeiras',  texto: 'O que defendemos' },
+  { href: '#presenca',   texto: 'Perto de quem precisa' },
+  { href: '#agenda',     texto: 'Agenda' },
 ]
 
 /**
@@ -29,11 +33,13 @@ export function Rodape() {
     <footer className="bg-petroleo text-white">
       <BarraTricolor altura={8} />
 
-      <div className="mv-shell flex flex-col gap-12 pt-14 pb-[calc(var(--barra-h)+3rem)] lg:pb-16">
+      {/* o respiro extra embaixo era para a barra fixa do celular não cobrir o
+          bloco legal. A barra saiu, então o rodapé volta ao padding normal. */}
+      <div className="mv-shell flex flex-col gap-12 pt-14 pb-16">
 
         {/* ── marca ── */}
         <div className="flex flex-col items-center gap-5 text-center sm:items-start sm:text-left">
-          <Lockup className="text-[clamp(2.1rem,9vw,2.8rem)]" />
+          <Lockup className="text-[clamp(1.8rem,7vw,2.4rem)]" />
           <p className="font-display text-[1.2rem] font-bold text-amarelo">{candidato.slogan}</p>
         </div>
 
@@ -99,7 +105,7 @@ export function Rodape() {
               </li>
             </ul>
             <a href="#apoie" className="mv-btn mv-btn-amarelo mt-1 w-full sm:w-auto">
-              Quero ajudar
+              Falar com a campanha
               <IconeSeta tamanho={20} />
             </a>
           </div>

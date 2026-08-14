@@ -287,11 +287,63 @@
     box-shadow: 0 0 0 1px rgb(255 255 255 / .3);
   }
 
-  /* ── APARELHO DE TELEFONE (efeito de discagem do protótipo) ── */
-  .mv-fone {
-    border-radius: 20px; background: #14181A; padding: 1.5rem;
-    box-shadow: 0 14px 34px rgb(0 0 0 / .35);
-    border: 1px solid rgb(255 255 255 / .10);
+  /* ── VISOR DE DISCAGEM ──
+     Sem caixa: era um retângulo escuro com borda clara em cima de um fundo já
+     escuro, e a borda só marcava o contorno de uma caixa que não precisava
+     existir. Agora o número vive direto sobre o fundo da seção. */
+  .mv-fone { padding: 0; }
+
+  /* ── CARD DE FOTO ──
+     Legenda POR CIMA da imagem, não solta embaixo. Texto solto sob a foto
+     ficava boiando no branco, sem borda e sem fundo, com cara de rascunho.
+     O degradê só existe no terço de baixo, onde o texto está. */
+  .mv-foto {
+    position: relative; overflow: hidden; border-radius: var(--r-card);
+    margin: 0; background: var(--petroleo);
+  }
+  .mv-foto img {
+    display: block; width: 100%; height: 100%; object-fit: cover;
+    transition: transform .45s var(--ease);
+  }
+  .mv-foto:hover img { transform: scale(1.04); }
+  .mv-foto figcaption {
+    position: absolute; inset: auto 0 0 0;
+    padding: 3.5rem 1.1rem 1.1rem;
+    background: linear-gradient(to top, rgb(0 34 40 / .93) 12%, rgb(0 34 40 / .55) 55%, transparent 100%);
+    color: #fff;
+  }
+
+  /* ── PROFUNDIDADE ──
+     Para foto de recorte com fundo próprio: um halo quente atrás, a imagem
+     com sombra projetada e as bordas dissolvidas por máscara. É o que faz a
+     figura parecer estar DENTRO da seção, e não colada por cima dela. */
+  .mv-profundidade { position: relative; isolation: isolate; }
+  .mv-profundidade::before {
+    content: ''; position: absolute; z-index: -1;
+    left: 50%; top: 44%; transform: translate(-50%, -50%);
+    width: min(94%, 34rem); aspect-ratio: 1 / 1.05;
+    background: radial-gradient(circle,
+      rgb(255 212 0 / .26) 0%, rgb(255 122 0 / .13) 38%, transparent 68%);
+    filter: blur(26px);
+  }
+  /* A SOMBRA NO CHÃO, no pé dele.
+     `--pe-x` é onde ele pisa dentro do quadro da foto, em porcentagem da
+     largura: na foto do orelhão ele está à esquerda e o poste à direita, então
+     a sombra não pode ficar no meio do arquivo, senão ela cai no vazio entre
+     os dois. É ela que faz a figura pisar em vez de flutuar. */
+  .mv-profundidade::after {
+    content: ''; position: absolute; z-index: -1;
+    left: var(--pe-x, 50%); bottom: var(--pe-y, 3%); transform: translateX(-50%);
+    width: 46%; height: 3.5rem;
+    background: radial-gradient(ellipse, rgb(0 0 0 / .6) 0%, rgb(0 0 0 / .28) 45%, transparent 74%);
+    filter: blur(12px);
+  }
+  /* máscara generosa: dissolve só a moldura do arquivo, sem comer os pés nem
+     o alto do poste */
+  .mv-profundidade img {
+    -webkit-mask-image: radial-gradient(ellipse 92% 96% at 50% 50%, #000 70%, transparent 100%);
+    mask-image: radial-gradient(ellipse 92% 96% at 50% 50%, #000 70%, transparent 100%);
+    filter: drop-shadow(0 22px 34px rgb(0 0 0 / .45));
   }
 
   /* caixa de pendência: existe só antes do go-live */
@@ -315,14 +367,30 @@
 /* Prefixo mv- obrigatório: `bg-amarelo`, `bg-petroleo` e companhia JÁ são
    utilitários gerados pelo @theme acima. Regra sem camada vence utilitário,
    então uma classe com o mesmo nome sequestraria silenciosamente a cor. */
+/* fundo da seção do orelhão: escuro, com um foco de luz atrás da figura */
+.mv-fundo-fone {
+  background:
+    radial-gradient(115% 78% at 50% 12%, #0A4C57 0%, #063843 44%, #04252D 100%);
+  color: #fff;
+}
+
 .mv-duo { background: linear-gradient(118deg, var(--verde) 0%, var(--petroleo) 46%, var(--marinho) 100%); color: #fff; }
 .mv-duo-inv { background: linear-gradient(118deg, var(--marinho) 0%, var(--petroleo) 54%, var(--verde) 100%); color: #fff; }
 
-/* corte diagonal entre seções */
-.corte-baixo { clip-path: polygon(0 0, 100% 0, 100% calc(100% - 3vw), 0 100%); }
-.corte-cima  { clip-path: polygon(0 3vw, 100% 0, 100% 100%, 0 100%); margin-top: -3vw; }
-.corte-duplo { clip-path: polygon(0 3vw, 100% 0, 100% calc(100% - 3vw), 0 100%);
-               margin-block: -3vw; padding-block: calc(var(--secao) + 3vw); }
+/* ── TRANSIÇÃO ENTRE SEÇÕES ──────────────────────────────────────────────
+   Os cortes diagonais saíram em 14/08/2026.
+
+   Eram `clip-path: polygon(...)` com aresta inclinada. Navegador não
+   antisserrilha borda de clip-path: a diagonal saía escadinha, e como cada
+   seção tem uma cor e o corpo da página é branco, a escadinha aparecia como
+   um traço branco picotado atravessando a tela inteira, no lugar mais visível
+   possível, que é justamente a emenda entre duas seções.
+
+   No lugar deles, nada: as seções encostam uma na outra e quem separa é a
+   cor. É o que fazem os dois sites de referência. As classes continuam
+   existindo, sem efeito, para não quebrar nenhum componente que ainda as
+   cite. */
+.corte-baixo, .corte-cima, .corte-duplo { clip-path: none; margin-block: 0; }
 
 /* ═══════════════════════════════════════════════════════════════════════
    5 · MOVIMENTO — três comportamentos na página inteira, nunca mais

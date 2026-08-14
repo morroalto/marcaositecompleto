@@ -1,4 +1,4 @@
-﻿import Image from 'next/image'
+import Image from 'next/image'
 import { Cartaz } from '@/components/ui/marca'
 import { territorio } from '@/content/facetas'
 import mapa from '@/../public/fotos/marcao-mapa.jpg'
@@ -6,73 +6,75 @@ import mapa from '@/../public/fotos/marcao-mapa.jpg'
 /**
  * O QUE EU VEJO
  *
- * Em 14/08/2026 o mapa desta seÃ§Ã£o passou a ser a ARTE OFICIAL
- * (`public/fotos/marcao-mapa.jpg`, "A forÃ§a do TriÃ¢ngulo do Sul"), que Ã© a peÃ§a
- * que o eleitor jÃ¡ viu no Instagram e no adesivo. Um mapa desenhado no site e
- * outro diferente na rua fazem a mesma regiÃ£o parecer duas.
+ * O mapa é a ARTE OFICIAL ("A força do Triângulo do Sul"), a mesma peça que o
+ * eleitor já viu no Instagram e no adesivo. O mapa em SVG com a malha do IBGE
+ * continua em `components/ui/mapa-es.tsx` e volta com uma linha de import.
  *
- * O mapa em SVG com a malha oficial do IBGE continua no repositÃ³rio, em
- * `components/ui/mapa-es.tsx`, e volta com uma linha de import. Ele Ã© mais
- * informativo, mas as nove cidades jÃ¡ aparecem em chip logo acima, na seÃ§Ã£o do
- * nÃºmero: mostrar o mesmo recorte duas vezes Ã© encher a pÃ¡gina, nÃ£o informar.
+ * MUDANÇAS DE 14/08/2026
  *
- * Abaixo, trÃªs fotos reais da regiÃ£o, uma por cidade do TriÃ¢ngulo. Todas do
- * mesmo tamanho e na mesma proporÃ§Ã£o: quadro de tamanho variÃ¡vel sugeriria que
- * uma cidade importa mais que a outra.
+ * A arte ocupava 100% da largura sem limite de altura: num monitor de 1920 px
+ * ela sozinha dava 1080 px, ou seja, a tela inteira, e o efeito era de zoom.
+ * Agora ela continua sangrando de borda a borda, mas com teto de altura e
+ * `object-cover`, então cresce em largura sem engolir a página.
+ *
+ * A legenda que ficava solta embaixo saiu: era uma linha de texto boiando no
+ * branco, sem fundo e sem borda, com cara de rascunho.
+ *
+ * Nos três quadros das cidades o nome e a frase passaram para DENTRO da foto,
+ * sobre um degradê no rodapé do quadro (`.mv-foto`). Antes eram duas linhas de
+ * texto soltas embaixo de cada imagem, o que dava aquele efeito de legenda de
+ * álbum escolar.
  */
 export function Territorio() {
   const grade = territorio.filter((t) => t.naGrade)
 
   return (
     <section id="vejo" className="mv-secao">
-      <div className="mv-shell flex flex-col gap-9">
-        <div className="mx-auto flex max-w-[58ch] flex-col items-center gap-4 text-center sm:mx-0 sm:items-start sm:text-left">
-          <p className="mv-kicker text-[#2F5C1B]">O que eu vejo</p>
-          <h2 className="text-[clamp(1.6rem,5.6vw,2.7rem)]">
-            <Cartaz className="text-marinho">O SUL DE PERTO</Cartaz>
-          </h2>
-          <p className="text-[1.0625rem] leading-relaxed text-fraca sm:text-[1.15rem]">
-            Nove municÃ­pios dividem o mesmo cÃ³digo, o mesmo litoral, a mesma serra e os mesmos
-            problemas: estrada ruim, fila de exame e emprego que vai embora para a Grande
-            VitÃ³ria. Estas sÃ£o fotos da regiÃ£o, nÃ£o de banco de imagem.
-          </p>
-        </div>
+      <div className="mv-shell flex max-w-[62ch] flex-col gap-4 text-center sm:text-left">
+        <p className="mv-kicker text-[#2F5C1B]">O que eu vejo</p>
+        <h2 className="text-[clamp(1.6rem,5.6vw,2.7rem)]">
+          <Cartaz className="text-marinho">O SUL DE PERTO</Cartaz>
+        </h2>
+        <p className="text-[1.0625rem] leading-relaxed text-fraca sm:text-[1.15rem]">
+          Nove municípios dividem o mesmo código, o mesmo litoral, a mesma serra e os mesmos
+          problemas: estrada ruim, fila de exame e emprego que vai embora para a Grande
+          Vitória. O triângulo não é figura de linguagem, ele fecha no mapa.
+        </p>
       </div>
 
-      {/* de borda a borda, igual ao hero: o mapa Ã© a peÃ§a da campanha, nÃ£o uma
-          figura dentro de um card. SÃ³ a legenda volta para o shell. */}
-      <figure className="m-0 my-9 w-full">
+      {/* A arte INTEIRA, de borda a borda, ocupando quase a tela toda.
+          Nada de recorte: tentei limitar a altura com `object-cover` e o que
+          isso fez foi decepar o título da peça e o mapa pelas pontas. Arte
+          fechada pelo designer não se corta, se mostra. O `max-h` de 92vh
+          existe só para sobrar um fio de página embaixo em monitor deitado, e
+          `object-contain` garante que ele nunca corte nada. */}
+      <div className="my-9 w-full">
         <Image
           src={mapa}
-          alt="Mapa do EspÃ­rito Santo com o TriÃ¢ngulo do Sul destacado, ligando MarataÃ­zes, Itapemirim e Presidente Kennedy"
+          alt="Mapa do Espírito Santo com o Triângulo do Sul destacado, ligando Marataízes, Itapemirim e Presidente Kennedy"
           sizes="100vw"
           loading="lazy"
-          className="h-auto w-full"
+          className="h-auto max-h-[92vh] w-full object-contain"
         />
-        <figcaption className="mv-shell mt-3 text-center text-[1rem] leading-relaxed text-fraca sm:text-left">
-          O triÃ¢ngulo nÃ£o Ã© figura de linguagem: ele fecha no mapa, entre MarataÃ­zes,
-          Itapemirim e Presidente Kennedy.
-        </figcaption>
-      </figure>
+      </div>
 
       <div className="mv-shell">
-        <ul className="grid gap-6 sm:grid-cols-3">
+        <ul className="grid gap-5 sm:grid-cols-3">
           {grade.map((t) => (
             <li key={t.slug}>
-              <figure className="m-0">
+              <figure className="mv-foto aspect-4/3">
                 <Image
                   src={`/fotos/${t.foto}.webp`}
                   alt={t.alt}
                   width={1400} height={788}
-                  sizes="(max-width: 639px) 92vw, 24rem"
+                  sizes="(max-width: 639px) 92vw, 23rem"
                   loading="lazy"
-                  className="h-auto w-full rounded-[10px]"
                 />
-                <figcaption className="mt-3 text-center sm:text-left">
+                <figcaption>
                   <span className="block font-display text-[1.15rem] font-extrabold">
                     {t.titulo}
                   </span>
-                  <span className="text-[1.0625rem] leading-relaxed text-fraca">{t.texto}</span>
+                  <span className="text-[1rem] leading-snug text-white/85">{t.texto}</span>
                 </figcaption>
               </figure>
             </li>
