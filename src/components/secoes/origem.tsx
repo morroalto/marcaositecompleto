@@ -35,39 +35,36 @@ export function Origem() {
           </h2>
         </div>
 
-        {/* Foto à ESQUERDA e prosa à direita, e não o contrário. Com o texto
-            numa coluna estreita à esquerda, as linhas quebravam curtas, os
-            selos entravam um embaixo do outro ocupando a largura toda, e
-            sobrava um vão de meia tela sob a foto. Agora a foto ocupa a coluna
-            estreita, que é onde ela cabe bem, e o texto ganha a larga. */}
-        <div className="grid gap-8 lg:grid-cols-2 lg:items-center lg:gap-12">
-          {/* A foto oficial da família continua sendo esta.
-              Aviso que fica registrado: o ARQUIVO `familia-todos.webp` é um
-              recorte 16 por 9 de uma foto vertical, e o recorte já decepa a
-              cabeça de quem está em pé atrás. Isso não é ajuste de CSS: os
-              pixels não existem no arquivo. Para resolver de vez, é preciso o
-              original vertical, sem o corte, e trocar o arquivo em
-              `public/fotos/`. */}
-          <Image
-            src="/fotos/familia-todos.webp"
-            alt="Marcão sentado com a esposa Adriana e o neto Marco Antônio, com as filhas atrás"
-            width={1200} height={675}
-            sizes="(max-width: 1023px) 92vw, 34rem"
-            loading="lazy"
-            className="h-auto w-full rounded-[10px]"
-          />
-
-          <div className="flex flex-col gap-5 text-center sm:text-left">
-            {biografia.blocos.map((b) => (
-              <p
-                key={b.titulo}
-                className="text-[1.0625rem] leading-relaxed text-[#D8E4F0] sm:text-[1.15rem]"
-              >
-                {b.texto}
-              </p>
-            ))}
-          </div>
+        <div className="flex max-w-[68ch] flex-col gap-5 text-center sm:text-left">
+          {biografia.blocos.map((b) => (
+            <p
+              key={b.titulo}
+              className="text-[1.0625rem] leading-relaxed text-[#D8E4F0] sm:text-[1.15rem]"
+            >
+              {b.texto}
+            </p>
+          ))}
         </div>
+
+        {/* LARGURA CHEIA. A foto saiu da coluna: em meia largura ela nunca ia
+            passar de um quadradinho, e o pedido é justamente que a família
+            apareça.
+
+            Sobre o corte no alto: ele está no ARQUIVO. `familia-todos.webp`
+            tem 1200 por 675, um recorte 16 por 9 tirado de uma foto vertical,
+            e nesse recorte a cabeça de quem está em pé atrás já foi embora.
+            Nenhum tamanho, nenhum `object-position` e nenhum CSS traz de volta
+            pixel que não foi salvo. Para resolver, é preciso o arquivo
+            original, sem o corte, trocado aqui em `public/fotos/`. Procurei
+            outra versão no acervo do repositório e no protótipo: não existe. */}
+        <Image
+          src="/fotos/familia-todos.webp"
+          alt="Marcão sentado com a esposa Adriana e o neto Marco Antônio, com as filhas atrás"
+          width={1200} height={675}
+          sizes="(max-width: 1279px) 92vw, 74rem"
+          loading="lazy"
+          className="h-auto w-full rounded-[10px]"
+        />
 
         {/* selos e citação em largura inteira: em coluna estreita os chips
             viravam uma pilha de barras, um por linha */}

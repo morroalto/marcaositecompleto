@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { IconeSeta } from '@/components/ui/icones'
+import { Contagem } from '@/components/ui/contagem'
 import { candidato } from '@/content/candidato'
 import { diasAte } from '@/lib/utils'
 import capa from '@/../public/fotos/marcao-hero.jpg'
@@ -54,7 +55,7 @@ export function Hero() {
           {candidato.partido} {candidato.numero}
         </p>
 
-        <div className="grid items-center gap-8 lg:grid-cols-[1.15fr_.85fr] lg:gap-14">
+        <div className="grid items-center gap-8 lg:grid-cols-[1.1fr_.9fr] lg:gap-14">
           <div className="mv-entra mv-d2 flex flex-col items-center gap-5 text-center sm:items-start sm:text-left">
             <p className="max-w-[58ch] text-[1.0625rem] leading-relaxed text-[#E4F0EA] sm:text-[1.15rem]">
               O Sul do Estado é onde o Marcão escolheu viver, construir a história dele e
@@ -82,18 +83,18 @@ export function Hero() {
             </div>
           </div>
 
-          {/* a contagem: o único número da tela que muda sozinho, então ganha
-              caixa própria em vez de disputar espaço dentro do parágrafo */}
-          <div className="mv-entra mv-d3 flex flex-col items-center gap-1 rounded-[14px] border border-white/20 bg-white/[.08] px-7 py-6 text-center">
-            <span className="font-display text-[clamp(2.6rem,10vw,3.5rem)] leading-none font-black text-amarelo tabular-nums">
-              {dias}
-            </span>
-            <span className="font-display text-[0.8125rem] font-extrabold tracking-[0.14em] text-white/75 uppercase">
-              dias para a eleição
-            </span>
-            <span className="mt-2 text-[1.0625rem] leading-snug text-[#E4F0EA]">
+          {/* RELÓGIO DE VERDADE, andando de segundo em segundo até a abertura
+              das urnas. Um número parado dizendo "51 dias" não é contagem
+              regressiva, é uma informação; o que prende é ver o segundo
+              virar. */}
+          <div className="mv-entra mv-d3 flex flex-col gap-3 rounded-[14px] border border-white/20 bg-white/[.06] p-5 sm:p-6">
+            <p className="text-center font-display text-[0.8125rem] font-extrabold tracking-[0.16em] text-white/75 uppercase">
+              Falta para a eleição
+            </p>
+            <Contagem alvo={candidato.eleicao.data} diasIniciais={dias} />
+            <p className="text-center text-[1.0625rem] leading-snug text-[#E4F0EA]">
               {candidato.eleicao.texto}, {candidato.eleicao.turno}
-            </span>
+            </p>
           </div>
         </div>
       </div>

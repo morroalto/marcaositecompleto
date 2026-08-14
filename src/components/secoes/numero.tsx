@@ -47,11 +47,11 @@ export function Numero() {
             className="h-auto w-full"
           />
 
-          {/* O visor pousa SOBRE a foto, na altura do pé dele. Solto na coluna
-              de texto, ele era só mais um bloco numa lista; aqui ele amarra as
-              duas coisas, porque o número aparece no mesmo lugar em que ele
-              está falando ao telefone. */}
-          <div className="absolute bottom-[6%] left-1/2 z-10 w-[min(17rem,72%)] -translate-x-1/2">
+          {/* O visor cobre TODA a base da foto, encostado nas duas laterais,
+              como uma tarja. Um cartãozinho centralizado, como estava antes,
+              ficava boiando por cima da imagem; a tarja fecha a composição e
+              apoia a figura. */}
+          <div className="absolute inset-x-0 bottom-0 z-10">
             <Discagem />
           </div>
         </div>

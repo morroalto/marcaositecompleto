@@ -43,21 +43,21 @@ export function Discagem() {
   }, [digitos.length])
 
   return (
-    <div className="mv-fone">
-      {/* altura travada: o número cresce dígito a dígito e não pode empurrar
-          o que vem embaixo a cada 420 ms */}
-      <div className="flex h-[3.6rem] flex-col justify-center">
-        <p
-          aria-hidden="true"
-          className="font-display text-[clamp(1.9rem,6vw,2.4rem)] leading-none font-black tracking-[.16em] text-white tabular-nums"
-        >
-          {digitos.slice(0, ate)}
-          <span className="mv-cursor text-amarelo">|</span>
-        </p>
-        <p className="mv-pisca mt-2 font-display text-[0.6875rem] font-extrabold tracking-[.14em] text-white/65 uppercase">
-          Chamando o Sul…
-        </p>
-      </div>
+    <div className="mv-fone flex items-center justify-between gap-4">
+      {/* largura do número travada em `ch`: ele cresce dígito a dígito e, solto,
+          empurraria o "chamando o Sul" para os lados a cada 420 ms */}
+      <p
+        aria-hidden="true"
+        className="w-[6.5ch] shrink-0 font-display text-[clamp(1.7rem,5.5vw,2.2rem)] leading-none font-black tracking-[.12em] text-white tabular-nums"
+      >
+        {digitos.slice(0, ate)}
+        <span className="mv-cursor text-amarelo">|</span>
+      </p>
+      <p className="mv-pisca text-right font-display text-[0.6875rem] font-extrabold tracking-[.14em] text-amarelo uppercase">
+        Chamando
+        <br />
+        o Sul…
+      </p>
       <span className="mv-sr">
         Na urna, digite {candidato.numeroSoletrado}.
       </span>
