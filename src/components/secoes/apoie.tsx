@@ -28,7 +28,12 @@ import { Player } from '@/components/ui/video'
 export function Apoie() {
   return (
     <section id="apoie" className="bg-petroleo text-white mv-secao">
-      <div className="mv-shell grid gap-10 lg:grid-cols-2 lg:gap-14">
+      {/* `lg:items-center`: o campo de vídeo desta coluna não renderiza
+          enquanto não houver arquivo, então sobra só o card de redes. Preso no
+          topo da coluna, ele ficava pendurado, com meia seção de vazio
+          embaixo. Centralizado, ele fica na altura do miolo da coluna da
+          esquerda e as duas metades voltam a se equilibrar. */}
+      <div className="mv-shell grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-14">
         <div className="flex flex-col gap-5 text-center sm:text-left">
           <p className="mv-kicker text-amarelo">Bora junto</p>
           <h2 className="text-[clamp(1.5rem,5vw,2.4rem)]">
