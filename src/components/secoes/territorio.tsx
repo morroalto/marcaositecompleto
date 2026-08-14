@@ -29,8 +29,29 @@ export function Territorio() {
   const grade = territorio.filter((t) => t.naGrade)
 
   return (
-    <section id="vejo" className="mv-secao">
-      <div className="mv-shell flex max-w-[62ch] flex-col gap-4 text-center sm:text-left">
+    // sem `mv-secao`: o padding de topo criaria uma faixa branca entre a seção
+    // anterior e a arte, e é justamente isso que não pode existir aqui
+    <section id="vejo" className="pb-[var(--secao)]">
+      {/* A ARTE É O BLOCO, exatamente como no hero: primeira coisa da seção,
+          colada no topo, 100% da largura, altura natural. Sem margem, sem
+          recorte, sem teto de altura e sem nada em volta. Toda tentativa de
+          conter essa peça (max-height, object-cover) só serviu para decepar o
+          título dela: arte fechada pelo designer se mostra inteira. */}
+      {/* O `max-w` de 86 rem é o único freio: em monitor largo a arte crescia
+          sem parar e a figura dele ficava do tamanho de uma pessoa. Abaixo
+          desse limite, que é a maioria das telas, ela continua ocupando os
+          100% da largura. */}
+      <figure className="mx-auto m-0 w-full max-w-[86rem]">
+        <Image
+          src={mapa}
+          alt="Mapa do Espírito Santo com o Triângulo do Sul destacado, ligando Marataízes, Itapemirim e Presidente Kennedy"
+          sizes="(max-width: 1376px) 100vw, 86rem"
+          loading="lazy"
+          className="h-auto w-full"
+        />
+      </figure>
+
+      <div className="mv-shell mt-[var(--secao)] flex max-w-[62ch] flex-col gap-4 text-center sm:text-left">
         <p className="mv-kicker text-[#2F5C1B]">O que eu vejo</p>
         <h2 className="text-[clamp(1.6rem,5.6vw,2.7rem)]">
           <Cartaz className="text-marinho">O SUL DE PERTO</Cartaz>
@@ -42,23 +63,7 @@ export function Territorio() {
         </p>
       </div>
 
-      {/* A arte INTEIRA, de borda a borda, ocupando quase a tela toda.
-          Nada de recorte: tentei limitar a altura com `object-cover` e o que
-          isso fez foi decepar o título da peça e o mapa pelas pontas. Arte
-          fechada pelo designer não se corta, se mostra. O `max-h` de 92vh
-          existe só para sobrar um fio de página embaixo em monitor deitado, e
-          `object-contain` garante que ele nunca corte nada. */}
-      <div className="my-9 w-full">
-        <Image
-          src={mapa}
-          alt="Mapa do Espírito Santo com o Triângulo do Sul destacado, ligando Marataízes, Itapemirim e Presidente Kennedy"
-          sizes="100vw"
-          loading="lazy"
-          className="h-auto max-h-[92vh] w-full object-contain"
-        />
-      </div>
-
-      <div className="mv-shell">
+      <div className="mv-shell mt-9">
         <ul className="grid gap-5 sm:grid-cols-3">
           {grade.map((t) => (
             <li key={t.slug}>

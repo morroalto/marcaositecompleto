@@ -35,46 +35,51 @@ export function Origem() {
           </h2>
         </div>
 
-        <div className="grid gap-10 lg:grid-cols-[1.1fr_.9fr] lg:items-start lg:gap-14">
+        {/* Foto à ESQUERDA e prosa à direita, e não o contrário. Com o texto
+            numa coluna estreita à esquerda, as linhas quebravam curtas, os
+            selos entravam um embaixo do outro ocupando a largura toda, e
+            sobrava um vão de meia tela sob a foto. Agora a foto ocupa a coluna
+            estreita, que é onde ela cabe bem, e o texto ganha a larga. */}
+        <div className="grid gap-8 lg:grid-cols-[.4fr_.6fr] lg:items-start lg:gap-12">
+          <Image
+            src="/fotos/familia-todos.webp"
+            alt="Marcão sentado com a esposa Adriana e o neto Marco Antônio, com as filhas atrás"
+            width={1200} height={675}
+            sizes="(max-width: 1023px) 88vw, 22rem"
+            loading="lazy"
+            className="mx-auto h-auto w-full max-w-[24rem] rounded-[10px] lg:mx-0 lg:max-w-none"
+          />
+
           <div className="flex flex-col gap-5 text-center sm:text-left">
             {biografia.blocos.map((b) => (
               <p
                 key={b.titulo}
-                className="max-w-[62ch] text-[1.0625rem] leading-relaxed text-[#D8E4F0] sm:text-[1.15rem]"
+                className="text-[1.0625rem] leading-relaxed text-[#D8E4F0] sm:text-[1.15rem]"
               >
                 {b.texto}
               </p>
             ))}
-
-            <ul className="mt-1 flex flex-wrap justify-center gap-2 sm:justify-start">
-              {selos.map((s) => (
-                <li key={s.texto}>
-                  <span className="mv-chip border-white/35 text-[0.9375rem] font-semibold text-white">
-                    {s.texto}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="flex flex-col gap-6">
-            <Image
-              src="/fotos/familia-todos.webp"
-              alt="Marcão sentado com a esposa Adriana e o neto Marco Antônio, com as filhas atrás"
-              width={1200} height={675}
-              sizes="(max-width: 1023px) 88vw, 26rem"
-              loading="lazy"
-              className="mx-auto h-auto w-full max-w-[26rem] rounded-[10px]"
-            />
-
-            <blockquote className="m-0 border-l-4 border-amarelo pl-5 text-left">
-              <p className="font-display text-[clamp(1.05rem,3.2vw,1.3rem)] leading-snug font-extrabold">
-                “{trajetoria.citacao}”
-              </p>
-              <footer className="mt-2 text-[1rem] text-[#C9DCF0]">— Marcão Vivacqua</footer>
-            </blockquote>
           </div>
         </div>
+
+        {/* selos e citação em largura inteira: em coluna estreita os chips
+            viravam uma pilha de barras, um por linha */}
+        <ul className="flex flex-wrap justify-center gap-2 sm:justify-start">
+          {selos.map((s) => (
+            <li key={s.texto}>
+              <span className="mv-chip border-white/35 text-[0.9375rem] font-semibold text-white">
+                {s.texto}
+              </span>
+            </li>
+          ))}
+        </ul>
+
+        <blockquote className="m-0 border-l-4 border-amarelo pl-6 text-left">
+          <p className="max-w-[52ch] font-display text-[clamp(1.15rem,3.6vw,1.5rem)] leading-snug font-extrabold">
+            “{trajetoria.citacao}”
+          </p>
+          <footer className="mt-2 text-[1rem] text-[#C9DCF0]">— Marcão Vivacqua</footer>
+        </blockquote>
 
         {/* ── o movimento, que é a ponte para a candidatura ── */}
         <div className="flex flex-col gap-5 rounded-[10px] border border-white/20 bg-white/[.07] p-7 text-center sm:p-9 sm:text-left">

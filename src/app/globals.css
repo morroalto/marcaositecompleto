@@ -268,23 +268,51 @@
     padding: .9rem 1rem;
   }
 
-  /* ── LINHA DO TEMPO (vinda do protótipo Sul em Foco) ──
-     Um fio vertical, o ano em display e a bolinha na marca. */
-  .mv-tempo { border-left: 3px solid var(--linha); padding-left: 1.75rem; }
-  .mv-tempo > li { position: relative; padding-bottom: 2.5rem; }
+  /* ── LINHA DO TEMPO ──
+     Precisa PARECER uma linha do tempo, e não seis cards soltos numa grade.
+     O que faz parecer é o fio contínuo com os marcos em cima dele.
+
+     Celular: fio VERTICAL à esquerda, o formato clássico, um marco embaixo do
+     outro. Desktop: o fio deita e vira HORIZONTAL, atravessando os três itens
+     da fileira, com o ponto de cada marco pousado nele.
+
+     O truque do fio contínuo no desktop é não ter vão horizontal entre os
+     itens (`column-gap: 0`): o segmento de cada um encosta no do vizinho e os
+     três viram uma linha só. O respiro vem de padding interno. No último item
+     de cada fileira o fio se dissolve em gradiente, senão ele bate na borda da
+     tela como se a história continuasse fora da página. */
+  .mv-tempo { display: grid; gap: 0; }
+  .mv-tempo > li {
+    position: relative;
+    padding: 0 0 2.25rem 1.75rem;
+    border-left: 2px solid var(--linha);
+  }
   .mv-tempo > li:last-child { padding-bottom: 0; }
+  /* o ponto do marco */
   .mv-tempo > li::before {
-    content: ''; position: absolute; left: calc(-1.75rem - 10px); top: .35rem;
-    width: 17px; height: 17px; border-radius: 999px;
-    background: var(--verde); border: 4px solid #fff;
+    content: ''; position: absolute; z-index: 1;
+    left: -9px; top: .3rem;
+    width: 16px; height: 16px; border-radius: 999px;
+    background: var(--laranja); border: 3px solid #fff;
     box-shadow: 0 0 0 1px var(--linha);
   }
-  /* sobre fundo marinho: o fio some no branco e a bolinha precisa de outra borda */
-  .mv-tempo-escura { border-left-color: rgb(255 255 255 / .25); }
-  .mv-tempo-escura > li::before {
-    background: var(--amarelo);
-    border-color: var(--marinho);
-    box-shadow: 0 0 0 1px rgb(255 255 255 / .3);
+
+  @media (min-width: 768px) {
+    .mv-tempo { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 2.75rem; }
+    .mv-tempo > li {
+      border-left: 0;
+      padding: 2.5rem 1.75rem 0 0;
+    }
+    .mv-tempo > li::before { left: 0; top: 0; }
+    /* o fio deitado */
+    .mv-tempo > li::after {
+      content: ''; position: absolute;
+      left: 0; right: 0; top: 7px; height: 2px;
+      background: var(--linha);
+    }
+    .mv-tempo > li:nth-child(3n)::after {
+      background: linear-gradient(90deg, var(--linha) 55%, transparent 100%);
+    }
   }
 
   /* ── VISOR DE DISCAGEM ──

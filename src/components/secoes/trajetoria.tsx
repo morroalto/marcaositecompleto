@@ -32,21 +32,18 @@ export function Trajetoria() {
           </p>
         </div>
 
-        <ol className="grid items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {/* `.mv-tempo` desenha o fio: vertical no celular, deitado no desktop,
+            com o ponto de cada marco pousado em cima dele. Card com borda aqui
+            não funcionava: seis caixas soltas numa grade não leem como linha
+            do tempo, leem como seis avisos. */}
+        <ol className="mv-tempo">
           {linhaDoTempo.map((m) => (
-            <li
-              key={m.ano}
-              className="mv-card flex h-full flex-col gap-2"
-              style={{ '--fio': 'var(--laranja)' } as React.CSSProperties}
-            >
-              <p className="flex items-center gap-3">
-                <span className="font-display text-[1.75rem] leading-none font-black text-laranja tabular-nums">
-                  {m.ano}
-                </span>
-                <span className="h-px grow bg-linha" aria-hidden="true" />
+            <li key={m.ano}>
+              <p className="font-display text-[1.75rem] leading-none font-black text-laranja tabular-nums">
+                {m.ano}
               </p>
-              <h3 className="text-[1.15rem] font-extrabold">{m.titulo}</h3>
-              <p className="text-[1.0625rem] leading-relaxed text-fraca">{m.texto}</p>
+              <h3 className="mt-2 text-[1.15rem] font-extrabold">{m.titulo}</h3>
+              <p className="mt-1 text-[1.0625rem] leading-relaxed text-fraca">{m.texto}</p>
             </li>
           ))}
         </ol>
