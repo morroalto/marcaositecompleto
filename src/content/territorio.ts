@@ -24,6 +24,12 @@ export interface Escuta {
   fonte: string
 }
 
+/** um número curto sobre a cidade, com a fonte junto */
+export interface Dado {
+  rotulo: string
+  valor: string
+}
+
 export interface Cidade {
   slug: SlugCidade
   nome: string
@@ -33,28 +39,68 @@ export interface Cidade {
   economia?: string
   evidencia?: string
   fonte?: string
+  /** três números do IBGE, para a seção do triângulo */
+  dados?: Dado[]
   /** norte para sul, dentro do triângulo */
   ordemGeografica?: 1 | 2 | 3
 }
 
+/**
+ * OS NÚMEROS DAS TRÊS CIDADES
+ *
+ * Todos puxados da API oficial do IBGE em 14/08/2026, município por município,
+ * pelo código do IBGE:
+ *
+ *   população  Censo 2022, agregado 4709, variável 93
+ *   área       agregado 1301, variável 615
+ *   PIB        agregado 5938, variável 37, ano de 2021, o mais recente
+ *
+ * Nada aqui é arredondado "para ficar bonito" nem estimado.
+ *
+ * ⚠️ Uma armadilha que quase entrou: o código do IBGE de Presidente Kennedy é
+ * 3204302. Com o 3204203, que é parecido, a API responde normalmente, mas com
+ * o dado de OUTRO município (22.300 habitantes). Conferi os três códigos
+ * contra a lista de municípios do ES antes de escrever.
+ *
+ * O PIB é de 2021 e a população é de 2022, então PIB per capita NÃO entra
+ * aqui: dividir um pelo outro seria misturar dois anos e inventar um número
+ * que o IBGE não publicou. O contraste que interessa está visível assim
+ * mesmo: Presidente Kennedy tem um terço da população de Marataízes e o maior
+ * PIB dos três, que é exatamente o efeito dos royalties do petróleo.
+ */
 export const cidades: Cidade[] = [
   {
     slug: 'itapemirim', nome: 'Itapemirim', triangulo: true, simbolo: 'pesca',
     ordemGeografica: 1, economia: 'Pesca',
     evidencia: 'O Porto de Itaipava é o maior polo pesqueiro do Espírito Santo.',
-    fonte: 'pesquisa pública verificada em 12/08/2026',
+    dados: [
+      { rotulo: 'habitantes', valor: '39.832' },
+      { rotulo: 'de área', valor: '557 km²' },
+      { rotulo: 'de PIB', valor: 'R$ 5,7 bi' },
+    ],
+    fonte: 'IBGE: Censo 2022, área territorial e PIB municipal de 2021, consultados em 14/08/2026',
   },
   {
     slug: 'marataizes', nome: 'Marataízes', triangulo: true, simbolo: 'abacaxi',
     ordemGeografica: 2, economia: 'Abacaxi',
     evidencia: 'Capital estadual do abacaxi, com 58% da produção do Espírito Santo.',
-    fonte: 'pesquisa pública verificada em 12/08/2026',
+    dados: [
+      { rotulo: 'habitantes', valor: '41.929' },
+      { rotulo: 'de área', valor: '135 km²' },
+      { rotulo: 'de PIB', valor: 'R$ 6,7 bi' },
+    ],
+    fonte: 'IBGE: Censo 2022, área territorial e PIB municipal de 2021, consultados em 14/08/2026',
   },
   {
     slug: 'presidente-kennedy', nome: 'Presidente Kennedy', triangulo: true, simbolo: 'petroleo',
     ordemGeografica: 3, economia: 'Petróleo',
     evidencia: 'Maior arrecadador de royalties de petróleo do Espírito Santo.',
-    fonte: 'pesquisa pública verificada em 12/08/2026',
+    dados: [
+      { rotulo: 'habitantes', valor: '13.696' },
+      { rotulo: 'de área', valor: '587 km²' },
+      { rotulo: 'de PIB', valor: 'R$ 6,8 bi' },
+    ],
+    fonte: 'IBGE: Censo 2022, área territorial e PIB municipal de 2021, consultados em 14/08/2026',
   },
   { slug: 'cachoeiro', nome: 'Cachoeiro de Itapemirim', triangulo: false },
   { slug: 'piuma',     nome: 'Piúma',    triangulo: false },

@@ -42,11 +42,11 @@ export function Bandeiras() {
       <FundoEconomias variante="b" className="text-marinho opacity-[.05]" />
       <div className="mv-shell relative flex flex-col gap-9">
         <div className="mx-auto flex max-w-[58ch] flex-col items-center gap-4 text-center sm:mx-0 sm:items-start sm:text-left">
-          <p className="mv-kicker text-[#2F5C1B]">O que eu vou fazer</p>
+          <p className="mv-kicker text-[#2F5C1B]">Seis frentes</p>
           <h2 className="text-[clamp(1.45rem,4.6vw,2.25rem)] font-extrabold tracking-tight">
             O que defendemos
           </h2>
-          <p className="text-[1.0625rem] leading-relaxed text-fraca sm:text-[1.15rem]">
+          <p className="hidden text-[1.0625rem] leading-relaxed text-fraca sm:block sm:text-[1.15rem]">
             Estes são os eixos que o Marcão já assumiu em público. Cada um vira compromisso
             com endereço, e enquanto o compromisso concreto não vier da assessoria o card
             fica marcado. Proposta vaga não entra neste site.
@@ -65,7 +65,7 @@ export function Bandeiras() {
                 <span className="h-px grow bg-linha" aria-hidden="true" />
               </p>
               <h3 className="text-[1.25rem] font-extrabold">{b.titulo}</h3>
-              <p className="text-[1.0625rem] leading-relaxed text-fraca">{b.contexto}</p>
+              <p className="hidden text-[1.0625rem] leading-relaxed text-fraca sm:block">{b.contexto}</p>
               <span className="grow" aria-hidden="true" />
 
               {b.compromisso ? (

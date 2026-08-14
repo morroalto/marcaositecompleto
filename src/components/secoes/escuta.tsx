@@ -40,7 +40,7 @@ export function Escuta() {
     <section id="escuta" className="mv-duo-inv mv-secao">
       <div className="mv-shell flex flex-col gap-8">
         <div className="flex flex-col items-center gap-4 text-center sm:items-start sm:text-left">
-          <p className="mv-kicker text-amarelo">O que eu ouvi</p>
+          <p className="mv-kicker text-amarelo">Três cidades, três economias</p>
           <h2 className="text-[clamp(1.6rem,5.6vw,2.7rem)]">
             <Cartaz className="text-amarelo">O TRIÂNGULO<br />TEM VOZ</Cartaz>
           </h2>
@@ -117,9 +117,28 @@ export function Escuta() {
                       <span className="mv-badge bg-[#3A7325]">{c.economia}</span>
                     </p>
                     {regs.length === 0 ? (
-                      <p className="mt-1 text-[1.0625rem] text-[#BFD4CE]">
-                        Ainda não temos registro de escuta publicado aqui.
-                      </p>
+                      /* Sem registro de escuta publicado, a lista mostra os
+                         NÚMEROS da cidade, direto do IBGE, e a evidência
+                         econômica dela. Antes dizia "ainda não temos registro
+                         de escuta publicado aqui", três vezes seguidas: era
+                         honesto e não informava nada. */
+                      <div className="mt-2 flex flex-col gap-2">
+                        <ul className="flex flex-wrap justify-center gap-x-5 gap-y-1 sm:justify-start">
+                          {(c.dados ?? []).map((d) => (
+                            <li key={d.rotulo} className="text-[1.0625rem] text-[#DCEAE4]">
+                              <b className="font-display font-black tabular-nums text-white">
+                                {d.valor}
+                              </b>{' '}
+                              {d.rotulo}
+                            </li>
+                          ))}
+                        </ul>
+                        {c.evidencia && (
+                          <p className="text-[1.0625rem] leading-relaxed text-[#BFD4CE]">
+                            {c.evidencia}
+                          </p>
+                        )}
+                      </div>
                     ) : (
                       <ul className="mt-2 flex flex-col gap-3">
                         {regs.map((r) => (
@@ -138,8 +157,8 @@ export function Escuta() {
               })}
             </ul>
             <p className="text-[1rem] leading-relaxed text-[#BFD4CE]">
-              O símbolo mostra o vínculo entre as três cidades. A ordem da lista é a
-              geográfica, do norte para o sul.
+              Ordem geográfica, do norte para o sul. Números do IBGE: população do Censo de
+              2022, área territorial e PIB municipal de 2021.
             </p>
 
             {videosEscuta.length > 0 && (

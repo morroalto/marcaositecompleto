@@ -95,7 +95,8 @@ export const agendaRascunho: Evento[] = [
 
 /** Texto da seção, do protótipo. */
 export const agendaTexto = {
-  kicker: 'Agenda',
+  /** o kicker informa, em vez de repetir o nome da seção e do menu */
+  kicker: 'Onde ele vai estar',
   titulo: 'Marcão no meio do povo',
   chamada:
     'Participe dos próximos encontros da campanha e conheça de perto as propostas para o ' +

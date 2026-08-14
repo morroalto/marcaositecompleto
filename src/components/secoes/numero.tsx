@@ -59,7 +59,7 @@ export function Numero() {
         {/* ── o argumento ── */}
         <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
           <div className="flex flex-col items-center gap-3 sm:items-start">
-            <p className="mv-kicker text-amarelo">O Sul tem número</p>
+            <p className="mv-kicker text-amarelo">Nove cidades, um código</p>
             <h2 className="text-[clamp(1.45rem,4.6vw,2.25rem)] font-extrabold tracking-tight text-white">
               O número que você já conhece de cor.
             </h2>
@@ -113,7 +113,7 @@ export function Numero() {
               </li>
             ))}
           </ul>
-          <p className="max-w-[58ch] text-[1.0625rem] leading-relaxed text-[#D7E8E4]">
+          <p className="hidden max-w-[58ch] text-[1.0625rem] leading-relaxed text-[#D7E8E4] sm:block">
             Em destaque, as três cidades do Triângulo do Sul, o movimento que deu origem a
             esta candidatura.{' '}
             <strong className="text-white">

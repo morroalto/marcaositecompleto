@@ -92,7 +92,13 @@ export const selos: { texto: string; revisado: boolean }[] = [
  * "De onde eu venho", esta é a apresentação de quem ele é.
  */
 export const trajetoria = {
-  kicker: 'Trajetória',
+  /**
+   * O kicker NÃO repete o nome da seção. Ele era "Trajetória", que é o mesmo
+   * que o título já diz e o mesmo que está no menu: três vezes a mesma palavra
+   * na mesma tela. Agora ele informa o recorte de tempo, que é o que a seção
+   * tem de concreto.
+   */
+  kicker: 'De 1966 a 2026',
   titulo: 'Raiz no Sul do Espírito Santo',
   revisado: false,
   paragrafos: [

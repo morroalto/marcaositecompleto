@@ -31,7 +31,7 @@ export function Origem() {
       <div className="mv-shell relative flex flex-col gap-10">
 
         <div className="flex max-w-[62ch] flex-col gap-4 text-center sm:text-left">
-          <p className="mv-kicker text-amarelo">De onde eu venho</p>
+          <p className="mv-kicker text-amarelo">Antes da política</p>
           <h2 className="text-[clamp(1.45rem,4.6vw,2.25rem)] font-extrabold tracking-tight">
             A campanha começou numa mesa de família, não num comitê.
           </h2>

@@ -27,7 +27,7 @@ export function Trajetoria() {
           <h2 className="text-[clamp(1.45rem,4.6vw,2.25rem)] font-extrabold tracking-tight">
             {trajetoria.titulo}
           </h2>
-          <p className="text-[1.0625rem] leading-relaxed text-fraca sm:text-[1.15rem]">
+          <p className="hidden text-[1.0625rem] leading-relaxed text-fraca sm:block sm:text-[1.15rem]">
             {trajetoria.paragrafos[0]}
           </p>
         </div>

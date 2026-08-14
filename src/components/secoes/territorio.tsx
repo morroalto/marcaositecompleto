@@ -75,11 +75,11 @@ export function Territorio() {
           descola dos cards que vêm logo abaixo. Foi o que aconteceu aqui. */}
       <div className="mv-shell mt-[var(--secao)]">
         <div className="flex max-w-[62ch] flex-col gap-4 text-center sm:text-left">
-          <p className="mv-kicker text-[#2F5C1B]">O que eu vejo</p>
+          <p className="mv-kicker text-[#2F5C1B]">Nove municípios</p>
           <h2 className="text-[clamp(1.6rem,5.6vw,2.7rem)]">
             <Cartaz className="text-marinho">O SUL DE PERTO</Cartaz>
           </h2>
-          <p className="text-[1.0625rem] leading-relaxed text-fraca sm:text-[1.15rem]">
+          <p className="hidden text-[1.0625rem] leading-relaxed text-fraca sm:block sm:text-[1.15rem]">
             Nove municípios dividem o mesmo código, o mesmo litoral, a mesma serra e os mesmos
             problemas: estrada ruim, fila de exame e emprego que vai embora para a Grande
             Vitória. O triângulo não é figura de linguagem, ele fecha no mapa.

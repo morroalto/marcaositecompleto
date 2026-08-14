@@ -27,11 +27,11 @@ export function QuemE() {
       <FundoEconomias variante="a" className="text-verde opacity-[.05]" />
       <div className="mv-shell relative flex flex-col gap-9">
         <div className="flex max-w-[62ch] flex-col gap-4 text-center sm:text-left">
-          <p className="mv-kicker text-[#2F5C1B]">Quem é</p>
+          <p className="mv-kicker text-[#2F5C1B]">Sete papéis</p>
           <h2 className="text-[clamp(1.45rem,4.6vw,2.25rem)] font-extrabold tracking-tight">
             Antes de ser candidato, ele já era outras seis coisas.
           </h2>
-          <p className="text-[1.0625rem] leading-relaxed text-fraca sm:text-[1.15rem]">
+          <p className="hidden text-[1.0625rem] leading-relaxed text-fraca sm:block sm:text-[1.15rem]">
             {candidato.nomeCivil}. No Sul, todo mundo chama de Marcão. Currículo em bullet não
             convence ninguém: aqui a biografia é o que ele faz, e o que ele diz sobre cada
             papel.
