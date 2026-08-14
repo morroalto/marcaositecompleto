@@ -37,21 +37,25 @@ export function Territorio() {
             Vitória. Estas são fotos da região, não de banco de imagem.
           </p>
         </div>
+      </div>
 
-        <figure className="m-0">
-          <Image
-            src={mapa}
-            alt="Mapa do Espírito Santo com o Triângulo do Sul destacado, ligando Marataízes, Itapemirim e Presidente Kennedy"
-            sizes="(max-width: 1279px) 100vw, 78rem"
-            loading="lazy"
-            className="h-auto w-full rounded-[14px]"
-          />
-          <figcaption className="mt-3 text-center text-[1rem] leading-relaxed text-fraca sm:text-left">
-            O triângulo não é figura de linguagem: ele fecha no mapa, entre Marataízes,
-            Itapemirim e Presidente Kennedy.
-          </figcaption>
-        </figure>
+      {/* de borda a borda, igual ao hero: o mapa é a peça da campanha, não uma
+          figura dentro de um card. Só a legenda volta para o shell. */}
+      <figure className="m-0 my-9 w-full">
+        <Image
+          src={mapa}
+          alt="Mapa do Espírito Santo com o Triângulo do Sul destacado, ligando Marataízes, Itapemirim e Presidente Kennedy"
+          sizes="100vw"
+          loading="lazy"
+          className="h-auto w-full"
+        />
+        <figcaption className="mv-shell mt-3 text-center text-[1rem] leading-relaxed text-fraca sm:text-left">
+          O triângulo não é figura de linguagem: ele fecha no mapa, entre Marataízes,
+          Itapemirim e Presidente Kennedy.
+        </figcaption>
+      </figure>
 
+      <div className="mv-shell">
         <ul className="grid gap-6 sm:grid-cols-3">
           {grade.map((t) => (
             <li key={t.slug}>

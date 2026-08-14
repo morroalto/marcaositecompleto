@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import { Hachura } from '@/components/ui/marca'
 import { IconeSeta } from '@/components/ui/icones'
 import { candidato } from '@/content/candidato'
 import { diasAte } from '@/lib/utils'
@@ -26,14 +25,27 @@ export function Hero() {
 
   return (
     <section id="topo" className="mv-duo corte-baixo relative overflow-hidden">
-      <Hachura className="absolute top-4 right-0 h-10 w-[min(320px,42%)] text-white/25 sm:top-8" />
+      {/* a hachura decorativa saiu daqui: com a arte encostada no topo da
+          seção, ela caía por cima da peça do designer */}
+      <h1 className="mv-sr">
+        {`${candidato.nomeUrna}, ${candidato.cargo} pelo ${candidato.uf}, ${candidato.partido}. `}
+        {`${candidato.slogan}. Na urna, digite ${candidato.numeroSoletrado}.`}
+      </h1>
 
-      <div className="mv-shell flex flex-col gap-8 pt-8 pb-14 sm:pt-10 lg:gap-10 lg:pt-12 lg:pb-24">
-        <h1 className="mv-sr">
-          {`${candidato.nomeUrna}, ${candidato.cargo} pelo ${candidato.uf}, ${candidato.partido}. `}
-          {`${candidato.slogan}. Na urna, digite ${candidato.numeroSoletrado}.`}
-        </h1>
+      {/* A arte sangra de borda a borda: ela É a abertura, não uma ilustração
+          dentro de uma caixa. Sem raio, sem sombra e sem o respiro lateral do
+          shell, que a transformavam num card no meio da tela. */}
+      <figure className="mv-entra m-0 w-full">
+        <Image
+          src={capa}
+          alt={`${candidato.nomeUrna}, ${candidato.slogan}. Arte da campanha.`}
+          priority
+          sizes="100vw"
+          className="h-auto w-full"
+        />
+      </figure>
 
+      <div className="mv-shell flex flex-col gap-8 pt-10 pb-14 lg:gap-10 lg:pb-24">
         <p className="mv-entra flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-center font-display text-[0.8125rem] font-extrabold tracking-[0.14em] text-white/80 uppercase sm:justify-start sm:text-left">
           Eleições 2026
           <span aria-hidden="true">·</span>
@@ -41,16 +53,6 @@ export function Hero() {
           <span aria-hidden="true">·</span>
           {candidato.partido} {candidato.numero}
         </p>
-
-        <figure className="mv-entra mv-d1 m-0">
-          <Image
-            src={capa}
-            alt={`${candidato.nomeUrna}, ${candidato.slogan}. Arte da campanha.`}
-            priority
-            sizes="(max-width: 1279px) 100vw, 78rem"
-            className="h-auto w-full rounded-[14px] shadow-[0_20px_44px_rgba(0,0,0,.34)]"
-          />
-        </figure>
 
         <div className="grid items-center gap-8 lg:grid-cols-[1.15fr_.85fr] lg:gap-14">
           <div className="mv-entra mv-d2 flex flex-col items-center gap-5 text-center sm:items-start sm:text-left">
