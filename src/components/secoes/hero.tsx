@@ -1,89 +1,97 @@
 import Image from 'next/image'
-import { Lockup, Hachura } from '@/components/ui/marca'
+import { Hachura } from '@/components/ui/marca'
 import { IconeSeta } from '@/components/ui/icones'
 import { candidato } from '@/content/candidato'
 import { diasAte } from '@/lib/utils'
-import { videoApresentacao } from '@/content/videos'
-import { Player } from '@/components/ui/video'
-import aponta from '@/../public/fotos/marcao-aponta.webp'
+import capa from '@/../public/fotos/marcao-hero.jpg'
 
 /**
  * HERO
  *
- * Composição do manual: retrato RECORTADO sobre o degradê da marca.
- * Nada de foto de ambiente com véu translúcido por cima, que não existe em
- * peça nenhuma da identidade e é o que estava feio.
+ * Refeito em 14/08/2026: a abertura agora é a ARTE OFICIAL da campanha
+ * (`public/fotos/marcao-hero.jpg`), a mesma peça que roda no Instagram e no
+ * impresso. Ela já traz o lockup e o slogan travados pelo designer, então
+ * repetir "MARCÃO VIVACQUA" em HTML logo abaixo seria dizer duas vezes a mesma
+ * coisa, com dois tratamentos tipográficos diferentes brigando na mesma tela.
  *
- * No celular a ordem é: slogan, nome, número, o que é o 028, contagem, CTA.
- * A foto entra depois do texto no DOM e sobe visualmente por grid, para a
- * ordem de leitura e a de foco continuarem iguais.
+ * O H1 continua existindo, em texto, para leitor de tela e para busca: o que
+ * o olho recebe pela arte, a tecnologia assistiva recebe pelo `mv-sr`, com o
+ * número soletrado dígito a dígito, que é como se digita na urna.
+ *
+ * Abaixo da arte fica o que a arte não faz: explicar o 028, dizer quantos dias
+ * faltam e oferecer o caminho da ação. Ordem de leitura igual à de foco.
  */
 export function Hero() {
   const dias = diasAte(candidato.eleicao.data)
 
   return (
     <section id="topo" className="mv-duo corte-baixo relative overflow-hidden">
-      <Hachura
-        className="absolute top-4 right-0 h-10 w-[min(320px,42%)] text-white/25 sm:top-8"
-      />
+      <Hachura className="absolute top-4 right-0 h-10 w-[min(320px,42%)] text-white/25 sm:top-8" />
 
-      <div className="mv-shell grid items-center gap-8 pt-10 pb-14 sm:pt-14 lg:grid-cols-[1.08fr_.92fr] lg:gap-10 lg:pt-16 lg:pb-24">
-        <div className="flex flex-col items-center gap-5 text-center sm:items-start sm:gap-6 sm:text-left">
-          <p className="mv-entra font-display text-[clamp(1.05rem,4.4vw,1.5rem)] font-bold tracking-tight">
-            Um novo <b className="text-amarelo">Marco</b> para o Sul
-          </p>
+      <div className="mv-shell flex flex-col gap-8 pt-8 pb-14 sm:pt-10 lg:gap-10 lg:pt-12 lg:pb-24">
+        <h1 className="mv-sr">
+          {`${candidato.nomeUrna}, ${candidato.cargo} pelo ${candidato.uf}, ${candidato.partido}. `}
+          {`${candidato.slogan}. Na urna, digite ${candidato.numeroSoletrado}.`}
+        </h1>
 
-          <Lockup comoH1 soletra className="mv-entra mv-d1 text-[clamp(3rem,13.5vw,5.6rem)]" />
+        <p className="mv-entra flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-center font-display text-[0.8125rem] font-extrabold tracking-[0.14em] text-white/80 uppercase sm:justify-start sm:text-left">
+          Eleições 2026
+          <span aria-hidden="true">·</span>
+          {candidato.uf}
+          <span aria-hidden="true">·</span>
+          {candidato.partido} {candidato.numero}
+        </p>
 
-          <p className="mv-entra mv-d2 max-w-[34ch] text-[1.0625rem] leading-relaxed text-[#E4F0EA] sm:text-[1.15rem]">
-            {candidato.cargo} pelo {candidato.uf}.{' '}
-            <strong className="text-amarelo">028 não é só DDD</strong>, é o código que o Sul
-            inteiro disca todo dia, e são os três últimos dígitos do meu número na urna.
-          </p>
+        <figure className="mv-entra mv-d1 m-0">
+          <Image
+            src={capa}
+            alt={`${candidato.nomeUrna}, ${candidato.slogan}. Arte da campanha.`}
+            priority
+            sizes="(max-width: 1279px) 100vw, 78rem"
+            className="h-auto w-full rounded-[14px] shadow-[0_20px_44px_rgba(0,0,0,.34)]"
+          />
+        </figure>
 
-          <p className="mv-entra mv-d3 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 sm:justify-start">
-            <span className="font-display text-[2.6rem] leading-none font-black text-amarelo tabular-nums">
+        <div className="grid items-center gap-8 lg:grid-cols-[1.15fr_.85fr] lg:gap-14">
+          <div className="mv-entra mv-d2 flex flex-col items-center gap-5 text-center sm:items-start sm:text-left">
+            <p className="max-w-[58ch] text-[1.0625rem] leading-relaxed text-[#E4F0EA] sm:text-[1.15rem]">
+              O Sul do Estado é onde o Marcão escolheu viver, construir a história dele e
+              fincar raiz. Da vivência do dia a dia em Marataízes ao conhecimento de
+              Itapemirim e de toda a região, ele conhece essa terra como a palma da mão.
+              É hora de transformar essa presença na voz que a nossa gente precisa na
+              Assembleia Legislativa.
+            </p>
+            <p className="max-w-[58ch] text-[1.0625rem] leading-relaxed text-[#E4F0EA] sm:text-[1.15rem]">
+              <strong className="text-amarelo">028 não é só DDD</strong>, é o código que o Sul
+              inteiro disca todo dia, e são os três últimos dígitos do meu número na urna.
+            </p>
+
+            <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap">
+              <a href="#apoie" className="mv-btn mv-btn-laranja w-full sm:w-auto">
+                Quero ajudar
+                <IconeSeta tamanho={20} />
+              </a>
+              <a href="#bandeiras" className="mv-btn mv-btn-linha w-full sm:w-auto">
+                Ver as bandeiras
+                <IconeSeta tamanho={20} />
+              </a>
+            </div>
+          </div>
+
+          {/* a contagem: o único número da tela que muda sozinho, então ganha
+              caixa própria em vez de disputar espaço dentro do parágrafo */}
+          <div className="mv-entra mv-d3 flex flex-col items-center gap-1 rounded-[14px] border border-white/20 bg-white/[.08] px-7 py-6 text-center">
+            <span className="font-display text-[clamp(3.4rem,14vw,4.6rem)] leading-none font-black text-amarelo tabular-nums">
               {dias}
             </span>
-            <span className="text-[1.0625rem] leading-tight">
-              dias para o dia da eleição
-              <br />
-              <strong className="font-display">
-                {candidato.eleicao.texto}, {candidato.eleicao.turno}
-              </strong>
+            <span className="font-display text-[0.8125rem] font-extrabold tracking-[0.14em] text-white/75 uppercase">
+              dias para a eleição
             </span>
-          </p>
-
-          <div className="mv-entra mv-d4 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap">
-            <a href="#apoie" className="mv-btn mv-btn-laranja w-full sm:w-auto">
-              Quero ajudar
-              <IconeSeta tamanho={20} />
-            </a>
-            <a href="#bandeiras" className="mv-btn mv-btn-linha w-full sm:w-auto">
-              Ver as bandeiras
-              <IconeSeta tamanho={20} />
-            </a>
+            <span className="mt-2 text-[1.0625rem] leading-snug text-[#E4F0EA]">
+              {candidato.eleicao.texto}, {candidato.eleicao.turno}
+            </span>
           </div>
         </div>
-
-        <div className="mv-entra mv-d2 relative mx-auto w-full max-w-[26rem] lg:max-w-none">
-          <Image
-            src={aponta}
-            alt={`${candidato.nomeUrna} de camisa jeans, sorrindo e apontando para quem olha`}
-            priority
-            sizes="(max-width: 1023px) 80vw, 42vw"
-            className="mx-auto h-auto w-full drop-shadow-[0_18px_28px_rgba(0,0,0,.28)]"
-          />
-          <span
-            className="absolute bottom-6 -left-1 rotate-[-3deg] bg-amarelo px-3 py-2 font-display text-[clamp(.85rem,3.4vw,1.05rem)] font-black text-[#003B44] shadow-[0_4px_0_rgba(0,0,0,.22)] sm:left-2"
-          >
-            {candidato.hashtag}
-          </span>
-        </div>
-      </div>
-
-      <div className="mv-shell pb-14 lg:pb-20">
-        <Player video={videoApresentacao} className="mx-auto max-w-[52rem]" />
       </div>
     </section>
   )

@@ -7,6 +7,7 @@ import { Origem } from '@/components/secoes/origem'
 import { Territorio } from '@/components/secoes/territorio'
 import { Escuta } from '@/components/secoes/escuta'
 import { Bandeiras } from '@/components/secoes/bandeiras'
+import { Agenda } from '@/components/secoes/agenda'
 import { Apoie } from '@/components/secoes/apoie'
 import { Rodape } from '@/components/secoes/rodape'
 import { candidato, site } from '@/content/candidato'
@@ -14,18 +15,24 @@ import { candidato, site } from '@/content/candidato'
 /**
  * ARQUITETURA: retrato em sete facetas.
  *
- *   1 Abertura            quem é, o número, o prazo, a ação
- *   2 O Sul tem número    36 é o partido, 028 é o DDD, e as nove cidades
- *   3 Quem é o Marcão     as sete facetas, o elemento assinatura
- *   4 De onde eu venho    família e Triângulo do Sul
- *   5 O que eu vejo       o território em foto real
+ *   1 Abertura            a arte oficial, o prazo, a ação
+ *   2 O Sul tem número    o orelhão, o 36, o 028 e as nove cidades
+ *   3 Quem é o Marcão     as sete facetas, agora em texto
+ *   4 De onde eu venho    família, linha do tempo e Triângulo do Sul
+ *   5 O que eu vejo       o mapa da campanha e o território em foto real
  *   6 O que eu ouvi       o triângulo da escuta
- *   7 O que eu vou fazer  as bandeiras
- *   8 Bora junto          WhatsApp e cadastro
+ *   7 O que eu vou fazer  as seis bandeiras
+ *   8 Agenda              só renderiza com evento confirmado
+ *   9 Bora junto          WhatsApp e cadastro
  *
  * A ordem vai do concreto (a pessoa, o número) para o compromisso, e termina
  * na conversão. Nome de seção em primeira pessoa, porque é a voz dele que
  * sustenta a página quando o logo sai.
+ *
+ * Fusão de 14/08/2026: a estrutura e os textos do protótipo "Sul em Foco"
+ * entraram neste projeto. Vieram de lá a linha do tempo, os selos, a citação,
+ * o efeito de discagem, a agenda, as pautas de pesca, agricultura e
+ * mobilidade, o aviso de LGPD e a assinatura do rodapé.
  */
 export default function Pagina() {
   const dadosEstruturados = {
@@ -57,6 +64,7 @@ export default function Pagina() {
         <Territorio />
         <Escuta />
         <Bandeiras />
+        <Agenda />
         <Apoie />
       </main>
       <Rodape />

@@ -1,30 +1,35 @@
-import Image from 'next/image'
 import { IconeMegafone, IconeSeta } from '@/components/ui/icones'
-import { bandeiras } from '@/content/bandeiras'
+import { bandeiras, type Bandeira } from '@/content/bandeiras'
 import { MOSTRAR_PENDENCIAS } from '@/content/flags'
-import { videoPorBandeira } from '@/content/videos'
-import { Player } from '@/components/ui/video'
-import azul from '@/../public/fotos/marcao-azul.webp'
 
-const BARRA: Record<string, string> = {
-  laranja: 'border-t-laranja', verde: 'border-t-verde', marinho: 'border-t-marinho',
-  amarelo: 'border-t-amarelo', petroleo: 'border-t-petroleo',
-}
-const NUM: Record<string, string> = {
-  laranja: 'text-laranja', verde: 'text-verde', marinho: 'text-marinho',
-  amarelo: 'text-amarelo', petroleo: 'text-petroleo',
+/** cor da marca que entra no fio do card, via custom property */
+const FIO: Record<Bandeira['cor'], string> = {
+  laranja: 'var(--laranja)',
+  verde: 'var(--verde-fundo)',
+  marinho: 'var(--marinho)',
+  amarelo: 'var(--amarelo)',
+  petroleo: 'var(--petroleo)',
 }
 
 /**
  * BANDEIRAS
  *
- * Card sem compromisso concreto não renderiza em produção. Aqui ele continua
- * na tela porque `MOSTRAR_PENDENCIAS` está ligado na revisão, e a caixa
- * vermelha diz exatamente o que falta e de quem depende.
+ * Card redesenhado em 14/08/2026. O anterior era uma caixa com faixa colorida
+ * de 6 px no topo e o número em corpo 35 com 30% de opacidade dentro do texto:
+ * seis deles lado a lado viravam seis retângulos listrados, e o número
+ * apagado só sujava a leitura. Agora o card é branco e quieto, o número é
+ * pequeno e nítido na linha do título, e a cor da marca fica num fio de 3 px
+ * que cresce para 6 no hover. Forma inspirada em brunopeixoto.com e
+ * nikolasferreira.com.br, onde quem organiza a grade é o número, não a cor.
  *
- * Grade uniforme: seis cards do mesmo tamanho, alinhados pelo topo e esticados
- * até a mesma altura (`items-stretch` mais `h-full`). Card de tamanho variável
- * sugere hierarquia entre os eixos, e aqui não existe eixo mais importante.
+ * O compromisso ganhou caixa própria, em fundo papel: é a parte que diferencia
+ * este site de um site de promessa vaga, e antes era um parágrafo qualquer com
+ * um fio verde na lateral.
+ *
+ * A foto que enfeitava o cabeçalho da seção saiu. Ela não dizia nada que o
+ * texto já não dissesse, e a página tinha foto demais.
+ *
+ * Card sem compromisso concreto não renderiza em produção.
  */
 export function Bandeiras() {
   const visiveis = bandeiras.filter((b) => b.compromisso !== null || MOSTRAR_PENDENCIAS)
@@ -33,52 +38,41 @@ export function Bandeiras() {
 
   return (
     <section id="bandeiras" className="bg-papel mv-secao">
-      <div className="mv-shell flex flex-col gap-8">
-        <div className="grid items-center gap-8 lg:grid-cols-[1.4fr_.6fr]">
-          <div className="flex max-w-[56ch] flex-col items-center gap-4 text-center sm:items-start sm:text-left">
-            <p className="mv-kicker text-[#2F5C1B]">O que eu vou fazer</p>
-            <h2 className="text-[clamp(1.7rem,6.4vw,2.9rem)] font-extrabold tracking-tight">
-              Cinco frentes. Todas com nome de lugar.
-            </h2>
-            <p className="text-[1.0625rem] leading-relaxed text-fraca sm:text-[1.15rem]">
-              Estes são os eixos que o Marcão já assumiu em público. Cada um vira compromisso
-              com endereço, e enquanto o compromisso concreto não vier da assessoria o card
-              fica marcado. Proposta vaga não entra neste site.
-            </p>
-          </div>
-          <Image
-            src={azul}
-            alt="Marcão de camiseta azul, braços cruzados"
-            sizes="(max-width: 1023px) 40vw, 22vw"
-            loading="lazy"
-            className="mx-auto hidden h-auto w-full max-w-[15rem] lg:block"
-          />
+      <div className="mv-shell flex flex-col gap-9">
+        <div className="mx-auto flex max-w-[58ch] flex-col items-center gap-4 text-center sm:mx-0 sm:items-start sm:text-left">
+          <p className="mv-kicker text-[#2F5C1B]">O que eu vou fazer</p>
+          <h2 className="text-[clamp(1.7rem,6.4vw,2.9rem)] font-extrabold tracking-tight">
+            Seis frentes. Todas com nome de lugar.
+          </h2>
+          <p className="text-[1.0625rem] leading-relaxed text-fraca sm:text-[1.15rem]">
+            Estes são os eixos que o Marcão já assumiu em público. Cada um vira compromisso
+            com endereço, e enquanto o compromisso concreto não vier da assessoria o card
+            fica marcado. Proposta vaga não entra neste site.
+          </p>
         </div>
 
-        <ul className="grid items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="grid items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {visiveis.map((b, i) => (
             <li
               key={b.slug}
-              className={['mv-card flex h-full flex-col border-t-[6px]', BARRA[b.cor]].join(' ')}
+              className="mv-card flex h-full flex-col gap-3"
+              style={{ '--fio': FIO[b.cor] } as React.CSSProperties}
             >
-              <span className={`font-display text-[2.2rem] leading-none font-black opacity-30 ${NUM[b.cor]}`}>
-                {String(i + 1).padStart(2, '0')}
-              </span>
-              <h3 className="mt-1 mb-2 text-[1.25rem] font-extrabold">{b.titulo}</h3>
+              <p className="flex items-baseline gap-3">
+                <span className="mv-num">{String(i + 1).padStart(2, '0')}</span>
+                <span className="h-px grow bg-linha" aria-hidden="true" />
+              </p>
+              <h3 className="text-[1.25rem] font-extrabold">{b.titulo}</h3>
               <p className="text-[1.0625rem] leading-relaxed text-fraca">{b.contexto}</p>
               <span className="grow" aria-hidden="true" />
 
-              {videoPorBandeira[b.slug] && (
-                <Player video={videoPorBandeira[b.slug]!} className="mt-4" />
-              )}
-
               {b.compromisso ? (
-                <p className="mt-4 border-l-4 border-verde pl-4 text-[1.0625rem] font-semibold">
+                <p className="mv-compromisso mt-2 text-[1.0625rem] leading-relaxed font-semibold">
                   {b.compromisso}
                 </p>
               ) : (
                 MOSTRAR_PENDENCIAS && (
-                  <p className="mt-4 flex items-center gap-2 text-[0.9375rem] font-semibold text-[#B3241C]">
+                  <p className="mt-2 flex items-center gap-2 text-[0.9375rem] font-semibold text-[#B3241C]">
                     <span
                       aria-hidden="true"
                       className="grid h-5 w-5 shrink-0 place-items-center rounded-full border-2 border-[#B3241C] text-[0.75rem] leading-none"
@@ -91,20 +85,24 @@ export function Bandeiras() {
               )}
             </li>
           ))}
-
-          <li className="mv-card flex h-full flex-col border-0 bg-petroleo shadow-none">
-            <IconeMegafone className="text-amarelo" tamanho={28} />
-            <p className="mv-kicker mt-3 text-amarelo">Faltou o seu tema?</p>
-            <h3 className="mt-2 mb-2 text-[1.25rem] font-extrabold text-white">Manda pra gente.</h3>
-            <p className="text-[1.0625rem] leading-relaxed text-[#CBDDD7]">
-              A pauta do Sul não cabe em cinco cards.
-            </p>
-            <a href="#apoie" className="mv-btn mv-btn-amarelo mt-auto w-full">
-              Manda o seu tema
-              <IconeSeta tamanho={20} />
-            </a>
-          </li>
         </ul>
+
+        {/* faixa, não card: o convite não é o sétimo eixo, é outra coisa */}
+        <div className="flex flex-col items-center gap-5 rounded-[10px] bg-petroleo px-7 py-7 text-center text-white sm:flex-row sm:items-center sm:justify-between sm:text-left">
+          <div className="flex flex-col items-center gap-2 sm:flex-row sm:gap-4">
+            <IconeMegafone className="shrink-0 text-amarelo" tamanho={30} />
+            <div>
+              <h3 className="text-[1.25rem] font-extrabold">Faltou o seu tema?</h3>
+              <p className="text-[1.0625rem] leading-relaxed text-[#CBDDD7]">
+                A pauta do Sul não cabe em seis cards. Manda pra gente.
+              </p>
+            </div>
+          </div>
+          <a href="#apoie" className="mv-btn mv-btn-amarelo w-full shrink-0 sm:w-auto">
+            Manda o seu tema
+            <IconeSeta tamanho={20} />
+          </a>
+        </div>
 
         {MOSTRAR_PENDENCIAS && semCompromisso > 0 && (
           <p className="mv-todo">

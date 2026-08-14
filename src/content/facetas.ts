@@ -106,21 +106,28 @@ export const biografia = {
  * print de player de vídeo, com tarja preta e barra de controles. Ele continua
  * citado no compromisso de Infraestrutura. Volta para cá quando vier uma foto
  * de verdade, ou um quadro extraído do vídeo do drone.
+ *
+ * `naGrade` decide quem aparece. Em 14/08/2026 a grade caiu de cinco fotos
+ * para três, as três cidades do Triângulo do Sul, porque a página inteira
+ * estava pesada de foto e cinco vistas aéreas seguidas viram papel de parede:
+ * a quarta e a quinta já não são olhadas. Ferrovia e Samarco continuam aqui,
+ * com texto pronto, e voltam trocando o campo para `true` (ou entram numa
+ * página de território, se um dia existir).
  */
 export const territorio = [
-  { slug: 'ferrovia', titulo: 'A Ferrovia 118', foto: 'terra-ferrovia',
-    alt: 'Trem de carga atravessando um viaduto sobre a mata, vista aérea',
-    texto: 'A carga passa por cima da gente. O emprego, nem sempre.' },
-  { slug: 'marataizes', titulo: 'Marataízes', foto: 'terra-marataizes',
+  { slug: 'marataizes', titulo: 'Marataízes', foto: 'terra-marataizes', naGrade: true,
     alt: 'Vista aérea da orla de Marataízes, com praia e quebra-mar',
     texto: 'Capital estadual do abacaxi e a praia que sustenta o verão.' },
-  { slug: 'itapemirim', titulo: 'Itapemirim', foto: 'terra-itapemirim',
+  { slug: 'itapemirim', titulo: 'Itapemirim', foto: 'terra-itapemirim', naGrade: true,
     alt: 'Vista aérea da barra e do porto pesqueiro de Itaipava, em Itapemirim',
     texto: 'Itaipava é o maior porto pesqueiro do Espírito Santo.' },
-  { slug: 'kennedy', titulo: 'Presidente Kennedy', foto: 'terra-kennedy',
+  { slug: 'kennedy', titulo: 'Presidente Kennedy', foto: 'terra-kennedy', naGrade: true,
     alt: 'Vista aérea da praia de Presidente Kennedy num dia de sol',
     texto: 'O maior arrecadador de royalties de petróleo do estado.' },
-  { slug: 'samarco', titulo: 'Samarco, em Anchieta', foto: 'terra-samarco',
+  { slug: 'ferrovia', titulo: 'A Ferrovia 118', foto: 'terra-ferrovia', naGrade: false,
+    alt: 'Trem de carga atravessando um viaduto sobre a mata, vista aérea',
+    texto: 'A carga passa por cima da gente. O emprego, nem sempre.' },
+  { slug: 'samarco', titulo: 'Samarco, em Anchieta', foto: 'terra-samarco', naGrade: false,
     alt: 'Portaria da unidade da Samarco em Anchieta, vista da estrada',
     texto: 'Indústria que emprega, e que cobra contrapartida da região.' },
 ]

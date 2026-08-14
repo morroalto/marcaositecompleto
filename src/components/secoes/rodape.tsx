@@ -132,10 +132,22 @@ export function Rodape() {
             <strong>{candidato.campanha.cnpj}</strong>.
           </p>
 
+          {/* aviso de LGPD, vindo do protótipo Sul em Foco. Em corpo legível:
+              obrigação legal escondida em letra de 11 px é obrigação cumprida
+              pela metade. */}
+          <p className="max-w-[72ch] text-[1rem] leading-relaxed text-white/75">
+            Dados coletados com consentimento expresso, conforme a LGPD (Lei 13.709/2018) e a
+            Resolução TSE 23.610/2019.
+          </p>
+
           <p className="text-[1rem]">
             <Link href="/privacidade" className="underline hover:text-amarelo">
               Política de Privacidade
             </Link>
+          </p>
+
+          <p className="text-[0.9375rem] text-white/55">
+            Desenvolvido por Morro Alto Creative Office
           </p>
         </div>
       </div>

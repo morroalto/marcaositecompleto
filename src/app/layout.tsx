@@ -41,6 +41,12 @@ export const metadata: Metadata = {
   twitter: { card: 'summary_large_image', title: site.titulo, description: site.descricao },
   icons: { icon: '/favicon.svg', apple: '/favicon.svg' },
   robots: { index: true, follow: true },
+  /**
+   * Verificação de domínio do Meta Business (marcaovivacqua.com.br, ID
+   * 3244129105797968). Sai no `<head>` renderizado no servidor, que é o que a
+   * Meta exige: tag injetada por JavaScript não é encontrada pelo rastreador.
+   */
+  other: { 'facebook-domain-verification': 'md2b95bollm2esa8lv1aw7f4t3zzvy' },
 }
 
 export const viewport: Viewport = {

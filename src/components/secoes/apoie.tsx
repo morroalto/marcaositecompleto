@@ -86,8 +86,9 @@ export function Apoie() {
             <Cartaz className="text-laranja">{candidato.hashtag}</Cartaz>
           </h2>
           <p className="max-w-[52ch] text-[1.0625rem] leading-relaxed text-[#CFE0DA] sm:text-[1.15rem]">
-            Campanha no Sul não se ganha com dinheiro, se ganha com gente falando com gente.
-            Escolha por onde você quer entrar:
+            O Marcão é a ponte para levar a voz e a necessidade da nossa gente até onde as
+            decisões acontecem. Campanha no Sul não se ganha com dinheiro, se ganha com gente
+            falando com gente. Escolha por onde você quer entrar:
           </p>
 
           <ul className="flex flex-col gap-3">

@@ -222,9 +222,71 @@
     padding: .35rem .75rem; border-radius: 4px;
   }
 
+  /* ── CARD ───────────────────────────────────────────────────────────
+     Refeito em 14/08/2026. O anterior tinha faixa colorida de 6 px no topo
+     e o número gigante em opacidade 30% dentro do corpo: seis cards assim,
+     lado a lado, viravam seis retângulos listrados brigando entre si.
+     Referência de forma: brunopeixoto.com e nikolasferreira.com.br, onde o
+     card é branco, quieto, e quem organiza a leitura é o número, não a cor.
+     A cor da marca aparece num fio fino que só cresce no hover. */
   .mv-card {
-    background: #fff; border-radius: var(--r-card); padding: 1.6rem 1.5rem;
-    border: 1px solid var(--linha); box-shadow: 0 2px 0 var(--linha);
+    position: relative; overflow: hidden;
+    background: #fff; border-radius: var(--r-card); padding: 1.75rem 1.6rem;
+    border: 1px solid var(--linha);
+    transition: transform .18s var(--ease), box-shadow .18s var(--ease),
+                border-color .18s var(--ease);
+  }
+  /* o fio: 3 px parado, 6 px no hover, e a cor vem de --fio no elemento */
+  .mv-card::before {
+    content: ''; position: absolute; inset: 0 0 auto 0; height: 3px;
+    background: var(--fio, var(--linha));
+    transition: height .18s var(--ease);
+  }
+  .mv-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--fio, var(--linha));
+    box-shadow: 0 10px 24px rgb(0 59 68 / .10);
+  }
+  .mv-card:hover::before { height: 6px; }
+
+  /* número de ordem do card: tabular, discreto, alinhado ao título */
+  .mv-num {
+    font-family: var(--font-display); font-weight: 900;
+    font-size: 1.05rem; letter-spacing: .04em;
+    font-variant-numeric: tabular-nums; color: var(--fio, var(--tinta-fraca));
+  }
+
+  /* o compromisso dentro do card: bloco, não parágrafo solto */
+  .mv-compromisso {
+    border-radius: 8px; background: var(--papel);
+    border-left: 4px solid var(--verde-fundo);
+    padding: .9rem 1rem;
+  }
+
+  /* ── LINHA DO TEMPO (vinda do protótipo Sul em Foco) ──
+     Um fio vertical, o ano em display e a bolinha na marca. */
+  .mv-tempo { border-left: 3px solid var(--linha); padding-left: 1.75rem; }
+  .mv-tempo > li { position: relative; padding-bottom: 2.5rem; }
+  .mv-tempo > li:last-child { padding-bottom: 0; }
+  .mv-tempo > li::before {
+    content: ''; position: absolute; left: calc(-1.75rem - 10px); top: .35rem;
+    width: 17px; height: 17px; border-radius: 999px;
+    background: var(--verde); border: 4px solid #fff;
+    box-shadow: 0 0 0 1px var(--linha);
+  }
+  /* sobre fundo marinho: o fio some no branco e a bolinha precisa de outra borda */
+  .mv-tempo-escura { border-left-color: rgb(255 255 255 / .25); }
+  .mv-tempo-escura > li::before {
+    background: var(--amarelo);
+    border-color: var(--marinho);
+    box-shadow: 0 0 0 1px rgb(255 255 255 / .3);
+  }
+
+  /* ── APARELHO DE TELEFONE (efeito de discagem do protótipo) ── */
+  .mv-fone {
+    border-radius: 20px; background: #14181A; padding: 1.5rem;
+    box-shadow: 0 14px 34px rgb(0 0 0 / .35);
+    border: 1px solid rgb(255 255 255 / .10);
   }
 
   /* caixa de pendência: existe só antes do go-live */
@@ -260,6 +322,12 @@
 /* ═══════════════════════════════════════════════════════════════════════
    5 · MOVIMENTO — três comportamentos na página inteira, nunca mais
    ═══════════════════════════════════════════════════════════════════════ */
+/* cursor do visor de discagem e o "chamando", ambos do protótipo Sul em Foco */
+@keyframes mv-cursor { 0%, 49% { opacity: 1 } 50%, 100% { opacity: 0 } }
+.mv-cursor { animation: mv-cursor 1s step-end infinite; }
+@keyframes mv-pisca { 0%, 100% { opacity: .45 } 50% { opacity: 1 } }
+.mv-pisca { animation: mv-pisca 1.4s ease-in-out infinite; }
+
 @keyframes mv-entra { to { opacity: 1; transform: none; } }
 .mv-entra { opacity: 0; transform: translateY(16px); animation: mv-entra .6s var(--ease) forwards; }
 .mv-d1 { animation-delay: .06s } .mv-d2 { animation-delay: .13s }
