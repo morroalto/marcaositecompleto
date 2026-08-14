@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { candidato } from '@/content/candidato'
 import { cn } from '@/lib/utils'
 
@@ -28,6 +29,38 @@ export function Lockup({
         </span>
       )}
     </Tag>
+  )
+}
+
+/**
+ * LOCKUP OFICIAL EM ARQUIVO, versão branca com fundo transparente
+ * (`public/marca/lockup-branco.png`, do acervo da campanha).
+ *
+ * Onde a marca aparece sozinha, sobre fundo escuro, e precisa estar EXATA — o
+ * cabeçalho e a tela de abertura — vale mais o arquivo do designer do que a
+ * reconstrução em HTML: o desenho do "MARCÃO", o peso do "36.028" e a largura
+ * da barra tricolor são decisões dele, não minhas.
+ *
+ * A reconstrução em texto (`Lockup`, acima) continua em uso onde o tamanho
+ * varia muito ou onde ele precisa acompanhar o texto ao redor, como no rodapé:
+ * ali ela escala sem perder nitidez e não custa uma requisição.
+ *
+ * `altura` é o que manda no tamanho; a largura vem da proporção do arquivo,
+ * que é 3539 por 1500. Sempre com `alt` de verdade, porque é o nome dele.
+ */
+export function LockupArte({
+  className, altura = 40, prioridade = false,
+}: { className?: string; altura?: number; prioridade?: boolean }) {
+  return (
+    <Image
+      src="/marca/lockup-branco.png"
+      alt={`${candidato.nomeUrna}, ${candidato.numero}`}
+      width={Math.round((altura * 3539) / 1500)}
+      height={altura}
+      priority={prioridade}
+      className={cn('h-auto w-auto', className)}
+      style={{ height: altura }}
+    />
   )
 }
 

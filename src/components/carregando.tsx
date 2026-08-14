@@ -1,4 +1,4 @@
-import { Lockup } from '@/components/ui/marca'
+import { LockupArte } from '@/components/ui/marca'
 import { candidato } from '@/content/candidato'
 
 /**
@@ -31,7 +31,9 @@ export function Carregando() {
       />
       <div className="mv-abertura" aria-hidden="true">
         <div className="mv-abertura-cx">
-          <Lockup className="text-[clamp(2.4rem,11vw,3.6rem)] text-white" />
+          {/* mesma arte oficial do cabeçalho, maior. `prioridade` porque ela é
+              a primeira coisa que aparece na tela */}
+          <LockupArte altura={72} prioridade className="w-[min(78vw,22rem)]" />
           <div className="mv-abertura-trilho">
             <span className="mv-abertura-barra" />
           </div>

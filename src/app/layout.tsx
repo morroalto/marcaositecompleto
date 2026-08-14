@@ -33,6 +33,7 @@ const poppins = localFont({
     { path: '../fonts/poppins-600.woff2', weight: '600', style: 'normal' },
     { path: '../fonts/poppins-700.woff2', weight: '700', style: 'normal' },
     { path: '../fonts/poppins-800.woff2', weight: '800', style: 'normal' },
+    { path: '../fonts/poppins-900.woff2', weight: '900', style: 'normal' },
   ],
   variable: '--fonte-corpo',
   display: 'swap',

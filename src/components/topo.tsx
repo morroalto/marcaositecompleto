@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Lockup, BarraTricolor } from '@/components/ui/marca'
+import { LockupArte, BarraTricolor } from '@/components/ui/marca'
 import { candidato } from '@/content/candidato'
 
 /**
@@ -77,7 +77,9 @@ export function Topo() {
           className="shrink-0 no-underline drop-shadow-[0_2px_6px_rgba(0,0,0,.45)]"
           aria-label={`${candidato.nomeUrna}, ir para o topo`}
         >
-          <Lockup className="text-[1.15rem] sm:text-[1.3rem] lg:text-[1.45rem]" />
+          {/* arquivo oficial, não a reconstrução em HTML: aqui a marca aparece
+              sozinha e precisa estar exata */}
+          <LockupArte altura={34} prioridade className="sm:h-[38px]" />
         </a>
 
         <nav aria-label="Navegação principal" className="hidden lg:block">

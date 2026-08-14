@@ -3,7 +3,6 @@
 import { useMemo, useState } from 'react'
 import Image from 'next/image'
 import { Cartaz } from '@/components/ui/marca'
-import { IconeSeta } from '@/components/ui/icones'
 import { escutas, triangulo, type SlugCidade } from '@/content/territorio'
 import { videosEscuta } from '@/content/videos'
 import { Player } from '@/components/ui/video'
@@ -38,21 +37,24 @@ export function Escuta() {
    * de Marataízes acima do vértice de cima, os outros dois nas laterais, na
    * altura da base. Quem liga o nome ao lóbulo é a seta.
    */
-  const POS: Record<string, { caixa: string; seta: string; ordem: 'antes' | 'depois' }> = {
+  const POS: Record<string, { caixa: string; traco: string; ordem: 'antes' | 'depois' }> = {
     marataizes: {
-      caixa: 'top-0 left-1/2 -translate-x-1/2 flex-col',
-      seta: 'rotate-90',
+      // acima do vértice de cima, com o traço descendo até ele
+      caixa: 'top-0 left-1/2 -translate-x-1/2 flex-col items-center',
+      traco: 'h-7 w-[3px]',
       ordem: 'depois',
     },
     itapemirim: {
-      caixa: 'bottom-[16%] left-0 flex-row',
-      seta: '',
+      // 24% a partir da base: é onde fica o centro do lóbulo do peixe, contando
+      // que o quadro tem 3.5rem de respiro no topo além da altura da arte
+      caixa: 'bottom-[24%] left-0 flex-row items-center',
+      traco: 'h-[3px] w-4',
       ordem: 'depois',
     },
     'presidente-kennedy': {
-      caixa: 'bottom-[16%] right-0 flex-row',
-      seta: 'rotate-180',
-      ordem: 'antes',
+      caixa: 'bottom-[24%] right-0 flex-row-reverse items-center',
+      traco: 'h-[3px] w-4',
+      ordem: 'depois',
     },
   }
 
@@ -76,7 +78,7 @@ export function Escuta() {
         <div className="grid gap-10 lg:grid-cols-2 lg:items-start">
           {/* o quadro é maior que o logotipo de propósito: a folga em volta é
               onde os cards das cidades ficam, sem cobrir a arte */}
-          <div className="relative mx-auto w-full max-w-[30rem] px-[3.5rem] pt-[3.25rem] pb-2 sm:px-[5.5rem]">
+          <div className="relative mx-auto w-full max-w-[32rem] px-[7.5rem] pt-[4rem] pb-2">
             <Image
               src="/marca/triangulo-do-sul.webp"
               alt=""
@@ -91,36 +93,36 @@ export function Escuta() {
               const regs = porCidade.get(c.slug) ?? []
               const p = POS[c.slug]
               const sel = ativa === c.slug
-              const seta = (
-                <IconeSeta
-                  tamanho={18}
-                  className={`shrink-0 ${p.seta}`}
-                />
-              )
               return (
                 <button
                   key={c.slug}
                   type="button"
                   aria-pressed={sel}
                   onClick={() => setAtiva((v) => (v === c.slug ? null : c.slug))}
-                  className={[
-                    'absolute flex min-h-[44px] items-center justify-center gap-1',
-                    'font-display leading-tight transition-colors',
-                    p.caixa,
-                  ].join(' ')}
+                  className={['absolute flex gap-0 transition-colors', p.caixa].join(' ')}
                 >
-                  {p.ordem === 'antes' && seta}
                   <span
                     className={[
-                      'rounded-lg px-3 py-2 text-center text-[clamp(.8rem,2.6vw,.95rem)] font-black',
+                      'block w-[7rem] rounded-md px-2 py-2 text-center font-display',
+                      'text-[0.9375rem] leading-tight font-bold shadow-[0_3px_10px_rgba(0,0,0,.35)]',
                       sel
                         ? 'bg-amarelo text-[#08222A]'
-                        : 'bg-[rgb(0_35_40/.9)] text-white hover:bg-[rgb(0_35_40/1)]',
+                        : 'bg-[#08222A] text-white hover:bg-[#0d3540]',
                     ].join(' ')}
                   >
                     {c.nome}
                   </span>
-                  {p.ordem === 'depois' && seta}
+                  {/* o traço que liga o card ao lóbulo. Ícone de seta aqui
+                      sumia no fundo e não encostava em nada: o que faz a
+                      ligação é a linha tocando a arte. */}
+                  <span
+                    aria-hidden="true"
+                    className={[
+                      'block shrink-0 rounded-full',
+                      sel ? 'bg-amarelo' : 'bg-white/70',
+                      p.traco,
+                    ].join(' ')}
+                  />
                   <span className="mv-sr">
                     {regs.length
                       ? `${regs.length} registro de escuta, o mais recente em ${dataBR(regs.at(-1)!.data)}`

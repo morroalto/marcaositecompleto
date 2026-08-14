@@ -137,30 +137,38 @@
   /* ── LOCKUP OFICIAL: MARCÃO / VIVACQUA + barra tricolor + 36.028 ──
      Reconstruído em HTML porque não existe vetor do lockup no acervo:
      ele só aparece dentro de PSD e rasterizado no manual. */
+  /* Proporções conferidas contra a arte oficial em 14/08/2026. O que estava
+     diferente: a barra tricolor era um fio de 0.085em, quase invisível, e no
+     original ela é um bloco grosso, com a MESMA LARGURA do "VIVACQUA" logo
+     acima; e o "36.028" era pequeno demais, quando na marca ele chega perto da
+     altura do "MARCÃO" e é o segundo elemento mais forte do conjunto.
+     As duas palavras de baixo se alinham pela BASE, não pelo topo. */
   .mv-lockup {
     display: inline-grid;
     grid-template-columns: auto auto;
-    gap: 0 .38em;
+    gap: 0 .22em;
     align-items: end;
-    line-height: 1;
+    line-height: .92;
     font-family: var(--font-display);
   }
   .mv-lockup .nome {
     grid-column: 1 / -1;
     font-weight: 400; font-size: 1em;
-    letter-spacing: -.01em;
+    letter-spacing: -.005em;
   }
   .mv-lockup .sob {
-    font-weight: 700; font-size: .42em;
-    letter-spacing: .01em; align-self: end; padding-bottom: .15em;
+    font-weight: 400; font-size: .43em;
+    letter-spacing: .005em; align-self: end;
   }
   .mv-lockup .num {
-    font-weight: 700; font-size: .63em;
-    letter-spacing: -.01em; font-variant-numeric: tabular-nums;
+    font-weight: 400; font-size: .66em;
+    letter-spacing: -.005em; font-variant-numeric: tabular-nums;
+    align-self: end;
   }
+  /* a barra fica só na coluna do VIVACQUA, e por isso herda a largura dele */
   .mv-lockup .barra {
     grid-column: 1;
-    display: flex; height: .085em; min-height: 3px; margin-top: .06em;
+    display: flex; height: .15em; min-height: 4px; margin-top: .07em;
   }
   .mv-lockup .barra i { flex: 1; }
   .mv-lockup .barra i:nth-child(1) { background: var(--verde); }
@@ -379,11 +387,13 @@
     background: radial-gradient(ellipse, rgb(0 0 0 / .6) 0%, rgb(0 0 0 / .28) 45%, transparent 74%);
     filter: blur(12px);
   }
-  /* máscara generosa: dissolve só a moldura do arquivo, sem comer os pés nem
-     o alto do poste */
+  /* A MÁSCARA SAIU em 14/08/2026, junto com a troca do arquivo.
+     Ela existia para dissolver o fundo retangular escuro da foto antiga. O
+     recorte novo é PNG com canal alfa, ou seja, já entra sem fundo: manter a
+     máscara só comeria os pés dele e o alto do orelhão.
+     O que dá profundidade a um recorte é o halo atrás, a sombra no chão e a
+     sombra projetada da própria figura, que seguem aqui. */
   .mv-profundidade img {
-    -webkit-mask-image: radial-gradient(ellipse 92% 96% at 50% 50%, #000 70%, transparent 100%);
-    mask-image: radial-gradient(ellipse 92% 96% at 50% 50%, #000 70%, transparent 100%);
     filter: drop-shadow(0 22px 34px rgb(0 0 0 / .45));
   }
 
