@@ -1,22 +1,19 @@
 /**
  * TRAJETÓRIA E LINHA DO TEMPO
  *
- * Fonte: copy oficial da campanha (`dizeres site marcao.pdf`, seções 3 e 4),
- * recebido em 15/08/2026. É o texto aprovado, e substitui tanto o que veio do
- * protótipo "Sul em Foco" quanto os rascunhos que eu tinha escrito.
+ * Texto do protótipo aprovado (`src/components/Trajetoria.tsx`), restaurado em
+ * 15/08/2026 palavra por palavra.
  *
- * Por isso os marcos entram com `revisado: true`: eles não são mais dedução
- * minha a partir de foto, são o texto que a campanha mandou usar.
- *
- * ⚠️ UMA PENDÊNCIA VEIO DENTRO DO PRÓPRIO COPY. Entre "Marco Antônio, 2016" e
- * a candidatura, o documento traz, destacado em verde, a pergunta:
- * "O que marcão fez nesses últimos 10 anos?". É um bilhete do redator, não
- * conteúdo, então não vai para a tela — mas o buraco é real: a linha do tempo
- * pula de 2016 para 2026 sem nada no meio, e é justamente a década mais
- * recente, a que o eleitor lembra. Vale preencher antes do go-live.
+ * SÃO SEIS MARCOS, e só esses: 1966, 1972, 1986, 1994, 2012 e 2026. O copy em
+ * PDF trazia treze, com as três filhas, as duas formações e as duas eleições
+ * separadas; a versão aprovada é esta, mais curta. Os treze estão no histórico
+ * do git (commit "Aplica o copy oficial") se um dia a campanha quiser voltar
+ * atrás.
  */
 
 export interface Marco {
+  /** emoji do protótipo, decorativo */
+  icone: string
   ano: string
   titulo: string
   texto: string
@@ -25,116 +22,70 @@ export interface Marco {
 
 export const linhaDoTempo: Marco[] = [
   {
+    icone: '📍',
     ano: '1966',
-    titulo: 'Rio de Janeiro',
+    titulo: 'Rio de Janeiro, 1966',
     texto:
       'Marcão nasce no Rio de Janeiro. Mas é no Espírito Santo que sua história de verdade ' +
       'começa.',
     revisado: true,
   },
   {
+    icone: '🏡',
     ano: '1972',
-    titulo: 'Cachoeiro de Itapemirim',
+    titulo: 'Cachoeiro de Itapemirim, 1972',
     texto:
-      'Aos 6 anos, muda-se com a família para Cachoeiro. É ali que cresce, faz os primeiros ' +
-      'amigos e aprende cedo o valor do trabalho.',
+      'Aos 6 anos, muda-se com a família para Cachoeiro. É ali que cresce, estuda e aprende ' +
+      'o valor do trabalho.',
     revisado: true,
   },
   {
+    icone: '💍',
     ano: '1986',
-    titulo: 'Adriana',
+    titulo: 'Adriana, 1986',
     texto:
-      'Encontra em Adriana a companheira de uma vida inteira. Juntos, construíram família, ' +
-      'trabalho e uma história que segue até hoje.',
+      'Encontra em Adriana a companheira de uma vida inteira. Juntos, constroem a família ' +
+      'que é a base de tudo.',
     revisado: true,
   },
   {
-    ano: '1987',
-    titulo: 'Thaís',
+    icone: '🌱',
+    ano: '1994',
+    titulo: 'Comércio, campo e cooperativa',
     texto:
-      'Nasce a primeira filha do casal, e com ela chega também um novo tipo de ' +
-      'responsabilidade.',
+      'Empreende no comércio, no campo e na cooperativa, criando oportunidades e gerando ' +
+      'renda para muitas famílias da região.',
     revisado: true,
   },
   {
-    ano: '1989',
-    titulo: 'Economia e Administração',
+    icone: '🏛️',
+    ano: '2012',
+    titulo: 'Presidente Kennedy, 2 mandatos',
     texto:
-      'Forma-se em Economia e Administração, formação que mais tarde seria a base de sua ' +
-      'vida empreendedora na região.',
+      'Eleito vereador por dois mandatos, com atuação presente e diálogo constante com a ' +
+      'população.',
     revisado: true,
   },
   {
-    ano: '1990',
-    titulo: 'Isabella',
-    texto: 'Nasce a segunda filha, e a família de Marcão e Adriana continua crescendo.',
-    revisado: true,
-  },
-  {
-    ano: '1991',
-    titulo: 'Marataízes',
-    texto:
-      'Estabelece residência definitiva em Marataízes, cidade que escolheu pra viver até hoje.',
-    revisado: true,
-  },
-  {
-    ano: '1992',
-    titulo: 'Letícia',
-    texto:
-      'Nasce a terceira filha, completando o time de mulheres que Marcão sempre diz que o ' +
-      'formaram.',
-    revisado: true,
-  },
-  {
-    ano: '1992',
-    titulo: 'Vereador em Presidente Kennedy',
-    texto:
-      'Eleito o vereador mais votado de Presidente Kennedy. É o começo de uma trajetória de ' +
-      'quase uma década dedicada ao serviço público na cidade.',
-    revisado: true,
-  },
-  {
-    ano: '2003',
-    titulo: 'Direito',
-    texto:
-      'Volta a estudar e se forma também em Direito, reforçando o compromisso de defender ' +
-      'melhor quem mais precisa.',
-    revisado: true,
-  },
-  {
-    // o copy não traz o ano da reeleição
-    ano: '—',
-    titulo: 'Reeleição, vereador em Presidente Kennedy',
-    texto: 'Reeleito o mais votado, confirma o vínculo de confiança construído com a cidade.',
-    revisado: true,
-  },
-  {
-    ano: '2016',
-    titulo: 'Marco Antônio',
-    texto:
-      'Chega o neto Marco Antônio, e com ele um amor diferente de tudo que Marcão já tinha ' +
-      'sentido, o orgulho de ver a família se multiplicar.',
-    revisado: true,
-  },
-  {
+    icone: '🗳️',
     ano: '2026',
-    titulo: 'Candidatura, AGIR 36.028',
+    titulo: 'Marataízes, 2026',
     texto:
-      'Decide dar um passo maior: levar a voz de Marataízes, Itapemirim e Presidente Kennedy ' +
-      'pra Assembleia Legislativa do Espírito Santo.',
+      'Assume um novo compromisso: ser a voz forte do Triângulo do Sul na Assembleia ' +
+      'Legislativa.',
     revisado: true,
   },
 ]
 
-/** Os quatro selos, do copy oficial. */
-export const selos: { texto: string; revisado: boolean }[] = [
-  { texto: 'Formado em Cachoeiro de Itapemirim', revisado: true },
-  { texto: '2× Vereador em Presidente Kennedy', revisado: true },
-  { texto: 'Pai de 3 filhas, avô do Marco Antônio', revisado: true },
-  { texto: 'Raiz em Presidente Kennedy, Cachoeiro, Itapemirim e Marataízes', revisado: true },
+/** Os quatro selos, com os emojis do protótipo. */
+export const selos: { icone: string; texto: string; revisado: boolean }[] = [
+  { icone: '🎓', texto: 'Formado em Cachoeiro de Itapemirim', revisado: true },
+  { icone: '🏛️', texto: '2× Vereador em Presidente Kennedy', revisado: true },
+  { icone: '👨‍👩‍👧‍👧', texto: 'Pai de 3 filhas, avô do Marco Antônio', revisado: true },
+  { icone: '📍', texto: 'Raiz em Kennedy, Cachoeiro, Itapemirim e Marataízes', revisado: true },
 ]
 
-/** Seção 3 do copy: a prosa da trajetória. */
+/** A prosa da trajetória. */
 export const trajetoria = {
   kicker: 'Trajetória',
   titulo: 'Raiz no Sul do Espírito Santo',
@@ -151,7 +102,7 @@ export const trajetoria = {
   citacao: 'Quem luta por essa região sabe o nome de quem tá lutando junto.',
 }
 
-/** Seção 4 do copy: a linha do tempo tem título e abertura próprios. */
+/** A linha do tempo tem título e abertura próprios. */
 export const linhaDoTempoTexto = {
   kicker: 'Trajetória',
   titulo: 'Raízes no Sul, compromisso com a nossa gente',

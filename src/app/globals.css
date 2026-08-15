@@ -291,37 +291,38 @@
      três viram uma linha só. O respiro vem de padding interno. No último item
      de cada fileira o fio se dissolve em gradiente, senão ele bate na borda da
      tela como se a história continuasse fora da página. */
-  .mv-tempo { display: grid; gap: 0; }
-  .mv-tempo > li {
-    position: relative;
-    padding: 0 0 2.25rem 1.75rem;
-    border-left: 2px solid var(--linha);
+  /* ── LINHA DO TEMPO ──
+     Formato do protótipo aprovado: um fio VERTICAL, a bolinha em cima dele e o
+     ano na margem esquerda, fora do fio, alinhado ao topo de cada marco.
+
+     Já tentei aqui uma grade de três colunas com o fio deitado, e estava
+     errado: linha do tempo se lê de cima para baixo, e em grade a pessoa
+     precisa varrer a linha, voltar, descer e varrer de novo. */
+  .mv-tempo {
+    border-left: 3px solid var(--petroleo);
+    padding-left: 2rem;
   }
+  .mv-tempo > li { position: relative; padding-bottom: 2.5rem; }
   .mv-tempo > li:last-child { padding-bottom: 0; }
-  /* o ponto do marco */
+  /* a bolinha, montada em cima do fio */
   .mv-tempo > li::before {
     content: ''; position: absolute; z-index: 1;
-    left: -9px; top: .3rem;
-    width: 16px; height: 16px; border-radius: 999px;
-    background: var(--laranja); border: 3px solid #fff;
-    box-shadow: 0 0 0 1px var(--linha);
+    left: calc(-2rem - 11px); top: .3rem;
+    width: 19px; height: 19px; border-radius: 999px;
+    background: var(--verde); border: 4px solid var(--papel);
   }
-
+  /* o ano: em cima do título no celular, na margem a partir de md */
+  .mv-tempo-ano {
+    display: block;
+    font-family: var(--font-display); font-weight: 400;
+    font-size: 1.25rem; color: var(--petroleo);
+    font-variant-numeric: tabular-nums;
+    margin-bottom: .35rem;
+  }
   @media (min-width: 768px) {
-    .mv-tempo { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 2.75rem; }
-    .mv-tempo > li {
-      border-left: 0;
-      padding: 2.5rem 1.75rem 0 0;
-    }
-    .mv-tempo > li::before { left: 0; top: 0; }
-    /* o fio deitado */
-    .mv-tempo > li::after {
-      content: ''; position: absolute;
-      left: 0; right: 0; top: 7px; height: 2px;
-      background: var(--linha);
-    }
-    .mv-tempo > li:nth-child(3n)::after {
-      background: linear-gradient(90deg, var(--linha) 55%, transparent 100%);
+    .mv-tempo-ano {
+      position: absolute; left: -8.5rem; top: 0;
+      width: 6rem; text-align: right; margin-bottom: 0;
     }
   }
 

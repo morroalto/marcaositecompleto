@@ -1,50 +1,50 @@
 import { linhaDoTempo, linhaDoTempoTexto } from '@/content/trajetoria'
 
 /**
- * LINHA DO TEMPO (seção 4 do copy oficial)
+ * LINHA DO TEMPO
  *
- * Treze marcos, de 1966 a 2026, com o texto aprovado pela campanha.
+ * Seis marcos, no formato do protótipo aprovado: fio VERTICAL, o ano na
+ * margem esquerda, a bolinha em cima do fio e, ao lado, o emoji com o título e
+ * o texto.
  *
- * O fio: vertical no celular, o formato clássico, e DEITADO no desktop,
- * atravessando os itens da fileira com o ponto de cada marco pousado em cima.
- * Card com borda aqui não funcionava — caixas soltas numa grade leem como
- * avisos, não como linha do tempo.
+ * Já tentei aqui uma grade de três colunas com o fio deitado. Ficou errado por
+ * um motivo simples: linha do tempo se lê de cima para baixo, e em grade a
+ * pessoa precisa varrer a linha, voltar, descer e varrer de novo. Com seis
+ * marcos curtos, o vertical cabe sem virar rolagem infinita.
  *
- * No desktop são três colunas, e a leitura é por linha. O fio fica contínuo
- * porque a grade não tem vão horizontal (`column-gap: 0`) e o respiro vem de
- * padding interno; no último item de cada fileira ele se dissolve em
- * gradiente, senão bate na borda como se a história continuasse fora da
- * página.
- *
- * O copy pede a timeline vertical. No celular é exatamente isso; no desktop,
- * treze marcos empilhados dariam quatro telas de rolagem, e a grade resolve
- * sem perder a ordem de leitura.
+ * No celular o ano fica em cima do título; a partir de `md` ele sai para a
+ * margem, alinhado ao topo do marco, que é o desenho do protótipo.
  */
 export function LinhaDoTempo() {
   return (
-    <section id="linha-do-tempo" className="mv-secao">
+    <section id="linha-do-tempo" className="mv-secao bg-papel">
       <div className="mv-shell flex flex-col gap-9">
         <div className="flex max-w-[62ch] flex-col gap-4 text-center sm:text-left">
           <p className="mv-kicker text-[#2F5C1B]">{linhaDoTempoTexto.kicker}</p>
           <h2 className="text-[clamp(1.45rem,4.6vw,2.25rem)] font-extrabold tracking-tight">
             {linhaDoTempoTexto.titulo}
           </h2>
-          <p className="hidden text-[1.0625rem] leading-relaxed text-fraca sm:block sm:text-[1.15rem]">
+          <p className="text-[1.0625rem] leading-relaxed text-fraca sm:text-[1.15rem]">
             {linhaDoTempoTexto.chamada}
           </p>
         </div>
 
-        <ol className="mv-tempo">
-          {linhaDoTempo.map((m) => (
-            <li key={`${m.ano}-${m.titulo}`}>
-              <p className="font-display text-[1.75rem] leading-none font-black text-laranja tabular-nums">
-                {m.ano}
-              </p>
-              <h3 className="mt-2 text-[1.15rem] font-extrabold">{m.titulo}</h3>
-              <p className="mt-1 text-[1.0625rem] leading-relaxed text-fraca">{m.texto}</p>
-            </li>
-          ))}
-        </ol>
+        <div className="mt-2 md:pl-20">
+          <ol className="mv-tempo">
+            {linhaDoTempo.map((m) => (
+              <li key={m.ano}>
+                <span className="mv-tempo-ano">{m.ano}</span>
+                <h3 className="flex items-center gap-3 font-display text-[1.15rem] font-extrabold text-marinho">
+                  <span className="text-[1.75rem] leading-none" aria-hidden="true">
+                    {m.icone}
+                  </span>
+                  {m.titulo}
+                </h3>
+                <p className="mt-2 text-[1.0625rem] leading-relaxed text-fraca">{m.texto}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
       </div>
     </section>
   )

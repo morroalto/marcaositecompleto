@@ -56,12 +56,18 @@ export function Trajetoria() {
 
         {/* os selos em largura inteira: em coluna estreita eles viravam uma
             pilha de barras, um por linha */}
-        <ul className="flex flex-wrap justify-center gap-2 sm:justify-start">
+        {/* os quatro selos, com os emojis do protótipo, um por linha dentro de
+            uma caixa — como nas telas aprovadas */}
+        <ul className="flex flex-col rounded-lg bg-white/10 p-6">
           {selos.map((s) => (
-            <li key={s.texto}>
-              <span className="mv-chip border-white/35 text-[0.9375rem] font-semibold text-white">
-                {s.texto}
+            <li
+              key={s.texto}
+              className="flex items-start gap-3 py-3 text-left text-[1.0625rem] text-white"
+            >
+              <span className="text-[1.5rem] leading-none" aria-hidden="true">
+                {s.icone}
               </span>
+              <span>{s.texto}</span>
             </li>
           ))}
         </ul>
