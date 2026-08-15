@@ -9,48 +9,55 @@
  * blocos contam em CAPÍTULOS — origem, família, preparo e projeto. É mais
  * fácil de ler e é o que a arte pede.
  *
- * ⚠️ TRÊS FOTOS AINDA NÃO CHEGARAM. Elas foram mostradas na conversa mas não
- * vieram como arquivo, então os blocos entram sem imagem, com o quadro
- * reservado. Para publicar, jogue o arquivo em `public/fotos/` com o nome que
- * está em `foto` e o bloco passa a mostrar a imagem sozinho:
+ * AS QUATRO FOTOS, na ligação que a campanha definiu:
  *
- *   traj-heranca   a mão segurando a fotografia antiga
- *   traj-gestao    a caminhada de campanha, com as bandeiras
- *   traj-voz       a cadeira sozinha na orla
+ *   herança   `traj-heranca`   a mão segurando a fotografia antiga
+ *   família   `familia-todos`  a mesma foto que já estava no projeto
+ *   gestão    `traj-gestao`    a caminhada de campanha, com as bandeiras
+ *   a voz     `traj-voz`       a cadeira sozinha na orla
  *
- * A da família já está no projeto e é a mesma da seção anterior.
+ * `largura` e `altura` são as dimensões REAIS de cada arquivo, e existem para
+ * a foto entrar inteira: elas têm formatos diferentes, uma vertical e duas
+ * deitadas, e qualquer quadro de proporção fixa cortaria alguma delas.
  */
 
 export interface Capitulo {
   slug: string
-  /** o chapéu, em caixa alta na tela */
+  /** o chapéu, com o período, em caixa alta na tela */
   chapeu: string
   titulo: string
   texto: string
   /** nome do arquivo em `public/fotos/`, sem extensão. `null` = ainda não veio */
   foto: string | null
   ext: 'jpg' | 'webp'
+  /** dimensões reais do arquivo: a foto entra inteira, sem recorte */
+  largura: number
+  altura: number
   alt: string
+  /** na arte, o card da família abre com a imagem e os outros fecham com ela */
+  fotoEmCima: boolean
   revisado: boolean
 }
 
 export const capitulos: Capitulo[] = [
   {
     slug: 'heranca',
-    chapeu: 'Raízes e formação de vida',
+    chapeu: '1966 — Raízes e formação de vida',
     titulo: 'Herança no Espírito Santo',
     texto:
       'Nascido no Rio, foi para Cachoeiro de Itapemirim aos 6 anos de idade, com o coração ' +
       'fincado no Espírito Santo. Ali, aprendeu cedo o valor do trabalho, fez amigos para a ' +
       'vida e criou a base de tudo o que construiu depois.',
-    foto: null,
+    foto: 'traj-heranca',
     ext: 'jpg',
+    largura: 768, altura: 1365,
     alt: 'Uma mão segurando uma fotografia antiga da família, em preto e branco',
+    fotoEmCima: false,
     revisado: true,
   },
   {
     slug: 'familia',
-    chapeu: 'Família, a maior das conquistas',
+    chapeu: 'Anos 80/90 — Família que transforma',
     titulo: 'A Maior das Conquistas',
     texto:
       'Ao lado de Adriana, sua companheira de vida, construiu a maior de suas conquistas: a ' +
@@ -59,33 +66,39 @@ export const capitulos: Capitulo[] = [
       'contínua e cheia de amor.',
     foto: 'familia-todos',
     ext: 'jpg',
+    largura: 1066, altura: 1600,
     alt: 'Marcão sentado com a esposa Adriana e o neto Marco Antônio no colo, com as três filhas em pé atrás',
+    fotoEmCima: true,
     revisado: true,
   },
   {
     slug: 'gestao',
-    chapeu: 'Preparo e trabalho comunitário',
+    chapeu: '1989-2003 — Preparo e trabalho comunitário',
     titulo: 'Gestão e Paixão por Servir',
     texto:
       'Graduado em Economia, Administração e Direito, uniu o conhecimento técnico à paixão ' +
       'por servir. Em Presidente Kennedy, foi o vereador mais votado e reeleito com recorde ' +
       'de confiança, marcando uma década de dedicação ao povo da região.',
-    foto: null,
+    foto: 'traj-gestao',
     ext: 'jpg',
+    largura: 1537, altura: 1023,
     alt: 'Marcão caminhando na rua ao lado de apoiadores com bandeiras da campanha',
+    fotoEmCima: false,
     revisado: true,
   },
   {
     slug: 'voz',
-    chapeu: 'A voz do Sul',
-    titulo: 'Na Assembleia (2026)',
+    chapeu: 'Presente e futuro — Legado e missão',
+    titulo: 'A Voz do Sul na Assembleia (2026)',
     texto:
       'Escolheu Marataízes para fincar residência definitiva. Com a maturidade e a força do ' +
       'Sul, decide levar a experiência, a seriedade e o compromisso com o Sul para a ' +
       'Assembleia Legislativa do Espírito Santo.',
-    foto: null,
+    foto: 'traj-voz',
     ext: 'jpg',
+    largura: 1599, altura: 899,
     alt: 'Uma cadeira sozinha na orla, de frente para a praia de Marataízes',
+    fotoEmCima: false,
     revisado: true,
   },
 ]

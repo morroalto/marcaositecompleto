@@ -24,6 +24,8 @@
   /* superfícies */
   --branco: #FFFFFF;
   --papel:  #F4F7F5;
+  /* creme dos cards de trajetória, tirado da arte de referência da campanha */
+  --creme:  #F6EBE3;
   --tinta:  #08222A;
   --tinta-fraca: #45605F;   /* sobre papel: 6,49:1 */
   --linha: #CFDCD7;

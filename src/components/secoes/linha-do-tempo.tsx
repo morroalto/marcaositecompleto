@@ -4,18 +4,19 @@ import { capitulos, linhaDoTempoTexto } from '@/content/trajetoria'
 /**
  * TRAJETÓRIA EM QUATRO CAPÍTULOS
  *
- * Formato da arte de referência da campanha: uma grade de dois por dois, cada
- * bloco com chapéu, título, texto e foto.
+ * Formato da arte de referência da campanha: grade de dois por dois, cards em
+ * creme, chapéu com o período em caixa alta, título grande e o texto; a foto
+ * entra dentro do card.
  *
- * Substituiu a linha do tempo de seis marcos com o ano na margem. A diferença
- * não é de layout, é de narrativa: a linha do tempo contava a vida em datas
- * soltas, e estes quatro capítulos contam em etapas — origem, família, preparo
- * e projeto. Quem lê sai sabendo a história, não a cronologia.
+ * A FOTO NÃO É CORTADA. Ela entra na altura natural, e não num quadro de
+ * proporção fixa com `object-cover`: as fotos da campanha vêm em formatos
+ * diferentes, umas verticais e outras deitadas, e o recorte comia justamente
+ * as cabeças. O preço é que os quatro cards não terminam na mesma linha, e
+ * está certo assim — foto inteira vale mais do que grade simétrica.
  *
- * Enquanto uma foto não chega, o bloco simplesmente não mostra quadro nenhum:
- * nada de moldura vazia ou de imagem de enfeite tapando o buraco. Assim que o
- * arquivo entrar em `public/fotos/` com o nome que está no conteúdo, a imagem
- * aparece sozinha.
+ * `fotoEmCima` existe porque na arte o card da família abre com a imagem e os
+ * outros três fecham com ela. É o que dá ritmo à grade em vez de quatro
+ * blocos idênticos.
  */
 export function LinhaDoTempo() {
   return (
@@ -31,32 +32,41 @@ export function LinhaDoTempo() {
           </p>
         </div>
 
-        <ul className="grid items-stretch gap-6 lg:grid-cols-2">
-          {capitulos.map((c) => (
-            <li
-              key={c.slug}
-              className="flex h-full flex-col gap-3 rounded-[14px] bg-white p-6 shadow-[0_2px_0_var(--linha)] sm:p-7"
-            >
-              <p className="mv-kicker text-[#2F5C1B]">{c.chapeu}</p>
-              <h3 className="text-[clamp(1.25rem,3.4vw,1.75rem)] font-extrabold tracking-tight">
-                {c.titulo}
-              </h3>
-              <p className="text-[1.0625rem] leading-relaxed text-fraca">{c.texto}</p>
+        <ul className="grid items-start gap-6 lg:grid-cols-2">
+          {capitulos.map((c) => {
+            const foto = c.foto && (
+              <Image
+                src={`/fotos/${c.foto}.${c.ext}`}
+                alt={c.alt}
+                width={c.largura}
+                height={c.altura}
+                sizes="(max-width: 1023px) 90vw, 32rem"
+                loading="lazy"
+                className="h-auto w-full rounded-[10px]"
+              />
+            )
 
-              {c.foto && (
-                <div className="relative mt-2 aspect-16/10 w-full overflow-hidden rounded-[10px] bg-petroleo">
-                  <Image
-                    src={`/fotos/${c.foto}.${c.ext}`}
-                    alt={c.alt}
-                    fill
-                    sizes="(max-width: 1023px) 92vw, 34rem"
-                    loading="lazy"
-                    className="object-cover"
-                  />
+            return (
+              <li
+                key={c.slug}
+                className="flex flex-col gap-4 rounded-[16px] bg-[var(--creme)] p-6 sm:p-7"
+              >
+                {c.fotoEmCima && foto}
+
+                <div className="flex flex-col gap-2">
+                  <p className="font-display text-[0.8125rem] font-extrabold tracking-[0.1em] text-[#5C4A42] uppercase">
+                    {c.chapeu}
+                  </p>
+                  <h3 className="text-[clamp(1.3rem,3.6vw,1.85rem)] font-extrabold tracking-tight text-tinta">
+                    {c.titulo}
+                  </h3>
+                  <p className="text-[1.0625rem] leading-relaxed text-[#4A3A33]">{c.texto}</p>
                 </div>
-              )}
-            </li>
-          ))}
+
+                {!c.fotoEmCima && foto}
+              </li>
+            )
+          })}
         </ul>
       </div>
     </section>
