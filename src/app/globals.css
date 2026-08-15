@@ -336,13 +336,16 @@
      A caixa existe de novo porque ela é posicionada por cima da foto,
      sobrepondo o pé dele, e ali precisa de fundo próprio para o número não
      brigar com a calça jeans. */
-  /* o aparelho do protótipo aprovado: caixa preta arredondada, sombra funda,
-     sem borda e sem fio colorido */
+  /* O VISOR volta à cor da marca: gradiente petróleo → marinho com o fio
+     laranja embaixo. O preto chapado que estava aqui era neutro demais para
+     uma tarja que fica em cima da foto, e sumia dentro do fundo escuro da
+     seção. */
   .mv-fone {
-    border-radius: 20px;
-    background: #1a1a1a;
-    padding: 1.25rem 1.5rem;
-    box-shadow: 0 12px 32px rgb(0 0 0 / .45);
+    border-radius: 14px;
+    background: linear-gradient(100deg, var(--petroleo) 0%, var(--marinho) 100%);
+    padding: .9rem 1.35rem;
+    box-shadow: 0 16px 34px rgb(0 0 0 / .5);
+    border-bottom: 4px solid var(--laranja);
   }
 
   /* ── CARD DE FOTO ──

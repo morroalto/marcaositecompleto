@@ -61,20 +61,25 @@ export function Numero() {
             {numeroTexto.titulo[0]} {numeroTexto.titulo[1]}
           </h2>
 
+          {/* LARANJA E BRANCO, os dois cards. O verde do 36 morria dentro do
+              fundo petróleo da seção — verde escuro sobre verde-azulado é o
+              par de menor contraste da paleta. Agora um card é laranja cheio e
+              o outro é branco: eles se separam do fundo e um do outro, e o
+              número continua sendo a coisa mais forte de cada um. */}
           <div className="flex w-full gap-3 sm:w-auto sm:gap-4">
-            <div className="flex-1 rounded-xl bg-[#3A7325] px-5 py-4 text-center shadow-[0_5px_0_rgba(0,0,0,.32)] sm:flex-none sm:min-w-[8.5rem]">
-              <b className="block font-display text-[clamp(2.1rem,8vw,2.9rem)] leading-none font-black text-white tabular-nums">
+            <div className="flex-1 rounded-xl bg-laranja px-5 py-4 text-center shadow-[0_5px_0_rgba(0,0,0,.32)] sm:flex-none sm:min-w-[8.5rem]">
+              <b className="block font-display text-[clamp(2.1rem,8vw,2.9rem)] leading-none font-black text-[#08222A] tabular-nums">
                 {candidato.numeroPartido}
               </b>
-              <span className="font-display text-[0.75rem] font-extrabold tracking-[0.1em] text-white uppercase">
+              <span className="font-display text-[0.75rem] font-extrabold tracking-[0.1em] text-[#08222A] uppercase">
                 O partido
               </span>
             </div>
-            <div className="flex-1 rounded-xl bg-laranja px-5 py-4 text-center shadow-[0_5px_0_rgba(0,0,0,.32)] sm:flex-none sm:min-w-[8.5rem]">
-              <b className="block font-display text-[clamp(2.1rem,8vw,2.9rem)] leading-none font-black text-[#08222A] tabular-nums">
+            <div className="flex-1 rounded-xl bg-white px-5 py-4 text-center shadow-[0_5px_0_rgba(0,0,0,.32)] sm:flex-none sm:min-w-[8.5rem]">
+              <b className="block font-display text-[clamp(2.1rem,8vw,2.9rem)] leading-none font-black text-petroleo tabular-nums">
                 {candidato.numeroDDD}
               </b>
-              <span className="font-display text-[0.75rem] font-extrabold tracking-[0.1em] text-[#08222A] uppercase">
+              <span className="font-display text-[0.75rem] font-extrabold tracking-[0.1em] text-petroleo uppercase">
                 O DDD do Sul
               </span>
             </div>
@@ -105,6 +110,12 @@ export function Numero() {
           </ul>
           <p className="font-display text-[0.8125rem] font-extrabold tracking-[0.14em] text-white/80 uppercase">
             {numeroTexto.listaRodape}
+          </p>
+
+          {/* a segunda metade do texto fica AQUI, depois da lista: ela é a
+              conclusão que os doze nomes acabaram de sustentar */}
+          <p className="max-w-[58ch] text-[1.0625rem] leading-relaxed text-[#D7E8E4] sm:text-[1.15rem]">
+            {numeroTexto.fecho}
           </p>
         </div>
       </div>
