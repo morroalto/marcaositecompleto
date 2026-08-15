@@ -1,45 +1,38 @@
 /**
  * AGENDA DA CAMPANHA
  *
- * Estrutura vinda do protótipo "Sul em Foco" (`src/components/Agenda.tsx`).
+ * Texto da seção: copy oficial (`dizeres site marcao.pdf`, seção 2).
  *
- * Os três eventos daquele protótipo eram maquete: data, hora e endereço
- * inventados para a tela ficar cheia. Ficaram em `agendaRascunho`, e nunca
- * renderizam.
+ * Os dois eventos são REAIS e os dados vieram das artes oficiais da campanha,
+ * lidas uma a uma: data, dia da semana, hora e endereço estão nas peças, e é
+ * de lá que saíram, não de suposição minha. As mesmas artes são a imagem de
+ * cada card, então o que a pessoa lê no site é o que ela vê no story.
  *
- * Os dois de cima são reais e foram pedidos em 14/08/2026: a inauguração do
- * comitê e o lançamento oficial da campanha. Eles entram com foto e título, e
- * com os campos de data e endereço EM BRANCO, porque ninguém me passou esses
- * dados e evento com hora inventada é o pior erro possível num site de
- * campanha. O card mostra o que existe e, enquanto `quando` for `null`, avisa
- * que a data está sendo confirmada.
+ * O ano não aparece nas peças (elas dizem só "18/08" e "22/08"). Como a
+ * campanha é de 2026 e as artes estão circulando agora, o `quando` foi
+ * montado com 2026. Se algum evento for de outro ano, é este campo que muda.
  *
- * ⚠️ PARA A ASSESSORIA, dois campos e o card fica completo:
- *   · `quando`  data e hora em ISO com fuso, ex.: '2026-08-30T18:00:00-03:00'
- *   · `rotulo`  a mesma data como se lê na tela, ex.: '30 de agosto, 18h'
- *   · `local` e `cidade`, e o `maps` se houver endereço fixo
- * Depois é só marcar `revisado: true`.
- *
- * ⚠️ CONFERIR TAMBÉM qual foto é de qual evento. Associei pelo que a imagem
- * mostra: a de fora, com as plaquinhas do #agoraéMARCÃO, ficou no lançamento;
- * a da noite, com o pessoal de camiseta do Triângulo do Sul, ficou no comitê.
- * Se estiver trocado, é só trocar o campo `foto`.
+ * Categorias sugeridas pelo copy para as próximas peças: caminhada em
+ * Marataízes, Itapemirim ou Presidente Kennedy; visita à colônia de
+ * pescadores do Porto de Itaipava; encontro com produtores rurais (Fazenda
+ * Santa Luzia ou cooperativa COPSU); inauguração de comitê ou reduto; roda de
+ * conversa com moradores, no formato de escuta e não de comício.
  */
 
 export interface Evento {
   slug: string
   titulo: string
-  /** o que a foto mostra, em uma frase */
-  resumo: string
+  /** a linha secundária da arte, quando existe */
+  subtitulo: string | null
   foto: string | null
   alt: string
-  /** ISO com fuso. `null` = data ainda não confirmada pela assessoria */
-  quando: string | null
-  /** a data como aparece na tela */
-  rotulo: string | null
-  local: string | null
-  cidade: string | null
-  maps: string | null
+  /** ISO com fuso */
+  quando: string
+  /** a data como aparece na arte */
+  rotulo: string
+  local: string
+  cidade: string
+  maps: string
   revisado: boolean
 }
 
@@ -47,58 +40,36 @@ export const agenda: Evento[] = [
   {
     slug: 'inauguracao-comite',
     titulo: 'Inauguração do Comitê',
-    resumo:
-      'A casa da campanha, aberta para quem quiser chegar, pegar material e ' +
-      'saber onde o Marcão vai estar.',
+    subtitulo: 'com adesivaço',
     foto: 'evento-comite',
-    alt: 'Grupo grande de apoiadores reunido em um encontro à noite, muitos de camiseta do Triângulo do Sul',
-    quando: null,
-    rotulo: null,
-    local: null,
-    cidade: null,
-    maps: null,
-    revisado: false,
+    alt: 'Arte da campanha: Inauguração do Comitê com adesivaço, dia 18 de agosto, terça-feira, a partir das 16h, na Av. Rubens Rangel, em frente ao Fórum de Marataízes',
+    quando: '2026-08-18T16:00:00-03:00',
+    rotulo: '18/08 · Terça-feira, a partir das 16h',
+    local: 'Av. Rubens Rangel, em frente ao Fórum',
+    cidade: 'Marataízes',
+    maps: 'https://www.google.com/maps/search/F%C3%B3rum+de+Marata%C3%ADzes+Av.+Rubens+Rangel',
+    revisado: true,
   },
   {
     slug: 'lancamento-campanha',
     titulo: 'Lançamento Oficial da Campanha',
-    resumo:
-      'O encontro que abre a caminhada, com apoiadores das cidades do ' +
-      'Triângulo do Sul.',
+    subtitulo: 'Pitstop do Marcão, com adesivaço',
     foto: 'evento-lancamento',
-    alt: 'Apoiadores reunidos ao ar livre segurando plaquinhas com a hashtag agora é Marcão',
-    quando: null,
-    rotulo: null,
-    local: null,
-    cidade: null,
-    maps: null,
-    revisado: false,
-  },
-]
-
-/** Maquete do protótipo. Nunca renderiza: serve de molde para o preenchimento. */
-export const agendaRascunho: Evento[] = [
-  {
-    slug: 'caminhada-marataizes',
-    titulo: 'Caminhada em Marataízes',
-    resumo: 'EXEMPLO de evento, com data e endereço de maquete.',
-    foto: null,
-    alt: '',
-    quando: '2026-08-25T18:00:00-03:00',
-    rotulo: '25 de agosto, 18h',
-    local: 'Praia Central',
+    alt: 'Arte da campanha: Lançamento Oficial da Campanha, Pitstop do Marcão com adesivaço, dia 22 de agosto, sábado, a partir das 9h, no Street Rebels Rock Bar, Av. Atlântica, 2000, Xodó, Marataízes',
+    quando: '2026-08-22T09:00:00-03:00',
+    rotulo: '22/08 · Sábado, a partir das 9h',
+    local: 'Street Rebels Rock Bar, Av. Atlântica, 2000, Xodó',
     cidade: 'Marataízes',
-    maps: 'https://www.google.com/maps/search/Praia+Central+Marata%C3%ADzes+ES',
-    revisado: false,
+    maps: 'https://www.google.com/maps/search/Av.+Atl%C3%A2ntica+2000+Xod%C3%B3+Marata%C3%ADzes+ES',
+    revisado: true,
   },
 ]
 
-/** Texto da seção, do protótipo. */
+/** Texto da seção, do copy oficial. */
 export const agendaTexto = {
-  /** o kicker informa, em vez de repetir o nome da seção e do menu */
-  kicker: 'Onde ele vai estar',
+  kicker: 'Agenda',
   titulo: 'Marcão no meio do povo',
   chamada:
-    'Participe dos próximos encontros da campanha e conheça de perto as propostas para o ' +
-    'Triângulo do Sul.',
+    'Participe dos próximos encontros da nossa campanha e venha conhecer de perto as ' +
+    'propostas para o Triângulo do Sul.',
 }

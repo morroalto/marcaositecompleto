@@ -10,12 +10,12 @@ import { candidato } from '@/content/candidato'
  * vejo" e "O que eu ouvi", que a pessoa alcança rolando a partir de Trajetória.
  */
 const LINKS = [
-  { href: '#numero',     texto: 'O 028' },
-  { href: '#quem-e',     texto: 'Quem é' },
-  { href: '#trajetoria', texto: 'Trajetória' },
-  { href: '#bandeiras',  texto: 'O que defendemos' },
-  { href: '#presenca',   texto: 'Presença' },
-  { href: '#agenda',     texto: 'Agenda' },
+  { href: '#numero',         texto: 'O 028' },
+  { href: '#trajetoria',     texto: 'Trajetória' },
+  { href: '#linha-do-tempo', texto: 'Linha do tempo' },
+  { href: '#bandeiras',      texto: 'O que defendemos' },
+  { href: '#presenca',       texto: 'Presença' },
+  { href: '#agenda',         texto: 'Agenda' },
 ]
 
 /**

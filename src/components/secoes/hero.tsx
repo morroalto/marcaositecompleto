@@ -57,27 +57,26 @@ export function Hero() {
 
         <div className="grid items-center gap-8 lg:grid-cols-[1.1fr_.9fr] lg:gap-14">
           <div className="mv-entra mv-d2 flex flex-col items-center gap-5 text-center sm:items-start sm:text-left">
+            {/* subheadline do copy oficial, §1, palavra por palavra */}
             <p className="max-w-[58ch] text-[1.0625rem] leading-relaxed text-[#E4F0EA] sm:text-[1.15rem]">
-              O Sul do Estado é onde o Marcão escolheu viver, construir a história dele e
-              fincar raiz. Da vivência do dia a dia em Marataízes ao conhecimento de
-              Itapemirim e de toda a região, ele conhece essa terra como a palma da mão.
-              É hora de transformar essa presença na voz que a nossa gente precisa na
-              Assembleia Legislativa.
-            </p>
-            <p className="max-w-[58ch] text-[1.0625rem] leading-relaxed text-[#E4F0EA] sm:text-[1.15rem]">
-              <strong className="text-amarelo">028 não é só DDD</strong>, é o código que o Sul
-              inteiro disca todo dia, e são os três últimos dígitos do meu número na urna.
+              O Sul do Estado é onde Marcão Vivacqua escolheu viver, construir sua história e
+              fincar raízes. Da vivência do dia a dia em Marataízes ao conhecimento profundo
+              de Itapemirim e de toda a nossa região, ele conhece nossa terra como a palma da
+              mão. É hora de transformar essa presença e força local na voz que a nossa gente
+              precisa na Assembleia Legislativa.
             </p>
 
-            {/* sem o formulário, o site não pede cadastro: os dois botões
-                levam a ler e a conhecer, não a se inscrever */}
+            {/* CTAs do copy. O "Grupo Oficial" ainda não tem link: o convite
+                do WhatsApp não veio, e link de grupo inventado leva o eleitor
+                para lugar nenhum. Enquanto não vier, os dois botões vão para o
+                fim da página, onde estão os canais que existem. */}
             <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap">
-              <a href="#bandeiras" className="mv-btn mv-btn-laranja w-full sm:w-auto">
-                O que defendemos
+              <a href="#apoie" className="mv-btn mv-btn-laranja w-full sm:w-auto">
+                Quero apoiar
                 <IconeSeta tamanho={20} />
               </a>
-              <a href="#quem-e" className="mv-btn mv-btn-linha w-full sm:w-auto">
-                Quem é o Marcão
+              <a href="#apoie" className="mv-btn mv-btn-linha w-full sm:w-auto">
+                Entrar no Grupo Oficial
                 <IconeSeta tamanho={20} />
               </a>
             </div>

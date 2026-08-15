@@ -48,11 +48,13 @@ export const momentos: Momento[] = [
  */
 export const proporcaoDosVideos: '9/16' | '16/9' | '1/1' = '9/16'
 
+/** Texto da seção 6 do copy oficial, palavra por palavra. */
 export const galeriaTexto = {
   /** o kicker informa o formato, em vez de repetir o nome da seção */
   kicker: 'Em vídeo',
   titulo: 'Perto de quem precisa',
   chamada:
-    'Tem coisa que não cabe em texto. Aqui é ele falando, sem locutor no meio e sem ' +
-    'palanque: o que viu na rua, o que ouviu de quem mora aqui e o que se comprometeu a fazer.',
+    'Marcão não fala sobre o Triângulo do Sul como quem observa de fora, ele é fruto desta ' +
+    'terra. Criado e presente no dia a dia, traz a essência, as lutas e o orgulho da nossa ' +
+    'gente. Confira alguns desses momentos.',
 }

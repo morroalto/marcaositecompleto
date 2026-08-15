@@ -8,16 +8,25 @@ import { candidato } from '@/content/candidato'
 
 /** o rodapé lista TODAS as seções, inclusive as que não cabem no menu do topo */
 const NAVEGACAO = [
-  { href: '#numero',     texto: 'O 028' },
-  { href: '#quem-e',     texto: 'Quem é' },
-  { href: '#trajetoria', texto: 'Trajetória' },
-  { href: '#origem',     texto: 'De onde venho' },
-  { href: '#vejo',       texto: 'O que eu vejo' },
-  { href: '#escuta',     texto: 'O que eu ouvi' },
-  { href: '#bandeiras',  texto: 'O que defendemos' },
-  { href: '#presenca',   texto: 'Perto de quem precisa' },
-  { href: '#agenda',     texto: 'Agenda' },
+  { href: '#numero',         texto: 'O 028' },
+  { href: '#trajetoria',     texto: 'Trajetória' },
+  { href: '#linha-do-tempo', texto: 'Linha do tempo' },
+  { href: '#vejo',           texto: 'O que eu vejo' },
+  { href: '#escuta',         texto: 'O que eu ouvi' },
+  { href: '#bandeiras',      texto: 'O que defendemos' },
+  { href: '#presenca',       texto: 'Perto de quem precisa' },
+  { href: '#agenda',         texto: 'Agenda' },
 ]
+
+/**
+ * ⚠️ LINKS LEGAIS QUE O COPY (§8) PEDE E QUE AINDA NÃO EXISTEM:
+ * Termos de Uso, Transparência, Política de Cookies e Encarregado LGPD.
+ *
+ * Nenhum deles tem texto escrito, então nenhum está no rodapé: link que cai em
+ * 404 num rodapé eleitoral é pior do que link que ainda não está lá. Para
+ * publicar cada um, crie a rota em `app/<slug>/page.tsx` e acrescente aqui
+ * embaixo, junto da Política de Privacidade.
+ */
 
 /**
  * RODAPÉ
@@ -145,14 +154,24 @@ export function Rodape() {
             <strong>{candidato.campanha.cnpj}</strong>.
           </p>
 
-          {/* aviso de LGPD, vindo do protótipo Sul em Foco. Em corpo legível:
-              obrigação legal escondida em letra de 11 px é obrigação cumprida
-              pela metade. */}
+          {/* Conformidade legal, texto do copy §8. Em corpo legível: obrigação
+              legal escondida em letra de 11 px é obrigação cumprida pela
+              metade.
+
+              ⚠️ A frase fala em consentimento para coleta de dados, e o site
+              não coleta mais nada desde que o formulário saiu. Ela continua
+              porque a Resolução do TSE é citada aqui, mas o texto precisa de
+              uma revisão jurídica antes do go-live, junto com a Política de
+              Privacidade. */}
           <p className="max-w-[72ch] text-[1rem] leading-relaxed text-white/75">
-            Dados coletados com consentimento expresso, conforme a LGPD (Lei 13.709/2018) e a
+            Dados coletados com consentimento expresso conforme LGPD (Lei 13.709/2018) e
             Resolução TSE 23.610/2019.
           </p>
 
+          {/* dos cinco links legais do copy, só este existe como página. Os
+              outros quatro estão em LEGAIS_PENDENTES, no topo do arquivo, e
+              entram quando houver texto: link de rodapé eleitoral que cai em
+              404 é pior do que link que ainda não está lá. */}
           <p className="text-[1rem]">
             <Link href="/privacidade" className="underline hover:text-amarelo">
               Política de Privacidade

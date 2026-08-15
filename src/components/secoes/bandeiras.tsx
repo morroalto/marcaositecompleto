@@ -1,7 +1,6 @@
 import { IconeMegafone, IconeSeta } from '@/components/ui/icones'
 import { FundoEconomias } from '@/components/ui/simbolos'
 import { bandeiras, type Bandeira } from '@/content/bandeiras'
-import { MOSTRAR_PENDENCIAS } from '@/content/flags'
 
 /** cor da marca que entra no fio do card, via custom property */
 const FIO: Record<Bandeira['cor'], string> = {
@@ -13,48 +12,34 @@ const FIO: Record<Bandeira['cor'], string> = {
 }
 
 /**
- * BANDEIRAS
+ * O QUE DEFENDEMOS
  *
- * Card redesenhado em 14/08/2026. O anterior era uma caixa com faixa colorida
- * de 6 px no topo e o número em corpo 35 com 30% de opacidade dentro do texto:
- * seis deles lado a lado viravam seis retângulos listrados, e o número
- * apagado só sujava a leitura. Agora o card é branco e quieto, o número é
- * pequeno e nítido na linha do título, e a cor da marca fica num fio de 3 px
- * que cresce para 6 no hover. Forma inspirada em brunopeixoto.com e
- * nikolasferreira.com.br, onde quem organiza a grade é o número, não a cor.
+ * Texto: copy oficial da campanha. Seis eixos, um parágrafo cada.
  *
- * O compromisso ganhou caixa própria, em fundo papel: é a parte que diferencia
- * este site de um site de promessa vaga, e antes era um parágrafo qualquer com
- * um fio verde na lateral.
+ * O card é branco e quieto, com o número pequeno e nítido na linha do título e
+ * a cor da marca num fio de 3 px que cresce no hover. Forma inspirada em
+ * brunopeixoto.com e nikolasferreira.com.br: quem organiza a grade é o número,
+ * não a cor. A versão anterior tinha faixa colorida de 6 px no topo e o número
+ * em corpo 35 a 30% de opacidade dentro do texto, e seis deles lado a lado
+ * viravam seis retângulos listrados.
  *
- * A foto que enfeitava o cabeçalho da seção saiu. Ela não dizia nada que o
- * texto já não dissesse, e a página tinha foto demais.
- *
- * Card sem compromisso concreto não renderiza em produção.
+ * A caixa de compromisso separada saiu junto com o campo `compromisso`: o copy
+ * traz um texto só por eixo.
  */
 export function Bandeiras() {
-  const visiveis = bandeiras.filter((b) => b.compromisso !== null || MOSTRAR_PENDENCIAS)
-  const semCompromisso = bandeiras.filter((b) => !b.compromisso).length
-  if (visiveis.length === 0) return null
-
   return (
     <section id="bandeiras" className="bg-papel mv-secao relative overflow-hidden">
       <FundoEconomias variante="b" className="text-marinho opacity-[.05]" />
       <div className="mv-shell relative flex flex-col gap-9">
-        <div className="mx-auto flex max-w-[58ch] flex-col items-center gap-4 text-center sm:mx-0 sm:items-start sm:text-left">
+        <div className="flex max-w-[62ch] flex-col gap-4 text-center sm:text-left">
           <p className="mv-kicker text-[#2F5C1B]">Seis frentes</p>
           <h2 className="text-[clamp(1.45rem,4.6vw,2.25rem)] font-extrabold tracking-tight">
             O que defendemos
           </h2>
-          <p className="hidden text-[1.0625rem] leading-relaxed text-fraca sm:block sm:text-[1.15rem]">
-            Estes são os eixos que o Marcão já assumiu em público. Cada um vira compromisso
-            com endereço, e enquanto o compromisso concreto não vier da assessoria o card
-            fica marcado. Proposta vaga não entra neste site.
-          </p>
         </div>
 
         <ul className="grid items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {visiveis.map((b, i) => (
+          {bandeiras.map((b, i) => (
             <li
               key={b.slug}
               className="mv-card flex h-full flex-col gap-3"
@@ -65,26 +50,7 @@ export function Bandeiras() {
                 <span className="h-px grow bg-linha" aria-hidden="true" />
               </p>
               <h3 className="text-[1.25rem] font-extrabold">{b.titulo}</h3>
-              <p className="hidden text-[1.0625rem] leading-relaxed text-fraca sm:block">{b.contexto}</p>
-              <span className="grow" aria-hidden="true" />
-
-              {b.compromisso ? (
-                <p className="mv-compromisso mt-2 text-[1.0625rem] leading-relaxed font-semibold">
-                  {b.compromisso}
-                </p>
-              ) : (
-                MOSTRAR_PENDENCIAS && (
-                  <p className="mt-2 flex items-center gap-2 text-[0.9375rem] font-semibold text-[#B3241C]">
-                    <span
-                      aria-hidden="true"
-                      className="grid h-5 w-5 shrink-0 place-items-center rounded-full border-2 border-[#B3241C] text-[0.75rem] leading-none"
-                    >
-                      !
-                    </span>
-                    falta o compromisso
-                  </p>
-                )
-              )}
+              <p className="text-[1.0625rem] leading-relaxed text-fraca">{b.texto}</p>
             </li>
           ))}
         </ul>
@@ -105,15 +71,6 @@ export function Bandeiras() {
             <IconeSeta tamanho={20} />
           </a>
         </div>
-
-        {MOSTRAR_PENDENCIAS && semCompromisso > 0 && (
-          <p className="mv-todo">
-            <b>TODO (T2), {semCompromisso} de {bandeiras.length} eixos sem compromisso</b>
-            Cada eixo precisa do problema concreto, com nome de lugar, e do que o Marcão se
-            compromete a fazer. Sem isso o card não sobe em produção. Preencher em{' '}
-            <code>content/bandeiras.ts</code>, campo <code>compromisso</code>.
-          </p>
-        )}
       </div>
     </section>
   )

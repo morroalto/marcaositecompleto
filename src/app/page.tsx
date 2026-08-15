@@ -1,9 +1,8 @@
 import { Topo } from '@/components/topo'
 import { Hero } from '@/components/secoes/hero'
 import { Numero } from '@/components/secoes/numero'
-import { QuemE } from '@/components/secoes/quem-e'
 import { Trajetoria } from '@/components/secoes/trajetoria'
-import { Origem } from '@/components/secoes/origem'
+import { LinhaDoTempo } from '@/components/secoes/linha-do-tempo'
 import { Territorio } from '@/components/secoes/territorio'
 import { Escuta } from '@/components/secoes/escuta'
 import { Bandeiras } from '@/components/secoes/bandeiras'
@@ -17,31 +16,26 @@ import { candidato, site } from '@/content/candidato'
 /**
  * ARQUITETURA DA PÁGINA
  *
- *   1  Abertura              a arte oficial, o prazo
- *   2  O Sul tem número      o orelhão, o 36, o 028 e as nove cidades
- *   3  Quem é o Marcão       os sete papéis, em grade
- *   4  Trajetória            a linha do tempo, 1966 a 2026
- *   5  De onde eu venho      família e Triângulo do Sul
- *   6  O que eu vejo         o mapa da campanha e o território
- *   7  O que eu ouvi         o triângulo da escuta
- *   8  O que defendemos      as seis bandeiras
- *   9  Perto de quem precisa os momentos, em foto real
- *  10  Agenda                com estado vazio honesto até haver evento
- *  11  [seção livre]         espaço reservado, ainda sem conteúdo
- *  12  Bora junto            as redes da campanha
+ * A ordem segue o copy oficial (`dizeres site marcao.pdf`), com as seções que
+ * a campanha pediu para manter fora dele:
  *
- * A ordem vai do concreto (a pessoa, o número) para o compromisso, e termina
- * no convite. Nome de seção em primeira pessoa, porque é a voz dele que
- * sustenta a página quando o logo sai.
+ *   1  Hero                  copy §1
+ *   2  O Sul tem número      o orelhão, o 36 e o 028, pedido à parte
+ *   3  Trajetória            copy §3, com a foto de família e os selos
+ *   4  Linha do tempo        copy §4, de 1966 a 2026
+ *   5  O que eu vejo         a arte do mapa e o território, pedido à parte
+ *   6  O que eu ouvi         o Triângulo do Sul, pedido à parte
+ *   7  O que defendemos      copy §5, seis eixos
+ *   8  Perto de quem precisa copy §6, três espaços de vídeo
+ *   9  Agenda                copy §2, com os dois eventos reais
+ *  10  [seção livre]         espaço reservado, ainda sem conteúdo
+ *  11  CTA final             copy §7
  *
- * Fusão de 14/08/2026: a estrutura e os textos do protótipo "Sul em Foco"
- * entraram neste projeto. Vieram de lá a trajetória, a agenda, "Perto de quem
- * precisa", "O que defendemos", o efeito de discagem, o aviso de LGPD e a
- * assinatura do rodapé.
- *
- * A barra fixa do celular saiu junto com o formulário: ela existia para levar
- * ao cadastro, e sem cadastro seria um banner ocupando 68 px de tela sem ter o
- * que fazer. O componente segue em `components/barra-fixa.tsx`.
+ * SAÍRAM em 15/08/2026, quando o copy oficial chegou: "Quem é o Marcão" (as
+ * sete facetas) e "De onde eu venho" (biografia em primeira pessoa). As duas
+ * eram texto de rascunho, escrito por mim antes de existir copy, e diziam o
+ * que a Trajetória agora diz com o texto aprovado. Manter as três seria contar
+ * a mesma história três vezes, e duas delas sem aval de ninguém.
  */
 export default function Pagina() {
   const dadosEstruturados = {
@@ -68,9 +62,8 @@ export default function Pagina() {
       <main id="conteudo">
         <Hero />
         <Numero />
-        <QuemE />
         <Trajetoria />
-        <Origem />
+        <LinhaDoTempo />
         <Territorio />
         <Escuta />
         <Bandeiras />
