@@ -178,8 +178,11 @@ export function Rodape() {
             </Link>
           </p>
 
+          {/* a assinatura da agência sai do cinza: o nome vai no laranja da
+              marca, que é a cor de destaque do site */}
           <p className="text-[0.9375rem] text-white/55">
-            Desenvolvido por Morro Alto Creative Office
+            Desenvolvido por{' '}
+            <span className="font-semibold text-laranja">Morro Alto Creative Office</span>
           </p>
         </div>
       </div>

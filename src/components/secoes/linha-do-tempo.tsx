@@ -1,3 +1,4 @@
+import { IconeDe } from '@/components/ui/icones'
 import { linhaDoTempo, linhaDoTempoTexto } from '@/content/trajetoria'
 
 /**
@@ -35,9 +36,10 @@ export function LinhaDoTempo() {
               <li key={m.ano}>
                 <span className="mv-tempo-ano">{m.ano}</span>
                 <h3 className="flex items-center gap-3 font-display text-[1.15rem] font-extrabold text-marinho">
-                  <span className="text-[1.75rem] leading-none" aria-hidden="true">
-                    {m.icone}
-                  </span>
+                  {/* ícone desenhado, não emoji: emoji muda de forma a cada
+                      aparelho, vem colorido no meio de uma paleta fechada e o
+                      leitor de tela lê o nome dele em voz alta */}
+                  <IconeDe nome={m.icone} tamanho={26} className="shrink-0 text-verde" />
                   {m.titulo}
                 </h3>
                 <p className="mt-2 text-[1.0625rem] leading-relaxed text-fraca">{m.texto}</p>

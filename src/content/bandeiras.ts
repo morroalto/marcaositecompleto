@@ -16,6 +16,8 @@
 
 export interface Bandeira {
   slug: string
+  /** chave do ícone, resolvida por `IconeDe` */
+  icone: string
   titulo: string
   texto: string
   revisado: boolean
@@ -24,37 +26,37 @@ export interface Bandeira {
 
 export const bandeiras: Bandeira[] = [
   {
-    slug: 'pesca', titulo: 'Pesca e Economia do Mar', cor: 'marinho', revisado: true,
+    slug: 'pesca', icone: 'peixe', titulo: 'Pesca e Economia do Mar', cor: 'marinho', revisado: true,
     texto:
       'Apoio real aos pescadores e às colônias do nosso litoral, com infraestrutura, ' +
       'incentivo e acesso a crédito.',
   },
   {
-    slug: 'agricultura', titulo: 'Agricultura e Interior', cor: 'verde', revisado: true,
+    slug: 'agricultura', icone: 'broto', titulo: 'Agricultura e Interior', cor: 'verde', revisado: true,
     texto:
       'Fortalecer quem produz no campo: borracha, café, pecuária. Crédito e assistência ' +
       'técnica para quem vive da terra.',
   },
   {
-    slug: 'saude', titulo: 'Saúde perto de casa', cor: 'laranja', revisado: true,
+    slug: 'saude', icone: 'saude', titulo: 'Saúde perto de casa', cor: 'laranja', revisado: true,
     texto:
       'Menos fila, atendimento humano e mais estrutura nos postos e hospitais de toda a ' +
       'nossa região.',
   },
   {
-    slug: 'infraestrutura', titulo: 'Infraestrutura regional', cor: 'petroleo', revisado: true,
+    slug: 'infraestrutura', icone: 'estrada', titulo: 'Infraestrutura regional', cor: 'petroleo', revisado: true,
     texto:
       'Estradas recuperadas e saneamento básico para que nenhuma comunidade, por mais ' +
       'distante, seja esquecida.',
   },
   {
-    slug: 'mobilidade', titulo: 'Mobilidade e Conectividade', cor: 'amarelo', revisado: true,
+    slug: 'mobilidade', icone: 'onibus', titulo: 'Mobilidade e Conectividade', cor: 'amarelo', revisado: true,
     texto:
       'Transporte e acessos melhores conectando nossos municípios, para ninguém perder ' +
       'tempo nem oportunidade.',
   },
   {
-    slug: 'emprego', titulo: 'Emprego e Oportunidade', cor: 'verde', revisado: true,
+    slug: 'emprego', icone: 'maleta', titulo: 'Emprego e Oportunidade', cor: 'verde', revisado: true,
     texto:
       'Atrair investimentos regionais e apoiar o pequeno empreendedor local, do jeito que ' +
       'Marcão sempre fez na prática.',

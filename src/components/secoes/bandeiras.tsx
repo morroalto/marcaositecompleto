@@ -1,4 +1,5 @@
 import { IconeMegafone, IconeSeta } from '@/components/ui/icones'
+import { IconeDe } from '@/components/ui/icones'
 import { FundoEconomias } from '@/components/ui/simbolos'
 import { bandeiras, type Bandeira } from '@/content/bandeiras'
 
@@ -9,6 +10,15 @@ const FIO: Record<Bandeira['cor'], string> = {
   marinho: 'var(--marinho)',
   amarelo: 'var(--amarelo)',
   petroleo: 'var(--petroleo)',
+}
+
+/** a mesma cor, como classe, para o ícone do card */
+const COR: Record<Bandeira['cor'], string> = {
+  laranja: 'text-laranja',
+  verde: 'text-[var(--verde-fundo)]',
+  marinho: 'text-marinho',
+  amarelo: 'text-[#C9A800]',
+  petroleo: 'text-petroleo',
 }
 
 /**
@@ -45,9 +55,10 @@ export function Bandeiras() {
               className="mv-card flex h-full flex-col gap-3"
               style={{ '--fio': FIO[b.cor] } as React.CSSProperties}
             >
-              <p className="flex items-baseline gap-3">
-                <span className="mv-num">{String(i + 1).padStart(2, '0')}</span>
+              <p className="flex items-center gap-3">
+                <IconeDe nome={b.icone} tamanho={30} className={`shrink-0 ${COR[b.cor]}`} />
                 <span className="h-px grow bg-linha" aria-hidden="true" />
+                <span className="mv-num">{String(i + 1).padStart(2, '0')}</span>
               </p>
               <h3 className="text-[1.25rem] font-extrabold">{b.titulo}</h3>
               <p className="text-[1.0625rem] leading-relaxed text-fraca">{b.texto}</p>

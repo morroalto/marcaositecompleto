@@ -24,6 +24,162 @@ function Svg({ children, className, tamanho = 24, viewBox = '0 0 24 24' }:
   )
 }
 
+/**
+ * ÍCONES DE CONTEÚDO
+ *
+ * Substituíram os emojis do protótipo em 15/08/2026. Emoji não é ícone: o
+ * desenho é do sistema operacional, muda de forma e de cor a cada aparelho,
+ * vem colorido no meio de uma paleta fechada e some no leitor de tela ou é
+ * lido em voz alta como "urna de votação". Estes aqui herdam `currentColor`,
+ * acompanham o peso do texto ao lado e são iguais em todo lugar.
+ *
+ * `IconeDe` traduz a chave que está no conteúdo (`icone: 'pino'`) para o
+ * desenho, para o texto não precisar saber de componente.
+ */
+
+export function IconePino({ className, tamanho }: Props) {
+  return (
+    <Svg className={className} tamanho={tamanho}>
+      <path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z" />
+      <circle cx="12" cy="10" r="2.6" />
+    </Svg>
+  )
+}
+
+export function IconeCasa({ className, tamanho }: Props) {
+  return (
+    <Svg className={className} tamanho={tamanho}>
+      <path d="M3.5 10.5 12 3.5l8.5 7" />
+      <path d="M5.5 9.5V20h13V9.5" />
+      <path d="M10 20v-5.5h4V20" />
+    </Svg>
+  )
+}
+
+export function IconeAlianca({ className, tamanho }: Props) {
+  return (
+    <Svg className={className} tamanho={tamanho}>
+      <circle cx="12" cy="14.5" r="6" />
+      <path d="M9 5h6l-3 3.5L9 5Z" />
+      <path d="M9 5h6" />
+    </Svg>
+  )
+}
+
+export function IconeBroto({ className, tamanho }: Props) {
+  return (
+    <Svg className={className} tamanho={tamanho}>
+      <path d="M12 21v-8" />
+      <path d="M12 13c0-3.3-2.7-6-6-6 0 3.3 2.7 6 6 6Z" />
+      <path d="M12 13c0-2.8 2.2-5 5-5 0 2.8-2.2 5-5 5Z" />
+    </Svg>
+  )
+}
+
+export function IconeInstituicao({ className, tamanho }: Props) {
+  return (
+    <Svg className={className} tamanho={tamanho}>
+      <path d="M3.5 9.5 12 4l8.5 5.5" />
+      <path d="M6 10v8M10 10v8M14 10v8M18 10v8" />
+      <path d="M3.5 20.5h17" />
+    </Svg>
+  )
+}
+
+export function IconeUrna({ className, tamanho }: Props) {
+  return (
+    <Svg className={className} tamanho={tamanho}>
+      <rect x="4" y="10" width="16" height="10.5" rx="1.6" />
+      <path d="M8.5 10V5.5A1.5 1.5 0 0 1 10 4h7.5" />
+      <path d="m9.5 14.5 1.8 1.8 3.5-3.5" />
+    </Svg>
+  )
+}
+
+export function IconeCapelo({ className, tamanho }: Props) {
+  return (
+    <Svg className={className} tamanho={tamanho}>
+      <path d="M12 4 2.5 9 12 14l9.5-5L12 4Z" />
+      <path d="M6.5 11.2V16c0 1.5 2.5 3 5.5 3s5.5-1.5 5.5-3v-4.8" />
+      <path d="M21.5 9v5" />
+    </Svg>
+  )
+}
+
+export function IconePeixe({ className, tamanho }: Props) {
+  return (
+    <Svg className={className} tamanho={tamanho}>
+      <path d="M3 12c3-4.5 7-6.5 11-6.5S20.5 9 21 12c-.5 3-3 6.5-7 6.5S6 16.5 3 12Z" />
+      <path d="m3 12-1.5 4M3 12 1.5 8" />
+      <circle cx="16.5" cy="10.5" r="1" fill="currentColor" stroke="none" />
+    </Svg>
+  )
+}
+
+export function IconeSaude({ className, tamanho }: Props) {
+  return (
+    <Svg className={className} tamanho={tamanho}>
+      <rect x="3.5" y="6.5" width="17" height="14" rx="2" />
+      <path d="M12 10v7M8.5 13.5h7" />
+      <path d="M8 6.5V4h8v2.5" />
+    </Svg>
+  )
+}
+
+export function IconeEstrada({ className, tamanho }: Props) {
+  return (
+    <Svg className={className} tamanho={tamanho}>
+      <path d="M7 3.5 4 20.5M17 3.5l3 17" />
+      <path d="M12 4v3M12 10.5v3M12 17v3" />
+    </Svg>
+  )
+}
+
+export function IconeOnibus({ className, tamanho }: Props) {
+  return (
+    <Svg className={className} tamanho={tamanho}>
+      <rect x="4" y="4" width="16" height="13" rx="2.2" />
+      <path d="M4 10.5h16" />
+      <path d="M7.5 17v2M16.5 17v2" />
+      <circle cx="8" cy="14" r="1" fill="currentColor" stroke="none" />
+      <circle cx="16" cy="14" r="1" fill="currentColor" stroke="none" />
+    </Svg>
+  )
+}
+
+export function IconeMaleta({ className, tamanho }: Props) {
+  return (
+    <Svg className={className} tamanho={tamanho}>
+      <rect x="3" y="7.5" width="18" height="12" rx="2" />
+      <path d="M9 7.5V6a1.5 1.5 0 0 1 1.5-1.5h3A1.5 1.5 0 0 1 15 6v1.5" />
+      <path d="M3 13h18" />
+    </Svg>
+  )
+}
+
+/** chave do conteúdo → desenho */
+const MAPA_ICONES: Record<string, (p: Props) => React.ReactElement> = {
+  pino: IconePino,
+  casa: IconeCasa,
+  alianca: IconeAlianca,
+  broto: IconeBroto,
+  instituicao: IconeInstituicao,
+  urna: IconeUrna,
+  capelo: IconeCapelo,
+  familia: IconeGente,
+  peixe: IconePeixe,
+  saude: IconeSaude,
+  estrada: IconeEstrada,
+  onibus: IconeOnibus,
+  maleta: IconeMaleta,
+}
+
+export function IconeDe({ nome, className, tamanho }: Props & { nome: string }) {
+  const Desenho = MAPA_ICONES[nome]
+  if (!Desenho) return null
+  return <Desenho className={className} tamanho={tamanho} />
+}
+
 export function IconeWhatsapp({ className, tamanho = 24 }: Props) {
   return (
     <svg className={className} width={tamanho} height={tamanho} viewBox="0 0 24 24"

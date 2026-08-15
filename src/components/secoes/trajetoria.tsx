@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { IconeDe } from '@/components/ui/icones'
 import { FundoEconomias } from '@/components/ui/simbolos'
 import { selos, trajetoria } from '@/content/trajetoria'
 
@@ -64,9 +65,7 @@ export function Trajetoria() {
               key={s.texto}
               className="flex items-start gap-3 py-3 text-left text-[1.0625rem] text-white"
             >
-              <span className="text-[1.5rem] leading-none" aria-hidden="true">
-                {s.icone}
-              </span>
+              <IconeDe nome={s.icone} tamanho={24} className="mt-[2px] shrink-0 text-amarelo" />
               <span>{s.texto}</span>
             </li>
           ))}

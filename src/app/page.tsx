@@ -3,8 +3,6 @@ import { Hero } from '@/components/secoes/hero'
 import { Numero } from '@/components/secoes/numero'
 import { Trajetoria } from '@/components/secoes/trajetoria'
 import { LinhaDoTempo } from '@/components/secoes/linha-do-tempo'
-import { Territorio } from '@/components/secoes/territorio'
-import { Escuta } from '@/components/secoes/escuta'
 import { Bandeiras } from '@/components/secoes/bandeiras'
 import { Galeria } from '@/components/secoes/galeria'
 import { Agenda } from '@/components/secoes/agenda'
@@ -64,8 +62,6 @@ export default function Pagina() {
         <Numero />
         <Trajetoria />
         <LinhaDoTempo />
-        <Territorio />
-        <Escuta />
         <Bandeiras />
         <Galeria />
         <Agenda />

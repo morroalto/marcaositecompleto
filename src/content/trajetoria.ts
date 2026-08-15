@@ -12,7 +12,7 @@
  */
 
 export interface Marco {
-  /** emoji do protótipo, decorativo */
+  /** chave do ícone, resolvida por IconeDe */
   icone: string
   ano: string
   titulo: string
@@ -22,7 +22,7 @@ export interface Marco {
 
 export const linhaDoTempo: Marco[] = [
   {
-    icone: '📍',
+    icone: 'pino',
     ano: '1966',
     titulo: 'Rio de Janeiro, 1966',
     texto:
@@ -31,7 +31,7 @@ export const linhaDoTempo: Marco[] = [
     revisado: true,
   },
   {
-    icone: '🏡',
+    icone: 'casa',
     ano: '1972',
     titulo: 'Cachoeiro de Itapemirim, 1972',
     texto:
@@ -40,7 +40,7 @@ export const linhaDoTempo: Marco[] = [
     revisado: true,
   },
   {
-    icone: '💍',
+    icone: 'alianca',
     ano: '1986',
     titulo: 'Adriana, 1986',
     texto:
@@ -49,7 +49,7 @@ export const linhaDoTempo: Marco[] = [
     revisado: true,
   },
   {
-    icone: '🌱',
+    icone: 'broto',
     ano: '1994',
     titulo: 'Comércio, campo e cooperativa',
     texto:
@@ -58,7 +58,7 @@ export const linhaDoTempo: Marco[] = [
     revisado: true,
   },
   {
-    icone: '🏛️',
+    icone: 'instituicao',
     ano: '2012',
     titulo: 'Presidente Kennedy, 2 mandatos',
     texto:
@@ -67,7 +67,7 @@ export const linhaDoTempo: Marco[] = [
     revisado: true,
   },
   {
-    icone: '🗳️',
+    icone: 'urna',
     ano: '2026',
     titulo: 'Marataízes, 2026',
     texto:
@@ -77,12 +77,12 @@ export const linhaDoTempo: Marco[] = [
   },
 ]
 
-/** Os quatro selos, com os emojis do protótipo. */
+/** Os quatro selos, com ícone no lugar do emoji do protótipo. */
 export const selos: { icone: string; texto: string; revisado: boolean }[] = [
-  { icone: '🎓', texto: 'Formado em Cachoeiro de Itapemirim', revisado: true },
-  { icone: '🏛️', texto: '2× Vereador em Presidente Kennedy', revisado: true },
-  { icone: '👨‍👩‍👧‍👧', texto: 'Pai de 3 filhas, avô do Marco Antônio', revisado: true },
-  { icone: '📍', texto: 'Raiz em Kennedy, Cachoeiro, Itapemirim e Marataízes', revisado: true },
+  { icone: 'capelo', texto: 'Formado em Cachoeiro de Itapemirim', revisado: true },
+  { icone: 'instituicao', texto: '2× Vereador em Presidente Kennedy', revisado: true },
+  { icone: 'familia', texto: 'Pai de 3 filhas, avô do Marco Antônio', revisado: true },
+  { icone: 'pino', texto: 'Raiz em Kennedy, Cachoeiro, Itapemirim e Marataízes', revisado: true },
 ]
 
 /** A prosa da trajetória. */
