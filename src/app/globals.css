@@ -211,9 +211,13 @@
     transition: background-color .16s ease, border-color .16s ease,
                 color .16s ease, transform .12s ease, box-shadow .12s ease;
   }
-  .mv-btn-laranja { background: var(--laranja); color: var(--sobre-laranja); box-shadow: 0 4px 0 #C45E00; }
-  .mv-btn-laranja:hover { background: #FF8A1F; }
-  .mv-btn-laranja:active { transform: translateY(3px); box-shadow: 0 1px 0 #C45E00; }
+  /* Botão laranja com TEXTO BRANCO, a pedido. O fundo é o laranja escuro
+     (#E06A00) e não o #FF7A00 da paleta: sobre o laranja claro, o branco fica
+     lavado e o rótulo some. Com o tom escuro, o botão continua sendo laranja
+     na tela e o texto se lê. */
+  .mv-btn-laranja { background: #E06A00; color: #fff; box-shadow: 0 4px 0 #A84F00; }
+  .mv-btn-laranja:hover { background: #F07600; }
+  .mv-btn-laranja:active { transform: translateY(3px); box-shadow: 0 1px 0 #A84F00; }
   .mv-btn-amarelo { background: var(--amarelo); color: var(--sobre-amarelo); box-shadow: 0 4px 0 #C9A800; }
   .mv-btn-amarelo:hover { background: #FFDE33; }
   .mv-btn-amarelo:active { transform: translateY(3px); box-shadow: 0 1px 0 #C9A800; }

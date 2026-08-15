@@ -61,25 +61,25 @@ export function Numero() {
             {numeroTexto.titulo[0]} {numeroTexto.titulo[1]}
           </h2>
 
-          {/* LARANJA E BRANCO, os dois cards. O verde do 36 morria dentro do
-              fundo petróleo da seção — verde escuro sobre verde-azulado é o
-              par de menor contraste da paleta. Agora um card é laranja cheio e
-              o outro é branco: eles se separam do fundo e um do outro, e o
-              número continua sendo a coisa mais forte de cada um. */}
+          {/* VERDE E LARANJA, com TODO o texto em branco.
+              O laranja usa o tom escuro da paleta (#E06A00, o mesmo da sombra
+              dos botões) e não o #FF7A00 puro: com o branco por cima, o laranja
+              claro deixava o rótulo pequeno "O DDD DO SUL" quase apagado. O
+              número é grande e aguenta, mas a linha de baixo não aguentava. */}
           <div className="flex w-full gap-3 sm:w-auto sm:gap-4">
-            <div className="flex-1 rounded-xl bg-laranja px-5 py-4 text-center shadow-[0_5px_0_rgba(0,0,0,.32)] sm:flex-none sm:min-w-[8.5rem]">
-              <b className="block font-display text-[clamp(2.1rem,8vw,2.9rem)] leading-none font-black text-[#08222A] tabular-nums">
+            <div className="flex-1 rounded-xl bg-[#3A7325] px-5 py-4 text-center shadow-[0_5px_0_rgba(0,0,0,.32)] sm:flex-none sm:min-w-[8.5rem]">
+              <b className="block font-display text-[clamp(2.1rem,8vw,2.9rem)] leading-none font-black text-white tabular-nums">
                 {candidato.numeroPartido}
               </b>
-              <span className="font-display text-[0.75rem] font-extrabold tracking-[0.1em] text-[#08222A] uppercase">
+              <span className="font-display text-[0.75rem] font-extrabold tracking-[0.1em] text-white uppercase">
                 O partido
               </span>
             </div>
-            <div className="flex-1 rounded-xl bg-white px-5 py-4 text-center shadow-[0_5px_0_rgba(0,0,0,.32)] sm:flex-none sm:min-w-[8.5rem]">
-              <b className="block font-display text-[clamp(2.1rem,8vw,2.9rem)] leading-none font-black text-petroleo tabular-nums">
+            <div className="flex-1 rounded-xl bg-[#E06A00] px-5 py-4 text-center shadow-[0_5px_0_rgba(0,0,0,.32)] sm:flex-none sm:min-w-[8.5rem]">
+              <b className="block font-display text-[clamp(2.1rem,8vw,2.9rem)] leading-none font-black text-white tabular-nums">
                 {candidato.numeroDDD}
               </b>
-              <span className="font-display text-[0.75rem] font-extrabold tracking-[0.1em] text-petroleo uppercase">
+              <span className="font-display text-[0.75rem] font-extrabold tracking-[0.1em] text-white uppercase">
                 O DDD do Sul
               </span>
             </div>
