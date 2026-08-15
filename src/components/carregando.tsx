@@ -34,7 +34,7 @@ export function Carregando() {
           {/* mesma arte oficial do cabeçalho, maior. `prioridade` porque ela é
               a primeira coisa que aparece na tela */}
           <div className="w-[min(78vw,22rem)]">
-            <LockupArte fluido prioridade />
+            <LockupArte fluido prioridade tamanhos="(max-width: 639px) 78vw, 22rem" />
           </div>
           <div className="mv-abertura-trilho">
             <span className="mv-abertura-barra" />

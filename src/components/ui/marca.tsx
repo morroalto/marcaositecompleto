@@ -60,7 +60,12 @@ export function Lockup({
  */
 export function LockupArte({
   className, altura = 40, prioridade = false, fluido = false,
-}: { className?: string; altura?: number; prioridade?: boolean; fluido?: boolean }) {
+  tamanhos = '(max-width: 1023px) 80vw, 20rem',
+}: {
+  className?: string; altura?: number; prioridade?: boolean; fluido?: boolean
+  /** `sizes` da imagem: quanto da tela a marca ocupa em cada faixa de largura */
+  tamanhos?: string
+}) {
   /* FLUIDO = a LARGURA manda, e a altura vem sozinha.
      Sem isso, quem precisava de uma marca que acompanha a tela acabava
      escrevendo `altura={52}` mais uma classe de largura, e as duas juntas
@@ -72,13 +77,23 @@ export function LockupArte({
      daqui: `cn` é concatenação pura, sem tailwind-merge, e uma classe de
      largura passada aqui empilha com o `w-full` em vez de substituí-lo — quem
      ganha vira uma disputa de ordem no CSS. Envolva a marca numa div com a
-     largura desejada. */
+     largura desejada.
+
+     E AS DIMENSÕES DECLARADAS PASSAM A SER AS DO ARQUIVO (3539×1500), com
+     `sizes` dizendo quanto da tela a marca ocupa. Isso não é detalhe: o Next
+     escolhe QUAL versão do PNG servir a partir da largura declarada. Com uma
+     altura de 40 declarada, a largura vira 94 px, ele serve um arquivo de 94
+     px, e o CSS estica esse arquivo até os 300 px da caixa — marca borrada.
+     Com o tamanho real mais `sizes`, ele serve a versão do tamanho certo. */
+  const fluidoProps = fluido
+    ? { width: 3539, height: 1500, sizes: tamanhos }
+    : { width: Math.round((altura * 3539) / 1500), height: altura }
+
   return (
     <Image
       src="/marca/lockup-branco.png"
       alt={`${candidato.nomeUrna}, ${candidato.numero}`}
-      width={Math.round((altura * 3539) / 1500)}
-      height={altura}
+      {...fluidoProps}
       priority={prioridade}
       className={cn(fluido ? 'h-auto w-full' : 'h-auto w-auto', className)}
       style={fluido ? undefined : { height: altura }}

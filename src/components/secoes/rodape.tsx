@@ -69,7 +69,7 @@ export function Rodape() {
             detalhe que o olho pega mesmo sem saber nomear. */}
         <div className="flex flex-col items-center gap-5 text-center sm:items-start sm:text-left">
           <div className="w-[min(70vw,17rem)]">
-            <LockupArte fluido />
+            <LockupArte fluido tamanhos="(max-width: 639px) 70vw, 17rem" />
           </div>
           <p className="font-display text-[1.2rem] font-bold text-amarelo">{candidato.slogan}</p>
         </div>
@@ -234,7 +234,7 @@ export function Rodape() {
               tamanho só; a coluna se ajusta ao que ela pedir. */}
           <div className="flex justify-center lg:justify-end">
             <div className="w-[clamp(11rem,26vw,19rem)] shrink-0">
-              <LockupArte fluido />
+              <LockupArte fluido tamanhos="(max-width: 1023px) 26vw, 19rem" />
             </div>
           </div>
         </div>
