@@ -16,9 +16,13 @@
  *   gestão    `traj-gestao`    a caminhada de campanha, com as bandeiras
  *   a voz     `traj-voz`       a cadeira sozinha na orla
  *
- * `largura` e `altura` são as dimensões REAIS de cada arquivo, e existem para
- * a foto entrar inteira: elas têm formatos diferentes, uma vertical e duas
- * deitadas, e qualquer quadro de proporção fixa cortaria alguma delas.
+ * AS QUATRO ENTRAM NO MESMO QUADRO 4/3, como na arte: são quatro retratos
+ * colados na mesma página de álbum, e retrato de álbum tem tamanho de álbum.
+ * Com proporções diferentes, viravam quatro peças soltas.
+ *
+ * O preço é o recorte das duas verticais. `posicao` diz onde o quadro se ancora
+ * dentro do arquivo, sempre nos rostos: na da família ele pega das cabeças ao
+ * colo, e na da fotografia antiga, da mão ao fim do retrato.
  */
 
 export interface Capitulo {
@@ -30,12 +34,19 @@ export interface Capitulo {
   /** nome do arquivo em `public/fotos/`, sem extensão. `null` = ainda não veio */
   foto: string | null
   ext: 'jpg' | 'webp'
-  /** dimensões reais do arquivo: a foto entra inteira, sem recorte */
+  /** dimensões reais do arquivo */
   largura: number
   altura: number
+  /**
+   * Proporção do quadro na tela — 4/3 nas quatro, para os retratos casarem — e
+   * onde a imagem se ancora dentro dele.
+   *
+   * As verticais perdem topo e rodapé nesse corte. `posicao` escolhe o que
+   * fica: o que vale em cada uma das duas são os rostos.
+   */
+  proporcao: string
+  posicao: string
   alt: string
-  /** na arte, o card da família abre com a imagem e os outros fecham com ela */
-  fotoEmCima: boolean
   revisado: boolean
 }
 
@@ -51,8 +62,8 @@ export const capitulos: Capitulo[] = [
     foto: 'traj-heranca',
     ext: 'jpg',
     largura: 768, altura: 1365,
+    proporcao: '4/3', posicao: '50% 24%',
     alt: 'Uma mão segurando uma fotografia antiga da família, em preto e branco',
-    fotoEmCima: false,
     revisado: true,
   },
   {
@@ -67,8 +78,8 @@ export const capitulos: Capitulo[] = [
     foto: 'familia-todos',
     ext: 'jpg',
     largura: 1066, altura: 1600,
+    proporcao: '4/3', posicao: '50% 10%',
     alt: 'Marcão sentado com a esposa Adriana e o neto Marco Antônio no colo, com as três filhas em pé atrás',
-    fotoEmCima: true,
     revisado: true,
   },
   {
@@ -82,8 +93,8 @@ export const capitulos: Capitulo[] = [
     foto: 'traj-gestao',
     ext: 'jpg',
     largura: 1537, altura: 1023,
+    proporcao: '4/3', posicao: '50% 45%',
     alt: 'Marcão caminhando na rua ao lado de apoiadores com bandeiras da campanha',
-    fotoEmCima: false,
     revisado: true,
   },
   {
@@ -97,8 +108,8 @@ export const capitulos: Capitulo[] = [
     foto: 'traj-voz',
     ext: 'jpg',
     largura: 1599, altura: 899,
+    proporcao: '4/3', posicao: '50% 50%',
     alt: 'Uma cadeira sozinha na orla, de frente para a praia de Marataízes',
-    fotoEmCima: false,
     revisado: true,
   },
 ]

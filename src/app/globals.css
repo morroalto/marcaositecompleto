@@ -354,6 +354,55 @@
     border-bottom: 4px solid var(--laranja);
   }
 
+  /* ── ÁLBUM ENVELHECIDO (trajetória) ──
+     A arte da campanha para os quatro capítulos é uma página de álbum antigo,
+     e o efeito é construído em camadas separadas do conteúdo: o texto nunca
+     passa por filtro nenhum, porque letra distorcida é letra ilegível.
+
+     O FUNDO é papel guardado: creme com manchas de umidade nos cantos
+     (dois `radial-gradient`) e o grão por cima, um `feTurbulence` em SVG
+     embutido como data URI — mais leve que uma textura em imagem e sem uma
+     requisição a mais. */
+  .mv-papel-velho {
+    background-color: #EFE3CE;
+    background-image:
+      radial-gradient(ellipse 60% 50% at 12% 8%, rgb(124 88 48 / .16), transparent 70%),
+      radial-gradient(ellipse 55% 45% at 92% 88%, rgb(124 88 48 / .18), transparent 70%),
+      radial-gradient(ellipse 70% 60% at 50% 50%, rgb(255 250 240 / .55), transparent 80%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)' opacity='.16'/%3E%3C/svg%3E");
+  }
+
+  /* A FOLHA de cada card. O filtro de rasgo mora aqui, na camada de baixo, e
+     não no card: assim quem treme é a borda do papel, não o texto que está por
+     cima. O `inset` negativo devolve o que o deslocamento come das beiradas. */
+  .mv-carta { position: relative; }
+  .mv-carta-folha {
+    position: absolute; inset: -7px;
+    background-color: #F7EEDC;
+    background-image:
+      radial-gradient(ellipse 50% 40% at 88% 12%, rgb(150 112 62 / .20), transparent 70%),
+      radial-gradient(ellipse 45% 40% at 8% 92%, rgb(150 112 62 / .16), transparent 70%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23g)' opacity='.13'/%3E%3C/svg%3E");
+    filter: url(#mv-rasgo) drop-shadow(0 8px 16px rgb(74 48 20 / .22));
+  }
+
+  /* O RETRATO colado torto, com a moldura de papel rasgada em volta. O giro
+     fica no elemento inteiro — foto e moldura juntas, como uma peça só. */
+  .mv-retrato {
+    position: relative;
+    padding: 11px;
+    rotate: var(--giro, -1.4deg);
+  }
+  .mv-retrato-moldura {
+    position: absolute; inset: 0;
+    background: #FBF4E6;
+    filter: url(#mv-rasgo-fino) drop-shadow(0 5px 10px rgb(74 48 20 / .30));
+  }
+  /* sépia, contraste puxado e um leve desbotado: foto de papel, não de tela */
+  .mv-foto-sepia {
+    filter: sepia(.82) saturate(.72) contrast(1.06) brightness(1.02);
+  }
+
   /* ── CARD DE FOTO ──
      Legenda POR CIMA da imagem, não solta embaixo. Texto solto sob a foto
      ficava boiando no branco, sem borda e sem fundo, com cara de rascunho.
