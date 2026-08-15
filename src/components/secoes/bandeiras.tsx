@@ -1,3 +1,4 @@
+import { IconeMegafone, IconeSeta } from '@/components/ui/icones'
 import { FundoEconomias } from '@/components/ui/simbolos'
 import { bandeiras, type Bandeira } from '@/content/bandeiras'
 
@@ -54,6 +55,22 @@ export function Bandeiras() {
           ))}
         </ul>
 
+        {/* faixa, não card: o convite não é o sétimo eixo, é outra coisa */}
+        <div className="flex flex-col items-center gap-5 rounded-[10px] bg-petroleo px-7 py-7 text-center text-white sm:flex-row sm:items-center sm:justify-between sm:text-left">
+          <div className="flex flex-col items-center gap-2 sm:flex-row sm:gap-4">
+            <IconeMegafone className="shrink-0 text-amarelo" tamanho={30} />
+            <div>
+              <h3 className="text-[1.25rem] font-extrabold">Faltou o seu tema?</h3>
+              <p className="text-[1.0625rem] leading-relaxed text-[#CBDDD7]">
+                A pauta do Sul não cabe em seis cards. Manda pra gente.
+              </p>
+            </div>
+          </div>
+          <a href="#apoie" className="mv-btn mv-btn-amarelo w-full shrink-0 sm:w-auto">
+            Falar com a campanha
+            <IconeSeta tamanho={20} />
+          </a>
+        </div>
       </div>
     </section>
   )
