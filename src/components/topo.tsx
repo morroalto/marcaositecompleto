@@ -9,13 +9,13 @@ import { candidato } from '@/content/candidato'
  * sumário: com nove, nenhum é lido. Ficaram de fora "De onde venho", "O que eu
  * vejo" e "O que eu ouvi", que a pessoa alcança rolando a partir de Trajetória.
  */
+/** uma entrada por seção do copy, na ordem da página */
 const LINKS = [
-  { href: '#numero',         texto: 'O 028' },
+  { href: '#agenda',         texto: 'Agenda' },
   { href: '#trajetoria',     texto: 'Trajetória' },
   { href: '#linha-do-tempo', texto: 'Linha do tempo' },
   { href: '#bandeiras',      texto: 'O que defendemos' },
   { href: '#presenca',       texto: 'Presença' },
-  { href: '#agenda',         texto: 'Agenda' },
 ]
 
 /**
