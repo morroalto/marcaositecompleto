@@ -61,8 +61,18 @@ export function Escuta() {
       <div className="mv-shell flex flex-col gap-8">
         <div className="flex flex-col items-center gap-4 text-center sm:items-start sm:text-left">
           <p className="mv-kicker text-amarelo">Três cidades, três economias</p>
+          {/* O contorno do cartaz é BRANCO por padrão, e branco em volta de
+              letra amarela sobre fundo escuro embaralha a forma: as duas cores
+              claras brigam e o olho perde o desenho da letra. Aqui o contorno
+              recebe o próprio tom do fundo, então ele separa a letra do fundo
+              em vez de disputar com ela. */}
           <h2 className="text-[clamp(1.6rem,5.6vw,2.7rem)]">
-            <Cartaz className="text-amarelo">O TRIÂNGULO<br />TEM VOZ</Cartaz>
+            <Cartaz
+              className="text-amarelo"
+              style={{ WebkitTextStrokeColor: 'var(--petroleo)' }}
+            >
+              O TRIÂNGULO<br />TEM VOZ
+            </Cartaz>
           </h2>
           {/* texto novo, enviado pela campanha em 15/08/2026. A evidência de
               cada cidade saiu daqui: ela agora vive dentro do card da cidade,

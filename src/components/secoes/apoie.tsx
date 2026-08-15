@@ -5,21 +5,17 @@ import { candidato } from '@/content/candidato'
 /**
  * CTA FINAL (seção 7 do copy oficial)
  *
- * "Faça parte dessa mudança", o texto aprovado e os dois botões: "Tô junto com
- * o Marcão" e "Entrar no Grupo Oficial".
+ * "Faça parte dessa mudança", o texto aprovado, o botão e as redes.
  *
  * REFEITO em 15/08/2026. Estava com três cards de canais mais um card largo de
  * contato embaixo, e ficou ruim por dois motivos: o conteúdo dos cards era
  * texto meu, que o copy não pede, e o card largo tinha título centralizado
  * sobre uma caixa de largura inteira, com tudo boiando no meio. Fecho de
- * página não precisa de grade: precisa de uma frase, dois botões e para onde
- * ir.
+ * página não precisa de grade: precisa de uma frase, um botão e para onde ir.
  *
- * ⚠️ OS DOIS BOTÕES AINDA NÃO TÊM DESTINO PRÓPRIO. O copy pede grupo oficial e
- * o link do WhatsApp não veio; o formulário de apoiador saiu a pedido.
- * Enquanto isso eles vão para as redes, que é o canal que existe hoje. Para
- * ligar de verdade: preencha `candidato.grupoWhatsapp` em
- * `content/candidato.ts` e troque o `href` do segundo botão.
+ * O copy pedia um segundo botão, "Entrar no Grupo Oficial". Ele saiu junto: a
+ * campanha não tem grupo de WhatsApp, e botão que não leva a lugar nenhum
+ * queima quem clicou.
  *
  * O formulário que vivia aqui levou junto o cadastro, a validação, o honeypot
  * e o consentimento de LGPD. Duas consequências ficam registradas: o site não
@@ -48,26 +44,18 @@ export function Apoie() {
           </p>
         </div>
 
-        <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
-          <a
-            href={candidato.redes.instagram}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mv-btn mv-btn-laranja w-full sm:w-auto"
-          >
-            Tô junto com o Marcão
-            <IconeSeta tamanho={20} />
-          </a>
-          <a
-            href={candidato.redes.instagramMovimento}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mv-btn mv-btn-linha w-full sm:w-auto"
-          >
-            Entrar no Grupo Oficial
-            <IconeSeta tamanho={20} />
-          </a>
-        </div>
+        {/* O segundo botão do copy, "Entrar no Grupo Oficial", saiu em
+            15/08/2026: a campanha não tem grupo de WhatsApp. Fica o que leva a
+            algum lugar. */}
+        <a
+          href={candidato.redes.instagram}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mv-btn mv-btn-laranja w-full sm:w-auto"
+        >
+          Tô junto com o Marcão
+          <IconeSeta tamanho={20} />
+        </a>
 
         <ul className="flex flex-wrap justify-center gap-x-7 gap-y-2">
           {redes.map(({ Icone, href, texto }) => (

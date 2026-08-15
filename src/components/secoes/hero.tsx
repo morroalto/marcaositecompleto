@@ -66,20 +66,14 @@ export function Hero() {
               precisa na Assembleia Legislativa.
             </p>
 
-            {/* CTAs do copy. O "Grupo Oficial" ainda não tem link: o convite
-                do WhatsApp não veio, e link de grupo inventado leva o eleitor
-                para lugar nenhum. Enquanto não vier, os dois botões vão para o
-                fim da página, onde estão os canais que existem. */}
-            <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap">
-              <a href="#apoie" className="mv-btn mv-btn-laranja w-full sm:w-auto">
-                Quero apoiar
-                <IconeSeta tamanho={20} />
-              </a>
-              <a href="#apoie" className="mv-btn mv-btn-linha w-full sm:w-auto">
-                Entrar no Grupo Oficial
-                <IconeSeta tamanho={20} />
-              </a>
-            </div>
+            {/* O copy pedia um segundo botão, "Entrar no Grupo Oficial". Ele
+                saiu em 15/08/2026: a campanha não tem grupo de WhatsApp, e
+                botão sem destino é o pior tipo de botão. Sobra um só, que é o
+                que a página tem para oferecer. */}
+            <a href="#apoie" className="mv-btn mv-btn-laranja w-full sm:w-auto">
+              Quero apoiar
+              <IconeSeta tamanho={20} />
+            </a>
           </div>
 
           {/* RELÓGIO DE VERDADE, andando de segundo em segundo até a abertura

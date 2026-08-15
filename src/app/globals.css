@@ -183,7 +183,10 @@
     font-family: var(--font-display);
     font-weight: 400;
     text-transform: uppercase;
-    line-height: .92; letter-spacing: -.02em;
+    /* 1.02, e não .92: com duas linhas, o contorno de uma letra encostava na
+       linha de baixo e as palavras viravam um bloco só. Anton já é
+       condensada, ela não precisa de entrelinha apertada por cima disso. */
+    line-height: 1.02; letter-spacing: -.02em;
     transform: skewX(-9deg); transform-origin: left bottom;
     display: inline-block;
     paint-order: stroke fill;

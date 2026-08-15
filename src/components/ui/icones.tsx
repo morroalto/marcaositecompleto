@@ -180,14 +180,9 @@ export function IconeDe({ nome, className, tamanho }: Props & { nome: string }) 
   return <Desenho className={className} tamanho={tamanho} />
 }
 
-export function IconeWhatsapp({ className, tamanho = 24 }: Props) {
-  return (
-    <svg className={className} width={tamanho} height={tamanho} viewBox="0 0 24 24"
-      fill="currentColor" aria-hidden="true" focusable="false">
-      <path d="M12.04 2C6.6 2 2.2 6.4 2.2 11.84c0 1.74.46 3.44 1.32 4.94L2.1 22l5.36-1.4a9.8 9.8 0 0 0 4.58 1.16h.01c5.43 0 9.84-4.4 9.84-9.84C21.89 6.4 17.48 2 12.04 2Zm0 17.9h-.01a8.2 8.2 0 0 1-4.16-1.14l-.3-.18-3.1.81.83-3.02-.2-.31a8.13 8.13 0 0 1-1.25-4.32c0-4.51 3.68-8.18 8.2-8.18a8.14 8.14 0 0 1 8.18 8.19c0 4.51-3.67 8.16-8.19 8.16Zm4.5-6.12c-.25-.13-1.46-.72-1.68-.8-.23-.08-.39-.13-.56.12-.16.25-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.13-1.04-.39-1.99-1.23-.73-.66-1.23-1.46-1.37-1.71-.15-.25-.02-.38.1-.51.11-.11.25-.29.37-.44.13-.15.17-.25.25-.42.09-.16.05-.31-.02-.43-.06-.13-.56-1.35-.77-1.84-.2-.48-.4-.42-.56-.43h-.47c-.16 0-.43.06-.65.31-.23.25-.86.84-.86 2.05s.88 2.38 1 2.54c.13.17 1.74 2.65 4.21 3.72.59.25 1.05.4 1.4.52.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.18.2-.58.2-1.08.15-1.18-.06-.11-.23-.17-.48-.29Z" />
-    </svg>
-  )
-}
+/* O ícone do WhatsApp saiu em 15/08/2026, junto com os botões de grupo: a
+   campanha não tem WhatsApp, e ícone de rede que não existe é convite a
+   procurar o que não há. Volta com o desenho original se um dia houver. */
 
 export function IconeTiktok({ className, tamanho = 24 }: Props) {
   return (

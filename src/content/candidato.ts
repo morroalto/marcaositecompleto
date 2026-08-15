@@ -52,9 +52,13 @@ export const candidato = {
     facebook: 'https://www.facebook.com/marcovivacquaoficial',
   },
 
-  /** TODO(T1): links reais antes do go-live. `null` mantém o botão desabilitado e honesto. */
-  whatsapp: null as string | null,
-  grupoWhatsapp: null as string | null,
+  /**
+   * WHATSAPP NÃO EXISTE nesta campanha, confirmado em 15/08/2026: não há
+   * número de atendimento nem grupo. Os campos saíram daqui e os dois botões
+   * de "Entrar no Grupo Oficial" que o copy pedia saíram do hero e do CTA
+   * final. Se um dia houver, o caminho é criar o campo aqui e ligar nos dois
+   * lugares — nunca o contrário.
+   */
 
   fonte: 'CNPJ Receita Federal, emitido 03/08/2026 · número informado pela campanha em 12/08/2026',
 } as const
