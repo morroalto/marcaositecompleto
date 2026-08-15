@@ -34,8 +34,9 @@ export function LinhaDoTempo() {
       <FiltrosDeRasgo />
 
       <div className="mv-shell relative flex flex-col gap-7">
+        {/* Sem chapéu "TRAJETÓRIA": a seção logo acima já abre com ele, e a
+            etiqueta repetida a duas seções de distância só atrasava o título. */}
         <div className="flex max-w-[62ch] flex-col gap-3 text-center sm:text-left">
-          <p className="mv-kicker text-[#6B4A2A]">{linhaDoTempoTexto.kicker}</p>
           <h2 className="text-[clamp(1.45rem,4.6vw,2.25rem)] font-extrabold tracking-tight text-[#3A2A1C]">
             {linhaDoTempoTexto.titulo}
           </h2>

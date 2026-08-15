@@ -137,9 +137,14 @@ export const trajetoria = {
   citacao: 'Quem luta por essa região sabe o nome de quem tá lutando junto.',
 }
 
-/** Cabeçalho da seção dos capítulos. */
+/**
+ * Cabeçalho da seção dos capítulos.
+ *
+ * Sem `kicker`: o chapéu "TRAJETÓRIA" saiu em 15/08/2026 porque a seção
+ * anterior já abre com ele, e a mesma etiqueta duas vezes seguidas não
+ * localizava o leitor — só adiava o título.
+ */
 export const linhaDoTempoTexto = {
-  kicker: 'Trajetória',
   titulo: 'Raízes no Sul, compromisso com a nossa gente',
   chamada:
     'De Cachoeiro ao Triângulo do Sul, cada capítulo desta caminhada traz o nome de uma ' +
