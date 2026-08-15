@@ -32,8 +32,21 @@ export function LinhaDoTempo() {
           </p>
         </div>
 
-        <ul className="grid items-start gap-6 lg:grid-cols-2">
+        {/* `items-stretch` mais `h-full`: os dois cards de cada linha terminam
+            na mesma altura, e a foto de quem tem texto mais curto desce até a
+            base com `mt-auto`. Sem isso, o card "A Voz do Sul" ficava um palmo
+            mais baixo que o vizinho e a linha parecia quebrada.
+            O título usa `text-balance` para não deixar "(2026)" sozinho numa
+            segunda linha. */}
+        <ul className="grid items-stretch gap-6 lg:grid-cols-2">
           {capitulos.map((c) => {
+            /* Foto muito vertical entra mais estreita, e centralizada. A da
+               fotografia antiga é quase 1 por 1,8: na largura inteira do card
+               ela sozinha ficava com o dobro da altura do texto e esticava a
+               linha toda, deixando um vão branco no card ao lado. Estreitar é
+               melhor do que cortar, porque não se perde nada da imagem. */
+            const muitoVertical = c.altura / c.largura > 1.6
+
             const foto = c.foto && (
               <Image
                 src={`/fotos/${c.foto}.${c.ext}`}
@@ -42,14 +55,18 @@ export function LinhaDoTempo() {
                 height={c.altura}
                 sizes="(max-width: 1023px) 90vw, 32rem"
                 loading="lazy"
-                className="h-auto w-full rounded-[10px]"
+                className={[
+                  'h-auto w-full rounded-[10px]',
+                  muitoVertical ? 'mx-auto max-w-[74%]' : '',
+                  c.fotoEmCima ? '' : 'mt-auto',
+                ].join(' ')}
               />
             )
 
             return (
               <li
                 key={c.slug}
-                className="flex flex-col gap-4 rounded-[16px] bg-[var(--creme)] p-6 sm:p-7"
+                className="flex h-full flex-col gap-4 rounded-[16px] bg-[var(--creme)] p-6 sm:p-7"
               >
                 {c.fotoEmCima && foto}
 
@@ -57,7 +74,7 @@ export function LinhaDoTempo() {
                   <p className="font-display text-[0.8125rem] font-extrabold tracking-[0.1em] text-[#5C4A42] uppercase">
                     {c.chapeu}
                   </p>
-                  <h3 className="text-[clamp(1.3rem,3.6vw,1.85rem)] font-extrabold tracking-tight text-tinta">
+                  <h3 className="text-[clamp(1.25rem,3.2vw,1.65rem)] font-extrabold tracking-tight text-balance text-tinta">
                     {c.titulo}
                   </h3>
                   <p className="text-[1.0625rem] leading-relaxed text-[#4A3A33]">{c.texto}</p>
