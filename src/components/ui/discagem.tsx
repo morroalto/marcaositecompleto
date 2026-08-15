@@ -1,23 +1,24 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { VISOR, numeroTexto } from '@/content/numero'
+import { candidato } from '@/content/candidato'
 
 /**
  * DISCAGEM
  *
- * O visor de telefone que digita sozinho, do protótipo aprovado
- * (`src/components/Numero.tsx`, função `Discagem`).
+ * Efeito trazido do protótipo "Sul em Foco" (`src/components/Numero.tsx`,
+ * função `Discagem`): um visor de telefone que digita o número sozinho.
  *
- * Ele digita o texto do protótipo, "(028) 9 9999-9999", que é um telefone
- * ILUSTRATIVO: a peça toda existe para mostrar que o 028 é o código que o Sul
- * inteiro disca, e o 9 9999-9999 faz o papel de "qualquer número daqui". Não é
- * um contato da campanha e não está oferecido como tal em lugar nenhum do
- * site — quem quiser falar com a campanha tem os canais no fim da página.
+ * Duas mudanças em relação ao protótipo:
  *
- * Quem pediu menos movimento no sistema recebe o número inteiro, parado: o
- * efeito é enfeite e não pode ser a única forma de ler a informação. Por isso
- * o texto completo também vai no `mv-sr`, sempre.
+ * 1. Lá o visor digitava "(028) 9 9999-9999", um telefone que não existe.
+ *    Número de contato falso num site de campanha é problema, e o cadastro do
+ *    CNPJ traz o telefone como não informado. Aqui o visor digita o NÚMERO DA
+ *    URNA, dígito a dígito, que é exatamente o gesto que se pede ao eleitor.
+ *
+ * 2. Quem pediu menos movimento no sistema recebe o número inteiro, parado.
+ *    O efeito é enfeite: não pode ser a única forma de ler a informação. Por
+ *    isso o número completo também vai no `mv-sr`, sempre.
  *
  * O estado nasce CHEIO, e não vazio, por dois motivos: é o que o HTML do
  * servidor entrega a quem está sem JavaScript, e é o que deixa o efeito
@@ -25,35 +26,41 @@ import { VISOR, numeroTexto } from '@/content/numero'
  * efeito seria render em cascata, e o lint do React barra com razão.
  */
 export function Discagem() {
-  const [ate, setAte] = useState(VISOR.length)
+  const digitos = candidato.numero.replace(/\D/g, '') // 36028
+  const [ate, setAte] = useState(digitos.length)
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
     // começa no fim do ciclo: o primeiro tique é que zera e recomeça a digitar
-    let i = VISOR.length + 1
+    let i = digitos.length + 1
     const id = setInterval(() => {
-      i = i > VISOR.length + 1 ? 0 : i + 1
-      setAte(Math.min(i, VISOR.length))
-    }, 180)
+      // pausa de um tempo com o número cheio antes de recomeçar
+      i = i > digitos.length + 1 ? 0 : i + 1
+      setAte(Math.min(i, digitos.length))
+    }, 420)
     return () => clearInterval(id)
-  }, [])
+  }, [digitos.length])
 
   return (
-    <div className="mv-fone mx-auto w-[min(20rem,86%)]">
-      {/* altura travada: o texto cresce caractere a caractere e não pode
-          empurrar o que vem embaixo a cada 180 ms */}
-      <div className="flex h-[5.5rem] flex-col justify-center">
-        <p
-          aria-hidden="true"
-          className="font-display text-[clamp(1.15rem,4.6vw,1.5rem)] leading-none font-black tracking-wide text-white tabular-nums"
-        >
-          {VISOR.slice(0, ate)}
-          <span className="mv-cursor text-amarelo">|</span>
-        </p>
-        <p className="mv-pisca mt-3 text-[0.9375rem] text-white/70">{numeroTexto.chamando}</p>
-      </div>
-      <span className="mv-sr">{VISOR}</span>
+    <div className="mv-fone flex items-center justify-between gap-4">
+      {/* largura do número travada em `ch`: ele cresce dígito a dígito e, solto,
+          empurraria o "chamando o Sul" para os lados a cada 420 ms */}
+      <p
+        aria-hidden="true"
+        className="w-[6.5ch] shrink-0 font-display text-[clamp(1.7rem,5.5vw,2.2rem)] leading-none font-black tracking-[.12em] text-white tabular-nums"
+      >
+        {digitos.slice(0, ate)}
+        <span className="mv-cursor text-amarelo">|</span>
+      </p>
+      <p className="mv-pisca text-right font-display text-[0.6875rem] font-extrabold tracking-[.14em] text-amarelo uppercase">
+        Chamando
+        <br />
+        o Sul…
+      </p>
+      <span className="mv-sr">
+        Na urna, digite {candidato.numeroSoletrado}.
+      </span>
     </div>
   )
 }

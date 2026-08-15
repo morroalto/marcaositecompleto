@@ -39,6 +39,18 @@ export const numeroTexto = {
   partido: { valor: '36', nome: 'AGIR', descricao: 'O partido' },
   ddd: { valor: '028', nome: 'O DDD do Sul', descricao: 'Quem mora aqui nunca esquece' },
   frase: ['Meu número termina com o DDD do Sul.', 'Porque eu sou daqui.'],
+  /**
+   * Texto novo da campanha, 15/08/2026. Ele substitui o parágrafo que listava
+   * as nove cidades uma a uma e explicava a regra da eleição estadual: a lista
+   * já está logo abaixo, em chip, e repetir os mesmos nove nomes em prosa era
+   * dizer duas vezes a mesma coisa.
+   */
+  argumento:
+    '028 é a identidade do nosso Sul: conecta do litoral à montanha, de Itapemirim a ' +
+    'Guaçuí. É a força da nossa gente batendo no mesmo ritmo e fazendo a nossa voz ecoar ' +
+    'com orgulho. A eleição para Deputado Estadual é a oportunidade perfeita de mostrar ' +
+    'essa união, porque o nosso voto tem peso de sobra para decidir e transformar todo o ' +
+    'Espírito Santo.',
   listaTitulo: 'O 028 é de:',
   listaRodape: 'E mais cidades do Sul do Espírito Santo',
   botao: 'Grave agora: 36028',
