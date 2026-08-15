@@ -118,6 +118,31 @@ export function IconeGente({ className, tamanho }: Props) {
   )
 }
 
+/**
+ * SETA CURVA, estilo desenho à mão, para ligar um rótulo à figura que ele
+ * nomeia. Não é a mesma coisa que `IconeSeta`, que é a setinha de linha dos
+ * botões: esta tem traço grosso, curva aberta e ponta cheia, e existe para ser
+ * vista de longe, por cima de uma arte.
+ *
+ * O desenho base aponta PARA BAIXO. As outras direções saem de rotação, feita
+ * por classe em quem usa: `-rotate-90` aponta para a direita, e
+ * `rotate-90 -scale-x-100` aponta para a esquerda mantendo a curva no mesmo
+ * sentido de leitura.
+ */
+export function SetaCurva({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 60 100" fill="none" className={className} aria-hidden="true">
+      <path
+        d="M10 8C34 22 50 46 47 78"
+        stroke="currentColor"
+        strokeWidth="6.5"
+        strokeLinecap="round"
+      />
+      <path d="M47 94 L33 68 L61 72 Z" fill="currentColor" />
+    </svg>
+  )
+}
+
 export function IconeSeta({ className, tamanho }: Props) {
   return (
     <Svg className={className} tamanho={tamanho}>

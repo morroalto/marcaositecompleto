@@ -3,6 +3,7 @@
 import { useMemo, useState } from 'react'
 import Image from 'next/image'
 import { Cartaz } from '@/components/ui/marca'
+import { SetaCurva } from '@/components/ui/icones'
 import { escutas, triangulo, type SlugCidade } from '@/content/territorio'
 import { videosEscuta } from '@/content/videos'
 import { Player } from '@/components/ui/video'
@@ -37,24 +38,21 @@ export function Escuta() {
    * de Marataízes acima do vértice de cima, os outros dois nas laterais, na
    * altura da base. Quem liga o nome ao lóbulo é a seta.
    */
-  const POS: Record<string, { caixa: string; traco: string; ordem: 'antes' | 'depois' }> = {
+  const POS: Record<string, { caixa: string; seta: string }> = {
     marataizes: {
-      // acima do vértice de cima, com o traço descendo até ele
+      // acima do vértice de cima, com a seta curvando para baixo
       caixa: 'top-0 left-1/2 -translate-x-1/2 flex-col items-center',
-      traco: 'h-7 w-[3px]',
-      ordem: 'depois',
+      seta: 'h-12 w-8',
     },
     itapemirim: {
-      // 24% a partir da base: é onde fica o centro do lóbulo do peixe, contando
-      // que o quadro tem 3.5rem de respiro no topo além da altura da arte
-      caixa: 'bottom-[24%] left-0 flex-row items-center',
-      traco: 'h-[3px] w-4',
-      ordem: 'depois',
+      // 26% a partir da base é a altura do centro do lóbulo do peixe, contando
+      // que o quadro tem respiro no topo além da altura da arte
+      caixa: 'bottom-[26%] left-0 flex-row items-center',
+      seta: 'h-8 w-12 -rotate-90',
     },
     'presidente-kennedy': {
-      caixa: 'bottom-[24%] right-0 flex-row-reverse items-center',
-      traco: 'h-[3px] w-4',
-      ordem: 'depois',
+      caixa: 'bottom-[26%] right-0 flex-row-reverse items-center',
+      seta: 'h-8 w-12 rotate-90 -scale-x-100',
     },
   }
 
@@ -78,7 +76,7 @@ export function Escuta() {
         <div className="grid gap-10 lg:grid-cols-2 lg:items-start">
           {/* o quadro é maior que o logotipo de propósito: a folga em volta é
               onde os cards das cidades ficam, sem cobrir a arte */}
-          <div className="relative mx-auto w-full max-w-[32rem] px-[7.5rem] pt-[4rem] pb-2">
+          <div className="relative mx-auto w-full max-w-[32rem] px-[6.75rem] pt-[3.5rem] pb-2">
             <Image
               src="/marca/triangulo-do-sul.webp"
               alt=""
@@ -103,8 +101,8 @@ export function Escuta() {
                 >
                   <span
                     className={[
-                      'block w-[7rem] rounded-md px-2 py-2 text-center font-display',
-                      'text-[0.9375rem] leading-tight font-bold shadow-[0_3px_10px_rgba(0,0,0,.35)]',
+                      'block w-[5.75rem] rounded-md px-2 py-2 text-center font-display',
+                      'text-[0.8125rem] leading-tight font-bold shadow-[0_3px_10px_rgba(0,0,0,.35)]',
                       sel
                         ? 'bg-amarelo text-[#08222A]'
                         : 'bg-[#08222A] text-white hover:bg-[#0d3540]',
@@ -112,15 +110,14 @@ export function Escuta() {
                   >
                     {c.nome}
                   </span>
-                  {/* o traço que liga o card ao lóbulo. Ícone de seta aqui
-                      sumia no fundo e não encostava em nada: o que faz a
-                      ligação é a linha tocando a arte. */}
-                  <span
-                    aria-hidden="true"
+                  {/* seta curva, no amarelo da marca, ligando o card ao lóbulo.
+                      Antes era um traço reto, e antes disso a setinha de linha
+                      dos botões, que sumia por cima da arte. */}
+                  <SetaCurva
                     className={[
-                      'block shrink-0 rounded-full',
-                      sel ? 'bg-amarelo' : 'bg-white/70',
-                      p.traco,
+                      'shrink-0',
+                      sel ? 'text-white' : 'text-amarelo',
+                      p.seta,
                     ].join(' ')}
                   />
                   <span className="mv-sr">
