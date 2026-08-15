@@ -1,3 +1,4 @@
+import { Assinatura } from '@/components/ui/marca'
 import { cn } from '@/lib/utils'
 
 /**
@@ -120,13 +121,19 @@ export function Plataforma({ className }: Props) {
 /**
  * FUNDO DE ECONOMIAS
  *
- * Espalha os três símbolos pelo fundo da seção, em marca d'água. A seção que
- * recebe precisa ser `relative` e `overflow-hidden`: as figuras sangram para
- * fora da caixa de propósito, senão viram adesivo colado no canto.
+ * Espalha os símbolos pelo fundo da seção, em marca d'água. A seção que recebe
+ * precisa ser `relative` e `overflow-hidden`: as figuras sangram para fora da
+ * caixa de propósito, senão viram adesivo colado no canto.
  *
  * Opacidade e tamanho vêm de fora, pela classe, porque cada fundo pede um
  * ajuste diferente: sobre papel claro, 5% já é visível; sobre o petróleo do
  * rodapé, precisa de mais.
+ *
+ * A ASSINATURA NÃO ENTRA AQUI. Ela é a marca d'água das seções que NÃO têm
+ * abacaxi, peixe e plataforma (`FundoAssinatura`, abaixo): as duas juntas na
+ * mesma seção seriam quatro marcas d'água disputando o mesmo fundo, e a que
+ * tem palavra escrita ganharia de longe — deixaria de ser textura e viraria
+ * ruído por cima do texto.
  *
  * `variante` só muda a posição, para as seções não repetirem o mesmo arranjo
  * uma embaixo da outra. Nada aqui é estrutural: para tirar, basta remover a
@@ -165,6 +172,52 @@ export function FundoEconomias({
       <Abacaxi className={arranjos[0]} />
       <Peixe className={arranjos[1]} />
       <Plataforma className={arranjos[2]} />
+    </div>
+  )
+}
+
+/**
+ * FUNDO DE ASSINATURA
+ *
+ * A marca em SVG espalhada pelo fundo, para as seções que NÃO recebem o
+ * abacaxi, o peixe e a plataforma. As duas famílias nunca se encontram na
+ * mesma seção: cada uma preenche o fundo de um jeito, e juntas viram poluição.
+ *
+ * São duas marcas por seção, em cantos opostos e em tamanhos diferentes, o
+ * bastante para o fundo ter textura sem que o olho comece a ler o que está
+ * atrás do texto. Some abaixo de `lg`, onde a coluna de texto ocupa a largura
+ * inteira e qualquer coisa atrás dela atrapalha.
+ *
+ * Mesmas regras da outra: a seção precisa ser `relative` e `overflow-hidden`, e
+ * cor e opacidade vêm de fora, pela classe.
+ */
+export function FundoAssinatura({
+  variante = 'a',
+  className,
+}: {
+  variante?: 'a' | 'b'
+  className?: string
+}) {
+  const arranjos = {
+    a: [
+      'absolute -right-10 top-4 hidden w-[20rem] -rotate-6 lg:block',
+      'absolute left-4 bottom-6 hidden w-[13rem] rotate-3 lg:block',
+    ],
+    b: [
+      /* embaixo, e não em cima: nesta variante o título fica no alto da
+         esquerda, e a marca grande passava por trás dele */
+      'absolute -left-12 bottom-2 hidden w-[18rem] rotate-6 lg:block',
+      'absolute right-6 top-10 hidden w-[13rem] -rotate-3 lg:block',
+    ],
+  }[variante]
+
+  return (
+    <div
+      aria-hidden="true"
+      className={cn('pointer-events-none absolute inset-0 overflow-hidden', className)}
+    >
+      <Assinatura className={arranjos[0]} />
+      <Assinatura className={arranjos[1]} />
     </div>
   )
 }

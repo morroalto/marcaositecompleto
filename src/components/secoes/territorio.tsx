@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { Cartaz } from '@/components/ui/marca'
+import { FundoAssinatura } from '@/components/ui/simbolos'
 import { territorio } from '@/content/facetas'
 import mapa from '@/../public/fotos/marcao-mapa.jpg'
 
@@ -69,13 +70,19 @@ export function Territorio() {
         />
       </figure>
 
+      {/* A marca d'água desta seção é a assinatura, e não as três economias:
+          elas já estão desenhadas dentro da própria arte do mapa, no logotipo
+          do Triângulo do Sul. Ela mora no bloco de texto, e não na seção
+          inteira, para não passar por cima da arte. */}
       {/* A MEDIDA DE LEITURA VAI NUM FILHO, nunca no próprio `.mv-shell`.
           `.mv-shell` tem `margin-inline: auto`: com um `max-w` menor na mesma
           div, o bloco inteiro passa a se centralizar na tela, e o texto
           descola dos cards que vêm logo abaixo. Foi o que aconteceu aqui. */}
-      <div className="mv-shell mt-[var(--secao)]">
+      <div className="mv-shell relative mt-[var(--secao)] overflow-hidden">
+        <FundoAssinatura variante="b" className="text-marinho opacity-[.04]" />
+
         {/* texto novo, enviado pela campanha em 15/08/2026 */}
-        <div className="flex max-w-[68ch] flex-col gap-4 text-center sm:text-left">
+        <div className="relative flex max-w-[68ch] flex-col gap-4 text-center sm:text-left">
           <p className="mv-kicker text-[#2F5C1B]">Território conectado</p>
           <h2 className="text-[clamp(1.6rem,5.6vw,2.7rem)]">
             <Cartaz className="text-marinho">O SUL DE PERTO</Cartaz>

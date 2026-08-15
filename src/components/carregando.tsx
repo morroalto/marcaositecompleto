@@ -33,7 +33,9 @@ export function Carregando() {
         <div className="mv-abertura-cx">
           {/* mesma arte oficial do cabeçalho, maior. `prioridade` porque ela é
               a primeira coisa que aparece na tela */}
-          <LockupArte altura={72} prioridade className="w-[min(78vw,22rem)]" />
+          <div className="w-[min(78vw,22rem)]">
+            <LockupArte fluido prioridade />
+          </div>
           <div className="mv-abertura-trilho">
             <span className="mv-abertura-barra" />
           </div>

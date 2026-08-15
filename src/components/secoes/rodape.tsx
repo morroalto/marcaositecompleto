@@ -48,6 +48,16 @@ export function Rodape() {
           com nada. */}
       <FundoEconomias variante="b" className="text-white opacity-[.08] [&>svg]:scale-150" />
 
+      {/* A LOGO ACIMA DA PLATAFORMA, e é o ARQUIVO do acervo — o mesmo que o
+          cabeçalho usa —, não a versão em SVG que espalha pelas outras seções.
+          Aqui o fundo é sempre petróleo, ou seja, sempre escuro, e o PNG
+          branco do designer serve direto; onde o fundo muda de cor é que a
+          reconstrução em SVG se faz necessária, por causa do `currentColor`.
+
+          A plataforma da variante "b" fica em `right-1/4 -bottom-20`, com
+          `scale-150`; a logo se apoia logo acima dela e um pouco à direita,
+          como assinatura de quem está de pé sobre a estrutura. Some abaixo de
+          `lg`, onde o rodapé é uma coluna só e não sobra fundo livre. */}
       {/* o respiro extra embaixo era para a barra fixa do celular não cobrir o
           bloco legal. A barra saiu, então o rodapé volta ao padding normal. */}
       <div className="mv-shell relative flex flex-col gap-12 pt-14 pb-16">
@@ -58,7 +68,9 @@ export function Rodape() {
             (uma no topo, outra no rodapé, com desenhos diferentes) é o tipo de
             detalhe que o olho pega mesmo sem saber nomear. */}
         <div className="flex flex-col items-center gap-5 text-center sm:items-start sm:text-left">
-          <LockupArte altura={52} className="w-[min(70vw,17rem)]" />
+          <div className="w-[min(70vw,17rem)]">
+            <LockupArte fluido />
+          </div>
           <p className="font-display text-[1.2rem] font-bold text-amarelo">{candidato.slogan}</p>
         </div>
 
@@ -139,7 +151,15 @@ export function Rodape() {
 
         <hr className="border-0 border-t border-white/20" />
 
-        {/* ── bloco legal, obrigação eleitoral ── */}
+        {/* ── bloco legal, obrigação eleitoral ──
+            Duas colunas a partir do `lg`: o texto à esquerda, a assinatura à
+            direita. A marca ficava posicionada por cima, e por cima ela sempre
+            acabava esbarrando numa linha do texto legal em ALGUMA largura de
+            tela — a 820 px cortava a linha da LGPD, a 1100 px a do CNPJ. Numa
+            grade isso não acontece em largura nenhuma: as duas dividem o
+            espaço em vez de disputá-lo, e o texto obrigatório fica sempre
+            inteiro. Abaixo de `lg` a marca desce para o fim, centralizada. */}
+        <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-10">
         <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
           <div className="flex flex-wrap items-center justify-center gap-6 sm:justify-start">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -204,6 +224,19 @@ export function Rodape() {
               Morro Alto Creative Office
             </a>
           </p>
+        </div>
+
+          {/* A ASSINATURA, sem opacidade e grande, a pedido. É a única marca do
+              rodapé que não é marca d'água: entra no branco cheio do arquivo, e
+              é a plataforma atrás dela que continua rebaixada.
+
+              A largura é `clamp`, então ela acompanha a tela em vez de ter um
+              tamanho só; a coluna se ajusta ao que ela pedir. */}
+          <div className="flex justify-center lg:justify-end">
+            <div className="w-[clamp(11rem,26vw,19rem)] shrink-0">
+              <LockupArte fluido />
+            </div>
+          </div>
         </div>
       </div>
     </footer>

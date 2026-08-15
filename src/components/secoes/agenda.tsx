@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { agenda, agendaTexto } from '@/content/agenda'
 import { IconeLocal, IconeSeta } from '@/components/ui/icones'
+import { FundoAssinatura } from '@/components/ui/simbolos'
 
 /**
  * AGENDA
@@ -17,8 +18,12 @@ import { IconeLocal, IconeSeta } from '@/components/ui/icones'
  */
 export function Agenda() {
   return (
-    <section id="agenda" className="mv-secao">
-      <div className="mv-shell flex flex-col gap-9">
+    <section id="agenda" className="mv-secao relative overflow-hidden">
+      {/* a agenda não tem as três economias, então a marca d'água aqui é a
+          assinatura. Sobre papel claro, 4% já é o suficiente para se ver. */}
+      <FundoAssinatura variante="a" className="text-marinho opacity-[.04]" />
+
+      <div className="mv-shell relative flex flex-col gap-9">
         <div className="flex max-w-[62ch] flex-col gap-4 text-center sm:text-left">
           <p className="mv-kicker text-[#2F5C1B]">{agendaTexto.kicker}</p>
           <h2 className="text-[clamp(1.45rem,4.6vw,2.25rem)] font-extrabold tracking-tight">

@@ -16,11 +16,21 @@ export function Lockup({
   className, comoH1 = false, soletra = false,
 }: { className?: string; comoH1?: boolean; soletra?: boolean }) {
   const Tag = comoH1 ? 'h1' : 'span'
+  /* NA MARCA NÃO EXISTE PONTO: o separador do 36.028 é um TRIÂNGULO, que é o
+     símbolo do Triângulo do Sul. O ponto continua no dado (`candidato.numero`)
+     porque é assim que o número se escreve em texto corrido e é assim que a
+     Justiça Eleitoral o registra — quem troca o sinal é só o desenho da
+     marca. */
+  const [antes, depois] = candidato.numero.split('.')
   return (
     <Tag className={cn('mv-lockup', className)}>
       <span className="nome">MARCÃO</span>
       <span className="sob">VIVACQUA</span>
-      <span className="num" aria-hidden={soletra || undefined}>{candidato.numero}</span>
+      <span className="num" aria-hidden={soletra || undefined}>
+        {antes}
+        <i className="tri" aria-hidden="true" />
+        {depois}
+      </span>
       <span className="barra" aria-hidden="true"><i /><i /><i /></span>
       {soletra && (
         <span className="mv-sr">
@@ -49,8 +59,20 @@ export function Lockup({
  * que é 3539 por 1500. Sempre com `alt` de verdade, porque é o nome dele.
  */
 export function LockupArte({
-  className, altura = 40, prioridade = false,
-}: { className?: string; altura?: number; prioridade?: boolean }) {
+  className, altura = 40, prioridade = false, fluido = false,
+}: { className?: string; altura?: number; prioridade?: boolean; fluido?: boolean }) {
+  /* FLUIDO = a LARGURA manda, e a altura vem sozinha.
+     Sem isso, quem precisava de uma marca que acompanha a tela acabava
+     escrevendo `altura={52}` mais uma classe de largura, e as duas juntas
+     esticavam o desenho — é exatamente o aviso que o Next dá no console
+     ("width or height modified, but not the other"). Com `fluido`, a altura
+     fixa some e a imagem ocupa a caixa que o pai der.
+
+     Então, no modo fluido, QUEM DEFINE A LARGURA É O PAI, e não a `className`
+     daqui: `cn` é concatenação pura, sem tailwind-merge, e uma classe de
+     largura passada aqui empilha com o `w-full` em vez de substituí-lo — quem
+     ganha vira uma disputa de ordem no CSS. Envolva a marca numa div com a
+     largura desejada. */
   return (
     <Image
       src="/marca/lockup-branco.png"
@@ -58,9 +80,70 @@ export function LockupArte({
       width={Math.round((altura * 3539) / 1500)}
       height={altura}
       priority={prioridade}
-      className={cn('h-auto w-auto', className)}
-      style={{ height: altura }}
+      className={cn(fluido ? 'h-auto w-full' : 'h-auto w-auto', className)}
+      style={fluido ? undefined : { height: altura }}
     />
+  )
+}
+
+/**
+ * ASSINATURA EM MARCA D'ÁGUA
+ *
+ * O lockup desenhado em SVG, monocromático, para entrar no fundo das seções ao
+ * lado do abacaxi, do peixe e da plataforma.
+ *
+ * POR QUE SVG, e não o PNG do acervo nem o lockup em HTML: a marca d'água tem
+ * de tomar a cor da seção, como os outros três símbolos. O PNG é branco fixo e
+ * sumiria sobre papel claro; o lockup em HTML é dimensionado por `font-size`,
+ * e o fundo posiciona tudo por largura (`w-[13rem]`). Em SVG ele aceita
+ * `currentColor` e as mesmas classes de largura dos outros símbolos.
+ *
+ * A GEOMETRIA foi medida na arte oficial (`lockup-branco.png`, 3539×1500) e
+ * está em unidades do viewBox: MARCÃO cheio na largura, VIVACQUA e a barra na
+ * coluna da esquerda, o número à direita, todos apoiados na mesma base.
+ *
+ * `textLength` com `lengthAdjust="spacingAndGlyphs"` fixa a largura de cada
+ * palavra. Sem isso, um fallback de fonte enquanto a Anton carrega mudaria a
+ * largura e a marca chegaria torta na tela — aqui ela ocupa sempre a mesma
+ * caixa, aconteça o que acontecer com a fonte.
+ *
+ * O separador é o TRIÂNGULO da marca, e não um ponto.
+ */
+export function Assinatura({
+  className, tricolor = false,
+}: { className?: string; tricolor?: boolean }) {
+  const cores = tricolor
+    ? ['var(--verde)', 'var(--laranja)', 'var(--amarelo)']
+    : ['currentColor', 'currentColor', 'currentColor']
+
+  return (
+    <svg
+      viewBox="0 0 1290 500"
+      fill="currentColor"
+      className={className}
+      aria-hidden="true"
+      style={{ fontFamily: 'var(--font-display)' }}
+    >
+      <text x="0" y="285" fontSize="308" textLength="1290" lengthAdjust="spacingAndGlyphs">
+        MARCÃO
+      </text>
+      <text x="0" y="420" fontSize="119" textLength="610" lengthAdjust="spacingAndGlyphs">
+        VIVACQUA
+      </text>
+
+      {/* a barra herda a largura do VIVACQUA, como na marca */}
+      {cores.map((cor, i) => (
+        <rect key={i} x={i * 205} y="440" width="205" height="48" fill={cor} />
+      ))}
+
+      <text x="645" y="455" fontSize="147" textLength="205" lengthAdjust="spacingAndGlyphs">
+        36
+      </text>
+      <polygon points="860,455 905,455 882.5,415" />
+      <text x="925" y="455" fontSize="147" textLength="365" lengthAdjust="spacingAndGlyphs">
+        028
+      </text>
+    </svg>
   )
 }
 

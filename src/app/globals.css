@@ -167,6 +167,16 @@
     letter-spacing: -.005em; font-variant-numeric: tabular-nums;
     align-self: end;
   }
+  /* O SEPARADOR DO NÚMERO É UM TRIÂNGULO, não um ponto: é o símbolo do
+     Triângulo do Sul, e é assim que ele aparece na arte oficial. Medidas
+     tiradas da arte: largura e altura em torno de 0,4 da altura do dígito,
+     apoiado na linha de base como o ponto que ele substitui. */
+  .mv-lockup .num .tri {
+    display: inline-block;
+    width: .4em; height: .36em; margin: 0 .07em;
+    background: currentColor;
+    clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+  }
   /* a barra fica só na coluna do VIVACQUA, e por isso herda a largura dele */
   .mv-lockup .barra {
     grid-column: 1;
