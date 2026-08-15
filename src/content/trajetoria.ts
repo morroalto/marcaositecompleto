@@ -1,78 +1,91 @@
 /**
- * TRAJETÓRIA E LINHA DO TEMPO
+ * TRAJETÓRIA
  *
- * Texto do protótipo aprovado (`src/components/Trajetoria.tsx`), restaurado em
- * 15/08/2026 palavra por palavra.
+ * Texto e formato aprovados em 15/08/2026, a partir da arte de referência da
+ * campanha: quatro blocos em grade, cada um com chapéu, título, texto e foto.
  *
- * SÃO SEIS MARCOS, e só esses: 1966, 1972, 1986, 1994, 2012 e 2026. O copy em
- * PDF trazia treze, com as três filhas, as duas formações e as duas eleições
- * separadas; a versão aprovada é esta, mais curta. Os treze estão no histórico
- * do git (commit "Aplica o copy oficial") se um dia a campanha quiser voltar
- * atrás.
+ * Substituiu a linha do tempo de seis marcos com ano na margem. A diferença
+ * não é só de layout: a linha do tempo contava a vida em datas, e estes quatro
+ * blocos contam em CAPÍTULOS — origem, família, preparo e projeto. É mais
+ * fácil de ler e é o que a arte pede.
+ *
+ * ⚠️ TRÊS FOTOS AINDA NÃO CHEGARAM. Elas foram mostradas na conversa mas não
+ * vieram como arquivo, então os blocos entram sem imagem, com o quadro
+ * reservado. Para publicar, jogue o arquivo em `public/fotos/` com o nome que
+ * está em `foto` e o bloco passa a mostrar a imagem sozinho:
+ *
+ *   traj-heranca   a mão segurando a fotografia antiga
+ *   traj-gestao    a caminhada de campanha, com as bandeiras
+ *   traj-voz       a cadeira sozinha na orla
+ *
+ * A da família já está no projeto e é a mesma da seção anterior.
  */
 
-export interface Marco {
-  /** chave do ícone, resolvida por IconeDe */
-  icone: string
-  ano: string
+export interface Capitulo {
+  slug: string
+  /** o chapéu, em caixa alta na tela */
+  chapeu: string
   titulo: string
   texto: string
+  /** nome do arquivo em `public/fotos/`, sem extensão. `null` = ainda não veio */
+  foto: string | null
+  ext: 'jpg' | 'webp'
+  alt: string
   revisado: boolean
 }
 
-export const linhaDoTempo: Marco[] = [
+export const capitulos: Capitulo[] = [
   {
-    icone: 'pino',
-    ano: '1966',
-    titulo: 'Rio de Janeiro, 1966',
+    slug: 'heranca',
+    chapeu: 'Raízes e formação de vida',
+    titulo: 'Herança no Espírito Santo',
     texto:
-      'Marcão nasce no Rio de Janeiro. Mas é no Espírito Santo que sua história de verdade ' +
-      'começa.',
+      'Nascido no Rio, foi para Cachoeiro de Itapemirim aos 6 anos de idade, com o coração ' +
+      'fincado no Espírito Santo. Ali, aprendeu cedo o valor do trabalho, fez amigos para a ' +
+      'vida e criou a base de tudo o que construiu depois.',
+    foto: null,
+    ext: 'jpg',
+    alt: 'Uma mão segurando uma fotografia antiga da família, em preto e branco',
     revisado: true,
   },
   {
-    icone: 'casa',
-    ano: '1972',
-    titulo: 'Cachoeiro de Itapemirim, 1972',
+    slug: 'familia',
+    chapeu: 'Família, a maior das conquistas',
+    titulo: 'A Maior das Conquistas',
     texto:
-      'Aos 6 anos, muda-se com a família para Cachoeiro. É ali que cresce, estuda e aprende ' +
-      'o valor do trabalho.',
+      'Ao lado de Adriana, sua companheira de vida, construiu a maior de suas conquistas: a ' +
+      'família. Pai de Thaís, Isabella e Letícia, encontrou no nascimento das filhas a ' +
+      'inspiração, e com a chegada do neto Marco Antônio, a renovação de que esta missão é ' +
+      'contínua e cheia de amor.',
+    foto: 'familia-todos',
+    ext: 'jpg',
+    alt: 'Marcão sentado com a esposa Adriana e o neto Marco Antônio no colo, com as três filhas em pé atrás',
     revisado: true,
   },
   {
-    icone: 'alianca',
-    ano: '1986',
-    titulo: 'Adriana, 1986',
+    slug: 'gestao',
+    chapeu: 'Preparo e trabalho comunitário',
+    titulo: 'Gestão e Paixão por Servir',
     texto:
-      'Encontra em Adriana a companheira de uma vida inteira. Juntos, constroem a família ' +
-      'que é a base de tudo.',
+      'Graduado em Economia, Administração e Direito, uniu o conhecimento técnico à paixão ' +
+      'por servir. Em Presidente Kennedy, foi o vereador mais votado e reeleito com recorde ' +
+      'de confiança, marcando uma década de dedicação ao povo da região.',
+    foto: null,
+    ext: 'jpg',
+    alt: 'Marcão caminhando na rua ao lado de apoiadores com bandeiras da campanha',
     revisado: true,
   },
   {
-    icone: 'broto',
-    ano: '1994',
-    titulo: 'Comércio, campo e cooperativa',
+    slug: 'voz',
+    chapeu: 'A voz do Sul',
+    titulo: 'Na Assembleia (2026)',
     texto:
-      'Empreende no comércio, no campo e na cooperativa, criando oportunidades e gerando ' +
-      'renda para muitas famílias da região.',
-    revisado: true,
-  },
-  {
-    icone: 'instituicao',
-    ano: '2012',
-    titulo: 'Presidente Kennedy, 2 mandatos',
-    texto:
-      'Eleito vereador por dois mandatos, com atuação presente e diálogo constante com a ' +
-      'população.',
-    revisado: true,
-  },
-  {
-    icone: 'urna',
-    ano: '2026',
-    titulo: 'Marataízes, 2026',
-    texto:
-      'Assume um novo compromisso: ser a voz forte do Triângulo do Sul na Assembleia ' +
-      'Legislativa.',
+      'Escolheu Marataízes para fincar residência definitiva. Com a maturidade e a força do ' +
+      'Sul, decide levar a experiência, a seriedade e o compromisso com o Sul para a ' +
+      'Assembleia Legislativa do Espírito Santo.',
+    foto: null,
+    ext: 'jpg',
+    alt: 'Uma cadeira sozinha na orla, de frente para a praia de Marataízes',
     revisado: true,
   },
 ]
@@ -102,7 +115,7 @@ export const trajetoria = {
   citacao: 'Quem luta por essa região sabe o nome de quem tá lutando junto.',
 }
 
-/** A linha do tempo tem título e abertura próprios. */
+/** Cabeçalho da seção dos capítulos. */
 export const linhaDoTempoTexto = {
   kicker: 'Trajetória',
   titulo: 'Raízes no Sul, compromisso com a nossa gente',

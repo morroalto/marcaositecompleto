@@ -2,7 +2,8 @@ import Link from 'next/link'
 import { LockupArte, BarraTricolor } from '@/components/ui/marca'
 import { FundoEconomias } from '@/components/ui/simbolos'
 import {
-  IconeInstagram, IconeTiktok, IconeEmail, IconeLocal, IconeSeta,
+  IconeInstagram, IconeFacebook, IconeTiktok, IconeYoutube, IconeX, IconeThreads,
+  IconeEmail, IconeLocal, IconeSeta,
 } from '@/components/ui/icones'
 import { candidato } from '@/content/candidato'
 
@@ -83,12 +84,17 @@ export function Rodape() {
           <nav aria-label="Redes sociais" className="flex flex-col gap-4">
             <h2 className="mv-kicker text-white/60">Acompanhar</h2>
             <ul className="flex flex-col gap-1">
-              {/* Só as duas contas dele, como o copy pede: Instagram e TikTok.
-                  O Instagram do Triângulo do Sul é do movimento, não da
-                  candidatura, e o Facebook saiu junto. */}
+              {/* As seis contas oficiais dele. O copy §8 pedia Instagram e
+                  TikTok; a campanha mandou as outras quatro depois. O
+                  Instagram do Triângulo do Sul continua fora: é do movimento,
+                  não da candidatura. */}
               {[
                 { Icone: IconeInstagram, href: candidato.redes.instagram, texto: 'Instagram' },
+                { Icone: IconeFacebook, href: candidato.redes.facebook, texto: 'Facebook' },
                 { Icone: IconeTiktok, href: candidato.redes.tiktok, texto: 'TikTok' },
+                { Icone: IconeYoutube, href: candidato.redes.youtube, texto: 'YouTube' },
+                { Icone: IconeX, href: candidato.redes.x, texto: 'X' },
+                { Icone: IconeThreads, href: candidato.redes.threads, texto: 'Threads' },
               ].map(({ Icone, href, texto }) => (
                 <li key={texto}>
                   <a

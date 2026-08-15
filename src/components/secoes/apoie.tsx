@@ -1,4 +1,6 @@
-import { IconeInstagram, IconeTiktok, IconeSeta } from '@/components/ui/icones'
+import {
+  IconeInstagram, IconeFacebook, IconeTiktok, IconeYoutube, IconeX, IconeThreads, IconeSeta,
+} from '@/components/ui/icones'
 import { FundoEconomias } from '@/components/ui/simbolos'
 import { candidato } from '@/content/candidato'
 
@@ -24,9 +26,14 @@ import { candidato } from '@/content/candidato'
  * repositório, funcionando, para o formulário voltar sem ser reescrito.
  */
 export function Apoie() {
+  /** as mesmas seis do rodapé, na mesma ordem */
   const redes = [
     { Icone: IconeInstagram, href: candidato.redes.instagram, texto: 'Instagram' },
+    { Icone: IconeFacebook, href: candidato.redes.facebook, texto: 'Facebook' },
     { Icone: IconeTiktok, href: candidato.redes.tiktok, texto: 'TikTok' },
+    { Icone: IconeYoutube, href: candidato.redes.youtube, texto: 'YouTube' },
+    { Icone: IconeX, href: candidato.redes.x, texto: 'X' },
+    { Icone: IconeThreads, href: candidato.redes.threads, texto: 'Threads' },
   ]
 
   return (

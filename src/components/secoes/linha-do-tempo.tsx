@@ -1,20 +1,21 @@
-import { IconeDe } from '@/components/ui/icones'
-import { linhaDoTempo, linhaDoTempoTexto } from '@/content/trajetoria'
+import Image from 'next/image'
+import { capitulos, linhaDoTempoTexto } from '@/content/trajetoria'
 
 /**
- * LINHA DO TEMPO
+ * TRAJETÓRIA EM QUATRO CAPÍTULOS
  *
- * Seis marcos, no formato do protótipo aprovado: fio VERTICAL, o ano na
- * margem esquerda, a bolinha em cima do fio e, ao lado, o emoji com o título e
- * o texto.
+ * Formato da arte de referência da campanha: uma grade de dois por dois, cada
+ * bloco com chapéu, título, texto e foto.
  *
- * Já tentei aqui uma grade de três colunas com o fio deitado. Ficou errado por
- * um motivo simples: linha do tempo se lê de cima para baixo, e em grade a
- * pessoa precisa varrer a linha, voltar, descer e varrer de novo. Com seis
- * marcos curtos, o vertical cabe sem virar rolagem infinita.
+ * Substituiu a linha do tempo de seis marcos com o ano na margem. A diferença
+ * não é de layout, é de narrativa: a linha do tempo contava a vida em datas
+ * soltas, e estes quatro capítulos contam em etapas — origem, família, preparo
+ * e projeto. Quem lê sai sabendo a história, não a cronologia.
  *
- * No celular o ano fica em cima do título; a partir de `md` ele sai para a
- * margem, alinhado ao topo do marco, que é o desenho do protótipo.
+ * Enquanto uma foto não chega, o bloco simplesmente não mostra quadro nenhum:
+ * nada de moldura vazia ou de imagem de enfeite tapando o buraco. Assim que o
+ * arquivo entrar em `public/fotos/` com o nome que está no conteúdo, a imagem
+ * aparece sozinha.
  */
 export function LinhaDoTempo() {
   return (
@@ -30,23 +31,33 @@ export function LinhaDoTempo() {
           </p>
         </div>
 
-        <div className="mt-2 md:pl-20">
-          <ol className="mv-tempo">
-            {linhaDoTempo.map((m) => (
-              <li key={m.ano}>
-                <span className="mv-tempo-ano">{m.ano}</span>
-                <h3 className="flex items-center gap-3 font-display text-[1.15rem] font-extrabold text-marinho">
-                  {/* ícone desenhado, não emoji: emoji muda de forma a cada
-                      aparelho, vem colorido no meio de uma paleta fechada e o
-                      leitor de tela lê o nome dele em voz alta */}
-                  <IconeDe nome={m.icone} tamanho={26} className="shrink-0 text-verde" />
-                  {m.titulo}
-                </h3>
-                <p className="mt-2 text-[1.0625rem] leading-relaxed text-fraca">{m.texto}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
+        <ul className="grid items-stretch gap-6 lg:grid-cols-2">
+          {capitulos.map((c) => (
+            <li
+              key={c.slug}
+              className="flex h-full flex-col gap-3 rounded-[14px] bg-white p-6 shadow-[0_2px_0_var(--linha)] sm:p-7"
+            >
+              <p className="mv-kicker text-[#2F5C1B]">{c.chapeu}</p>
+              <h3 className="text-[clamp(1.25rem,3.4vw,1.75rem)] font-extrabold tracking-tight">
+                {c.titulo}
+              </h3>
+              <p className="text-[1.0625rem] leading-relaxed text-fraca">{c.texto}</p>
+
+              {c.foto && (
+                <div className="relative mt-2 aspect-16/10 w-full overflow-hidden rounded-[10px] bg-petroleo">
+                  <Image
+                    src={`/fotos/${c.foto}.${c.ext}`}
+                    alt={c.alt}
+                    fill
+                    sizes="(max-width: 1023px) 92vw, 34rem"
+                    loading="lazy"
+                    className="object-cover"
+                  />
+                </div>
+              )}
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   )

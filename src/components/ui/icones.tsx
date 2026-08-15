@@ -184,6 +184,33 @@ export function IconeDe({ nome, className, tamanho }: Props & { nome: string }) 
    campanha não tem WhatsApp, e ícone de rede que não existe é convite a
    procurar o que não há. Volta com o desenho original se um dia houver. */
 
+export function IconeYoutube({ className, tamanho = 24 }: Props) {
+  return (
+    <svg className={className} width={tamanho} height={tamanho} viewBox="0 0 24 24"
+      fill="currentColor" aria-hidden="true" focusable="false">
+      <path d="M21.6 7.2a2.5 2.5 0 0 0-1.76-1.77C18.25 5 12 5 12 5s-6.25 0-7.84.43A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.76 1.77C5.75 19 12 19 12 19s6.25 0 7.84-.43a2.5 2.5 0 0 0 1.76-1.77A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8ZM10 15V9l5.2 3-5.2 3Z" />
+    </svg>
+  )
+}
+
+export function IconeX({ className, tamanho = 24 }: Props) {
+  return (
+    <svg className={className} width={tamanho} height={tamanho} viewBox="0 0 24 24"
+      fill="currentColor" aria-hidden="true" focusable="false">
+      <path d="M17.53 3h3.02l-6.6 7.54L21.7 21h-6.07l-4.76-6.22L5.42 21H2.4l7.06-8.07L2.3 3h6.23l4.3 5.69L17.53 3Zm-1.06 16.2h1.67L7.6 4.72H5.8l10.67 14.48Z" />
+    </svg>
+  )
+}
+
+export function IconeThreads({ className, tamanho = 24 }: Props) {
+  return (
+    <svg className={className} width={tamanho} height={tamanho} viewBox="0 0 24 24"
+      fill="currentColor" aria-hidden="true" focusable="false">
+      <path d="M16.4 11.28c-.1-.05-.2-.1-.3-.14-.18-3.26-1.96-5.13-4.95-5.15h-.04c-1.79 0-3.28.76-4.2 2.15l1.65 1.13c.68-1.04 1.76-1.26 2.55-1.26h.03c.98 0 1.72.29 2.2.85.35.4.58.97.7 1.68a12.6 12.6 0 0 0-2.83-.14c-2.85.17-4.68 1.83-4.56 4.14.06 1.17.65 2.18 1.65 2.84.85.56 1.94.83 3.07.77 1.5-.08 2.67-.65 3.49-1.69.62-.79.02-1.6.02-1.6-.02.98-.65 2.55-3.6 2.71-.86.05-1.6-.15-2.06-.55-.4-.35-.53-.85-.55-1.2-.06-1.15.9-1.9 2.6-2 .58-.03 1.17-.02 1.72.04.28.02.55.05.8.1.02.5-.06.98-.24 1.4 0 0 .96.5 1.6-.24.7-.8.9-2 .9-2 .77.47 1.33 1.09 1.64 1.83.43 1.03.45 2.72-.93 4.1-1.21 1.2-2.66 1.73-4.85 1.75-2.43-.02-4.27-.8-5.46-2.31C4.7 16.86 4.13 14.87 4.1 12c.02-2.87.6-4.86 1.7-6.27C7 4.22 8.84 3.43 11.27 3.4c2.45.02 4.32.81 5.56 2.35.61.76 1.07 1.71 1.37 2.83l1.93-.51c-.37-1.38-.95-2.57-1.74-3.55C16.8 2.5 14.4 1.42 11.28 1.4h-.01c-3.11.02-5.5 1.1-7.06 3.13C2.82 6.33 2.1 8.72 2.08 12v.01c.02 3.27.74 5.66 2.13 7.46 1.57 2.03 3.95 3.11 7.07 3.13h.01c2.77-.02 4.73-.75 6.34-2.36 2.1-2.1 2.04-4.73 1.35-6.34-.5-1.16-1.44-2.1-2.58-2.62Z" />
+    </svg>
+  )
+}
+
 export function IconeTiktok({ className, tamanho = 24 }: Props) {
   return (
     <svg className={className} width={tamanho} height={tamanho} viewBox="0 0 24 24"

@@ -44,12 +44,26 @@ export const candidato = {
     telefone: null as string | null,
   },
 
+  /**
+   * REDES OFICIAIS, todas informadas pela campanha em 15/08/2026.
+   *
+   * As URLs entram LIMPAS, sem os parâmetros que vêm colados quando se copia o
+   * link de dentro do app: `?igsh=` do Instagram é um token de quem
+   * compartilhou, e `?locale=pt_BR` do Facebook força um idioma que o próprio
+   * Facebook já resolve pelo perfil de quem acessa. Nenhum dos dois muda o
+   * destino, e os dois sujam o link que aparece no navegador do eleitor.
+   *
+   * A ordem aqui é a ordem em que elas aparecem no rodapé.
+   */
   redes: {
-    instagram: 'https://www.instagram.com/marcao_vivacqua/',
-    /** informado pela campanha em 15/08/2026 */
-    tiktok: 'https://www.tiktok.com/@marcaovivacqua',
-    instagramMovimento: 'https://www.instagram.com/triangulodosul/',
+    instagram: 'https://www.instagram.com/marcao_vivacqua',
     facebook: 'https://www.facebook.com/marcovivacquaoficial',
+    tiktok: 'https://www.tiktok.com/@marcaovivacqua',
+    youtube: 'https://www.youtube.com/@MarcãoVivacqua',
+    x: 'https://x.com/MarcaoVivacqua',
+    threads: 'https://www.threads.com/@marcao_vivacqua',
+    /** do movimento, não da candidatura: não entra no rodapé */
+    instagramMovimento: 'https://www.instagram.com/triangulodosul/',
   },
 
   /**
