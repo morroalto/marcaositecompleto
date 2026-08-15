@@ -32,7 +32,10 @@ export const candidato = {
   slogan: 'Um novo Marco para o Sul',
   hashtag: '#agoraéMARCÃO!',
 
-  eleicao: { data: '2026-10-04T08:00:00-03:00', texto: '4 de outubro de 2026', turno: 'turno único' },
+  /* Sob a contagem fica só a data. "turno único" saiu em 15/08/2026: quem
+     lê ali quer saber QUANDO votar, e o número de turnos é regra de eleição
+     majoritária, que não é a dele. */
+  eleicao: { data: '2026-10-04T08:00:00-03:00', texto: '4 de outubro de 2026' },
 
   campanha: {
     cnpj: '68.345.764/0001-52',

@@ -100,9 +100,10 @@ export const capitulos: Capitulo[] = [
     slug: 'voz',
     titulo: 'A Voz do Sul na Assembleia (2026)',
     texto:
-      'Escolheu Marataízes para fincar residência definitiva. Com a maturidade e a força do ' +
-      'Sul, decide levar a experiência, a seriedade e o compromisso com o Sul para a ' +
-      'Assembleia Legislativa do Espírito Santo.',
+      'Escolheu Marataízes para fincar residência definitiva. Há 20 anos o Sul do Estado não ' +
+      'ocupa uma cadeira com representação própria na Assembleia Legislativa. Chegou a hora de ' +
+      'mudar essa história, levando a experiência, a seriedade e a força da nossa região para ' +
+      'onde as decisões são tomadas.',
     foto: 'traj-voz',
     ext: 'jpg',
     largura: 1599, altura: 899,

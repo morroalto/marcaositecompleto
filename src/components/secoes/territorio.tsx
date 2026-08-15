@@ -76,7 +76,7 @@ export function Territorio() {
       <div className="mv-shell mt-[var(--secao)]">
         {/* texto novo, enviado pela campanha em 15/08/2026 */}
         <div className="flex max-w-[68ch] flex-col gap-4 text-center sm:text-left">
-          <p className="mv-kicker text-[#2F5C1B]">Nove municípios</p>
+          <p className="mv-kicker text-[#2F5C1B]">Território conectado</p>
           <h2 className="text-[clamp(1.6rem,5.6vw,2.7rem)]">
             <Cartaz className="text-marinho">O SUL DE PERTO</Cartaz>
           </h2>

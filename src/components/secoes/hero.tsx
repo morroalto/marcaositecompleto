@@ -86,7 +86,7 @@ export function Hero() {
             </p>
             <Contagem alvo={candidato.eleicao.data} diasIniciais={dias} />
             <p className="text-center text-[1.0625rem] leading-snug text-[#E4F0EA]">
-              {candidato.eleicao.texto}, {candidato.eleicao.turno}
+              {candidato.eleicao.texto}
             </p>
           </div>
         </div>

@@ -7,7 +7,7 @@ import { LinhaDoTempo } from '@/components/secoes/linha-do-tempo'
 import { Territorio } from '@/components/secoes/territorio'
 import { Escuta } from '@/components/secoes/escuta'
 import { Bandeiras } from '@/components/secoes/bandeiras'
-import { Galeria } from '@/components/secoes/galeria'
+// import { Galeria } from '@/components/secoes/galeria'  // oculta: ver abaixo
 import { Apoie } from '@/components/secoes/apoie'
 import { Rodape } from '@/components/secoes/rodape'
 import { candidato, site } from '@/content/candidato'
@@ -66,7 +66,12 @@ export default function Pagina() {
         <Territorio />
         <Escuta />
         <Bandeiras />
-        <Galeria />
+        {/* PERTO DE QUEM PRECISA — OCULTA, e não removida, desde 15/08/2026.
+            Os três vídeos ainda não vieram, e a seção no ar era um cabeçalho
+            sobre três retângulos vazios com um play que não tocava nada.
+            Volta descomentando esta linha, quando os arquivos chegarem e
+            `content/galeria.ts` tiver o campo `src` preenchido. */}
+        {/* <Galeria /> */}
         <Apoie />
       </main>
       <Rodape />

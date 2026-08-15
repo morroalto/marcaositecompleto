@@ -189,10 +189,20 @@ export function Rodape() {
           </p>
 
           {/* a assinatura da agência sai do cinza: o nome vai no laranja da
-              marca, que é a cor de destaque do site */}
+              marca, que é a cor de destaque do site, e leva ao site dela.
+              `rel="noopener"` é obrigatório com `target="_blank"`, e o
+              sublinhado só no hover para a assinatura não competir com os
+              links jurídicos logo acima. */}
           <p className="text-[0.9375rem] text-white/55">
             Desenvolvido por{' '}
-            <span className="font-semibold text-laranja">Morro Alto Creative Office</span>
+            <a
+              href="https://www.morroalto.co"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-laranja no-underline hover:underline"
+            >
+              Morro Alto Creative Office
+            </a>
           </p>
         </div>
       </div>
