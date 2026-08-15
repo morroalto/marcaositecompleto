@@ -7,6 +7,7 @@ import { SetaCurva } from '@/components/ui/icones'
 import { escutas, triangulo, type SlugCidade } from '@/content/territorio'
 import { videosEscuta } from '@/content/videos'
 import { Player } from '@/components/ui/video'
+import { FundoAssinatura } from '@/components/ui/simbolos'
 import { dataBR } from '@/lib/utils'
 
 /**
@@ -57,8 +58,13 @@ export function Escuta() {
   }
 
   return (
-    <section id="escuta" className="mv-duo-inv mv-secao">
-      <div className="mv-shell flex flex-col gap-8">
+    <section id="escuta" className="mv-duo-inv mv-secao relative overflow-hidden">
+      {/* a assinatura no fundo. Aqui ela convive com o logotipo do Triângulo
+          do Sul, que é conteúdo da seção e fica em primeiro plano — a marca
+          d'água só preenche o fundo em volta dele. */}
+      <FundoAssinatura variante="a" className="text-white opacity-[.05]" />
+
+      <div className="mv-shell relative flex flex-col gap-8">
         <div className="flex flex-col items-center gap-4 text-center sm:items-start sm:text-left">
           <p className="mv-kicker text-amarelo">Três cidades, três economias</p>
           {/* O contorno do cartaz é BRANCO por padrão, e branco em volta de

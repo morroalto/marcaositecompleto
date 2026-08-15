@@ -195,7 +195,7 @@ export function FundoAssinatura({
   variante = 'a',
   className,
 }: {
-  variante?: 'a' | 'b'
+  variante?: 'a' | 'b' | 'c' | 'd'
   className?: string
 }) {
   const arranjos = {
@@ -208,6 +208,14 @@ export function FundoAssinatura({
          esquerda, e a marca grande passava por trás dele */
       'absolute -left-12 bottom-2 hidden w-[18rem] rotate-6 lg:block',
       'absolute right-6 top-10 hidden w-[13rem] -rotate-3 lg:block',
+    ],
+    c: [
+      'absolute -right-8 bottom-10 hidden w-[19rem] rotate-3 lg:block',
+      'absolute left-2 top-6 hidden w-[12rem] -rotate-6 lg:block',
+    ],
+    d: [
+      'absolute right-4 top-1/2 hidden w-[17rem] -rotate-3 lg:block',
+      'absolute -left-10 bottom-8 hidden w-[13rem] rotate-6 lg:block',
     ],
   }[variante]
 
