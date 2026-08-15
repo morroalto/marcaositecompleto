@@ -46,6 +46,8 @@ export const candidato = {
 
   redes: {
     instagram: 'https://www.instagram.com/marcao_vivacqua/',
+    /** informado pela campanha em 15/08/2026 */
+    tiktok: 'https://www.tiktok.com/@marcaovivacqua',
     instagramMovimento: 'https://www.instagram.com/triangulodosul/',
     facebook: 'https://www.facebook.com/marcovivacquaoficial',
   },

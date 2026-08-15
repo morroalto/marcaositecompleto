@@ -28,8 +28,12 @@ export const CIDADES_028 = [
 /** o que o visor digita. É o texto do protótipo. */
 export const VISOR = '(028) 9 9999-9999'
 
+/**
+ * A seta dos botões NÃO vem no texto. Quem desenha a seta é o `IconeSeta` do
+ * componente, e com as duas coisas juntas o botão saía com duas setas.
+ */
 export const numeroTexto = {
-  titulo: ['O número que você', 'já conhece de cor'],
+  titulo: ['O número que você', 'já conhece!'],
   chamando: '☎ Chamando...',
   legendaVisor: 'Esse é o DDD que você disca todo dia.',
   partido: { valor: '36', nome: 'AGIR', descricao: 'O partido' },
@@ -37,7 +41,7 @@ export const numeroTexto = {
   frase: ['Meu número termina com o DDD do Sul.', 'Porque eu sou daqui.'],
   listaTitulo: 'O 028 é de:',
   listaRodape: 'E mais cidades do Sul do Espírito Santo',
-  botao: 'Grave agora: 36028 →',
+  botao: 'Grave agora: 36028',
 }
 
 /** o bloco de impacto, que fecha a seção */
@@ -46,5 +50,5 @@ export const impactoTexto = {
   linhas: ['Esse é o DDD que você disca todo dia.', 'Agora é o número do Marcão na urna.'],
   urna: '36028',
   fecho: 'Quem mora no Sul... nunca esquece.',
-  botao: 'Compartilhe o número →',
+  botao: 'Compartilhe o número',
 }

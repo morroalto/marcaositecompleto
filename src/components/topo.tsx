@@ -4,18 +4,14 @@ import { useEffect, useState } from 'react'
 import { LockupArte, BarraTricolor } from '@/components/ui/marca'
 import { candidato } from '@/content/candidato'
 
-/**
- * Seis itens, e não os nove que a página tem. Menu de campanha é atalho, não
- * sumário: com nove, nenhum é lido. Ficaram de fora "De onde venho", "O que eu
- * vejo" e "O que eu ouvi", que a pessoa alcança rolando a partir de Trajetória.
- */
+/** uma entrada por seção, na mesma ordem em que elas aparecem na página */
 const LINKS = [
   { href: '#numero',         texto: 'O 028' },
+  { href: '#agenda',         texto: 'Agenda' },
   { href: '#trajetoria',     texto: 'Trajetória' },
   { href: '#linha-do-tempo', texto: 'Linha do tempo' },
   { href: '#bandeiras',      texto: 'O que defendemos' },
   { href: '#presenca',       texto: 'Presença' },
-  { href: '#agenda',         texto: 'Agenda' },
 ]
 
 /**

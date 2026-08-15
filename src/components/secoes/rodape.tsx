@@ -1,21 +1,19 @@
 import Link from 'next/link'
-import { Lockup, BarraTricolor } from '@/components/ui/marca'
+import { LockupArte, BarraTricolor } from '@/components/ui/marca'
 import { FundoEconomias } from '@/components/ui/simbolos'
 import {
-  IconeInstagram, IconeFacebook, IconeEmail, IconeLocal, IconeSeta,
+  IconeInstagram, IconeTiktok, IconeEmail, IconeLocal, IconeSeta,
 } from '@/components/ui/icones'
 import { candidato } from '@/content/candidato'
 
-/** o rodapé lista TODAS as seções, inclusive as que não cabem no menu do topo */
+/** uma entrada por seção que existe na página, na ordem dela */
 const NAVEGACAO = [
   { href: '#numero',         texto: 'O 028' },
+  { href: '#agenda',         texto: 'Agenda' },
   { href: '#trajetoria',     texto: 'Trajetória' },
   { href: '#linha-do-tempo', texto: 'Linha do tempo' },
-  { href: '#vejo',           texto: 'O que eu vejo' },
-  { href: '#escuta',         texto: 'O que eu ouvi' },
   { href: '#bandeiras',      texto: 'O que defendemos' },
   { href: '#presenca',       texto: 'Perto de quem precisa' },
-  { href: '#agenda',         texto: 'Agenda' },
 ]
 
 /**
@@ -53,9 +51,13 @@ export function Rodape() {
           bloco legal. A barra saiu, então o rodapé volta ao padding normal. */}
       <div className="mv-shell relative flex flex-col gap-12 pt-14 pb-16">
 
-        {/* ── marca ── */}
+        {/* ── marca ──
+            O MESMO ARQUIVO do cabeçalho, e não a reconstrução em HTML: a marca
+            aparece sozinha aqui também, e duas versões dela na mesma página
+            (uma no topo, outra no rodapé, com desenhos diferentes) é o tipo de
+            detalhe que o olho pega mesmo sem saber nomear. */}
         <div className="flex flex-col items-center gap-5 text-center sm:items-start sm:text-left">
-          <Lockup className="text-[clamp(1.8rem,7vw,2.4rem)]" />
+          <LockupArte altura={52} className="w-[min(70vw,17rem)]" />
           <p className="font-display text-[1.2rem] font-bold text-amarelo">{candidato.slogan}</p>
         </div>
 
@@ -81,10 +83,12 @@ export function Rodape() {
           <nav aria-label="Redes sociais" className="flex flex-col gap-4">
             <h2 className="mv-kicker text-white/60">Acompanhar</h2>
             <ul className="flex flex-col gap-1">
+              {/* Só as duas contas dele, como o copy pede: Instagram e TikTok.
+                  O Instagram do Triângulo do Sul é do movimento, não da
+                  candidatura, e o Facebook saiu junto. */}
               {[
-                { Icone: IconeInstagram, href: candidato.redes.instagram, texto: 'Instagram do Marcão' },
-                { Icone: IconeInstagram, href: candidato.redes.instagramMovimento, texto: 'Triângulo do Sul' },
-                { Icone: IconeFacebook, href: candidato.redes.facebook, texto: 'Facebook' },
+                { Icone: IconeInstagram, href: candidato.redes.instagram, texto: 'Instagram' },
+                { Icone: IconeTiktok, href: candidato.redes.tiktok, texto: 'TikTok' },
               ].map(({ Icone, href, texto }) => (
                 <li key={texto}>
                   <a

@@ -72,7 +72,7 @@ export const cidades: Cidade[] = [
   {
     slug: 'itapemirim', nome: 'Itapemirim', triangulo: true, simbolo: 'pesca',
     ordemGeografica: 1, economia: 'Pesca',
-    evidencia: 'O Porto de Itaipava é o maior polo pesqueiro do Espírito Santo.',
+    evidencia: 'Abriga o Porto de Itaipava, principal polo de pesca artesanal e industrial do estado.',
     dados: [
       { rotulo: 'habitantes', valor: '39.832' },
       { rotulo: 'de área', valor: '557 km²' },
@@ -83,7 +83,7 @@ export const cidades: Cidade[] = [
   {
     slug: 'marataizes', nome: 'Marataízes', triangulo: true, simbolo: 'abacaxi',
     ordemGeografica: 2, economia: 'Abacaxi',
-    evidencia: 'Capital estadual do abacaxi, com 58% da produção do Espírito Santo.',
+    evidencia: 'Capital estadual do abacaxi, responsável por 58% de toda a produção capixaba.',
     dados: [
       { rotulo: 'habitantes', valor: '41.929' },
       { rotulo: 'de área', valor: '135 km²' },
@@ -94,7 +94,7 @@ export const cidades: Cidade[] = [
   {
     slug: 'presidente-kennedy', nome: 'Presidente Kennedy', triangulo: true, simbolo: 'petroleo',
     ordemGeografica: 3, economia: 'Petróleo',
-    evidencia: 'Maior arrecadador de royalties de petróleo do Espírito Santo.',
+    evidencia: 'Líder estadual em arrecadação de royalties de petróleo e gás natural.',
     dados: [
       { rotulo: 'habitantes', valor: '13.696' },
       { rotulo: 'de área', valor: '587 km²' },
