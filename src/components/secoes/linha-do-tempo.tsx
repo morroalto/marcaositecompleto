@@ -50,11 +50,8 @@ export function LinhaDoTempo() {
               <div className="mv-carta-folha" aria-hidden="true" />
 
               <div className="relative grid h-full items-center gap-5 p-6 sm:grid-cols-[1.4fr_1fr] sm:p-7">
-                <div className="flex flex-col gap-1.5">
-                  <p className="font-display text-[0.72rem] font-extrabold tracking-[0.12em] text-[#7A5B3C] uppercase">
-                    {c.chapeu}
-                  </p>
-                  <h3 className="-mt-1 text-[clamp(1.15rem,2.6vw,1.4rem)] font-extrabold tracking-tight text-balance text-[#3A2A1C]">
+                <div className="flex flex-col gap-2">
+                  <h3 className="text-[clamp(1.15rem,2.6vw,1.4rem)] font-extrabold tracking-tight text-balance text-[#3A2A1C]">
                     {c.titulo}
                   </h3>
                   <p className="text-[1rem] leading-[1.5] text-[#4A3728]">{c.texto}</p>

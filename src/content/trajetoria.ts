@@ -2,7 +2,11 @@
  * TRAJETÓRIA
  *
  * Texto e formato aprovados em 15/08/2026, a partir da arte de referência da
- * campanha: quatro blocos em grade, cada um com chapéu, título, texto e foto.
+ * campanha: quatro blocos em grade, cada um com título, texto e foto.
+ *
+ * O CHAPÉU COM O PERÍODO ("1966 — Raízes e formação de vida" e os outros três)
+ * saiu em 15/08/2026, a pedido. Ele existia na arte impressa, mas na tela
+ * empurrava o título para baixo e repetia em etiqueta o que o texto já conta.
  *
  * Substituiu a linha do tempo de seis marcos com ano na margem. A diferença
  * não é só de layout: a linha do tempo contava a vida em datas, e estes quatro
@@ -27,8 +31,6 @@
 
 export interface Capitulo {
   slug: string
-  /** o chapéu, com o período, em caixa alta na tela */
-  chapeu: string
   titulo: string
   texto: string
   /** nome do arquivo em `public/fotos/`, sem extensão. `null` = ainda não veio */
@@ -53,7 +55,6 @@ export interface Capitulo {
 export const capitulos: Capitulo[] = [
   {
     slug: 'heranca',
-    chapeu: '1966 — Raízes e formação de vida',
     titulo: 'Herança no Espírito Santo',
     texto:
       'Nascido no Rio, foi para Cachoeiro de Itapemirim aos 6 anos de idade, com o coração ' +
@@ -68,7 +69,6 @@ export const capitulos: Capitulo[] = [
   },
   {
     slug: 'familia',
-    chapeu: 'Anos 80/90 — Família que transforma',
     titulo: 'A Maior das Conquistas',
     texto:
       'Ao lado de Adriana, sua companheira de vida, construiu a maior de suas conquistas: a ' +
@@ -84,7 +84,6 @@ export const capitulos: Capitulo[] = [
   },
   {
     slug: 'gestao',
-    chapeu: '1989-2003 — Preparo e trabalho comunitário',
     titulo: 'Gestão e Paixão por Servir',
     texto:
       'Graduado em Economia, Administração e Direito, uniu o conhecimento técnico à paixão ' +
@@ -99,7 +98,6 @@ export const capitulos: Capitulo[] = [
   },
   {
     slug: 'voz',
-    chapeu: 'Presente e futuro — Legado e missão',
     titulo: 'A Voz do Sul na Assembleia (2026)',
     texto:
       'Escolheu Marataízes para fincar residência definitiva. Com a maturidade e a força do ' +
