@@ -7,7 +7,7 @@ import { SetaCurva } from '@/components/ui/icones'
 import { escutas, triangulo, type SlugCidade } from '@/content/territorio'
 import { videosEscuta } from '@/content/videos'
 import { Player } from '@/components/ui/video'
-import { FundoAssinatura } from '@/components/ui/simbolos'
+import { FundoNumero } from '@/components/ui/simbolos'
 import { dataBR } from '@/lib/utils'
 
 /**
@@ -62,7 +62,7 @@ export function Escuta() {
       {/* a assinatura no fundo. Aqui ela convive com o logotipo do Triângulo
           do Sul, que é conteúdo da seção e fica em primeiro plano — a marca
           d'água só preenche o fundo em volta dele. */}
-      <FundoAssinatura variante="a" className="text-white opacity-[.05]" />
+      <FundoNumero variante="a" className="text-white opacity-[.05]" />
 
       <div className="mv-shell relative flex flex-col gap-8">
         <div className="flex flex-col items-center gap-4 text-center sm:items-start sm:text-left">

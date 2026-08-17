@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { FundoAssinatura } from '@/components/ui/simbolos'
+import { FundoNumero } from '@/components/ui/simbolos'
 import { capitulos, linhaDoTempoTexto } from '@/content/trajetoria'
 
 /**
@@ -36,7 +36,7 @@ export function LinhaDoTempo() {
 
       {/* A assinatura no fundo, na tinta do papel e não em branco: aqui ela é
           um carimbo na folha do álbum, não uma marca luminosa por cima. */}
-      <FundoAssinatura variante="d" className="text-[#3A2A1C] opacity-[.055]" />
+      <FundoNumero variante="d" className="text-[#3A2A1C] opacity-[.055]" />
 
       <div className="mv-shell relative flex flex-col gap-7">
         {/* Sem chapéu "TRAJETÓRIA": a seção logo acima já abre com ele, e a

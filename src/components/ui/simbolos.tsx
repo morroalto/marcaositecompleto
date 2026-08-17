@@ -1,4 +1,4 @@
-import { Assinatura } from '@/components/ui/marca'
+import { NumeroMarca } from '@/components/ui/marca'
 import { cn } from '@/lib/utils'
 
 /**
@@ -129,11 +129,10 @@ export function Plataforma({ className }: Props) {
  * ajuste diferente: sobre papel claro, 5% já é visível; sobre o petróleo do
  * rodapé, precisa de mais.
  *
- * A ASSINATURA NÃO ENTRA AQUI. Ela é a marca d'água das seções que NÃO têm
- * abacaxi, peixe e plataforma (`FundoAssinatura`, abaixo): as duas juntas na
- * mesma seção seriam quatro marcas d'água disputando o mesmo fundo, e a que
- * tem palavra escrita ganharia de longe — deixaria de ser textura e viraria
- * ruído por cima do texto.
+ * O NÚMERO NÃO ENTRA AQUI. Ele é a marca d'água das seções que NÃO têm abacaxi,
+ * peixe e plataforma (`FundoNumero`, abaixo): as duas famílias juntas na mesma
+ * seção seriam marcas d'água demais disputando o mesmo fundo, e nenhuma delas
+ * leria como textura.
  *
  * `variante` só muda a posição, para as seções não repetirem o mesmo arranjo
  * uma embaixo da outra. Nada aqui é estrutural: para tirar, basta remover a
@@ -177,21 +176,30 @@ export function FundoEconomias({
 }
 
 /**
- * FUNDO DE ASSINATURA
+ * FUNDO DE NÚMERO
  *
- * A marca em SVG espalhada pelo fundo, para as seções que NÃO recebem o
- * abacaxi, o peixe e a plataforma. As duas famílias nunca se encontram na
- * mesma seção: cada uma preenche o fundo de um jeito, e juntas viram poluição.
+ * O 36▲028 espalhado pelo fundo, para as seções que NÃO recebem o abacaxi, o
+ * peixe e a plataforma. As duas famílias nunca se encontram na mesma seção:
+ * cada uma preenche o fundo de um jeito, e juntas viram poluição.
  *
- * São duas marcas por seção, em cantos opostos e em tamanhos diferentes, o
- * bastante para o fundo ter textura sem que o olho comece a ler o que está
- * atrás do texto. Some abaixo de `lg`, onde a coluna de texto ocupa a largura
- * inteira e qualquer coisa atrás dela atrapalha.
+ * SÃO SEIS POR SEÇÃO, e três delas aparecem no celular. Antes eram duas, só no
+ * desktop, e o fundo ficava praticamente liso — que foi o que o Matheus viu.
+ * Duas mudanças tornaram isso possível de uma vez:
+ *
+ *   · a marca virou SÓ O NÚMERO. Com MARCÃO e VIVACQUA escritos, repetir seis
+ *     vezes seria uma parede de texto atrás do texto; o número não se lê, se
+ *     reconhece, e repetição de número é o que o eleitor precisa mesmo.
+ *   · a marca ficou BAIXA E LARGA (683 por 120, quase 6 para 1). Deitada
+ *     assim, ela ocupa uma faixa fina, e faixa fina cabe no celular sem passar
+ *     por cima da coluna de texto, que é o motivo de antes tudo sumir no `lg`.
+ *
+ * As três do celular ficam nas bordas, sangrando para fora, e são as menores.
  *
  * Mesmas regras da outra: a seção precisa ser `relative` e `overflow-hidden`, e
- * cor e opacidade vêm de fora, pela classe.
+ * cor e opacidade vêm de fora, pela classe. Com seis marcas em vez de duas, vale
+ * conferir a opacidade da seção: o que era discreto em duas pode pesar em seis.
  */
-export function FundoAssinatura({
+export function FundoNumero({
   variante = 'a',
   className,
 }: {
@@ -200,22 +208,38 @@ export function FundoAssinatura({
 }) {
   const arranjos = {
     a: [
-      'absolute -right-10 top-4 hidden w-[20rem] -rotate-6 lg:block',
-      'absolute left-4 bottom-6 hidden w-[13rem] rotate-3 lg:block',
+      'absolute -right-10 top-8 w-[12rem] -rotate-6 sm:w-[20rem]',
+      'absolute -left-8 bottom-10 w-[10rem] rotate-3 sm:w-[16rem]',
+      'absolute -right-6 bottom-1/3 w-[8rem] rotate-12 sm:w-[12rem]',
+      'absolute -left-12 top-1/3 hidden w-[18rem] -rotate-12 lg:block',
+      'absolute left-1/2 top-6 hidden w-[12rem] rotate-6 lg:block',
+      'absolute right-1/3 -bottom-4 hidden w-[15rem] -rotate-3 lg:block',
     ],
     b: [
-      /* embaixo, e não em cima: nesta variante o título fica no alto da
-         esquerda, e a marca grande passava por trás dele */
-      'absolute -left-12 bottom-2 hidden w-[18rem] rotate-6 lg:block',
-      'absolute right-6 top-10 hidden w-[13rem] -rotate-3 lg:block',
+      /* a maior fica embaixo, e não em cima: nesta variante o título fica no
+         alto da esquerda, e ela passava por trás dele */
+      'absolute -left-10 bottom-6 w-[12rem] rotate-6 sm:w-[19rem]',
+      'absolute -right-6 top-8 w-[10rem] -rotate-3 sm:w-[14rem]',
+      'absolute -left-6 top-1/2 w-[8rem] rotate-12 sm:w-[12rem]',
+      'absolute -right-14 bottom-1/3 hidden w-[17rem] rotate-3 lg:block',
+      'absolute left-1/3 -top-6 hidden w-[13rem] -rotate-6 lg:block',
+      'absolute right-1/4 -bottom-6 hidden w-[11rem] rotate-12 lg:block',
     ],
     c: [
-      'absolute -right-8 bottom-10 hidden w-[19rem] rotate-3 lg:block',
-      'absolute left-2 top-6 hidden w-[12rem] -rotate-6 lg:block',
+      'absolute -right-8 bottom-12 w-[12rem] rotate-3 sm:w-[19rem]',
+      'absolute -left-6 top-6 w-[10rem] -rotate-6 sm:w-[14rem]',
+      'absolute -left-8 bottom-1/4 w-[8rem] rotate-6 sm:w-[13rem]',
+      'absolute right-6 top-1/3 hidden w-[15rem] -rotate-12 lg:block',
+      'absolute left-1/3 bottom-2 hidden w-[12rem] rotate-6 lg:block',
+      'absolute -right-16 -top-4 hidden w-[18rem] -rotate-3 lg:block',
     ],
     d: [
-      'absolute right-4 top-1/2 hidden w-[17rem] -rotate-3 lg:block',
-      'absolute -left-10 bottom-8 hidden w-[13rem] rotate-6 lg:block',
+      'absolute -right-8 top-1/2 w-[11rem] -rotate-3 sm:w-[18rem]',
+      'absolute -left-10 bottom-8 w-[10rem] rotate-6 sm:w-[16rem]',
+      'absolute -left-4 top-10 w-[8rem] rotate-12 sm:w-[12rem]',
+      'absolute -right-12 -bottom-4 hidden w-[16rem] rotate-3 lg:block',
+      'absolute left-1/2 bottom-1/3 hidden w-[13rem] -rotate-6 lg:block',
+      'absolute right-1/3 top-4 hidden w-[11rem] rotate-6 lg:block',
     ],
   }[variante]
 
@@ -224,8 +248,9 @@ export function FundoAssinatura({
       aria-hidden="true"
       className={cn('pointer-events-none absolute inset-0 overflow-hidden', className)}
     >
-      <Assinatura className={arranjos[0]} />
-      <Assinatura className={arranjos[1]} />
+      {arranjos.map((posicao, i) => (
+        <NumeroMarca key={i} className={posicao} />
+      ))}
     </div>
   )
 }

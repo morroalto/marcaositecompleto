@@ -61,17 +61,17 @@ export function Rodape() {
           bloco legal. A barra saiu, então o rodapé volta ao padding normal. */}
       <div className="mv-shell relative flex flex-col gap-12 pt-14 pb-16">
 
-        {/* ── marca ──
-            O MESMO ARQUIVO do cabeçalho, e não a reconstrução em HTML: a marca
-            aparece sozinha aqui também, e duas versões dela na mesma página
-            (uma no topo, outra no rodapé, com desenhos diferentes) é o tipo de
-            detalhe que o olho pega mesmo sem saber nomear. */}
-        <div className="flex flex-col items-center gap-5 text-center sm:items-start sm:text-left">
-          <div className="w-[min(70vw,17rem)]">
-            <LockupArte fluido tamanhos="(max-width: 639px) 70vw, 17rem" />
-          </div>
-          <p className="font-display text-[1.2rem] font-bold text-amarelo">{candidato.slogan}</p>
-        </div>
+        {/* ── abertura ──
+            SÓ O SLOGAN. O lockup que abria o rodapé saiu em 17/08/2026, a
+            pedido: a MESMA marca aparecia duas vezes dentro do mesmo rodapé,
+            aqui em cima e de novo na assinatura do bloco legal, a poucos
+            centímetros de distância. Marca repetida no mesmo bloco não reforça
+            nada, só faz o rodapé parecer duas peças coladas — e a que ficou é a
+            que tem função, porque acompanha o texto obrigatório da Justiça
+            Eleitoral. */}
+        <p className="text-center font-display text-[1.2rem] font-bold text-amarelo sm:text-left">
+          {candidato.slogan}
+        </p>
 
         {/* ── três colunas ── */}
         <div className="grid gap-10 text-center sm:text-left md:grid-cols-3 md:gap-8">

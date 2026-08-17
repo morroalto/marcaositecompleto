@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { Cartaz } from '@/components/ui/marca'
-import { FundoAssinatura } from '@/components/ui/simbolos'
+import { FundoNumero } from '@/components/ui/simbolos'
 import { territorio } from '@/content/facetas'
 import mapa from '@/../public/fotos/marcao-mapa.jpg'
 
@@ -79,7 +79,7 @@ export function Territorio() {
           div, o bloco inteiro passa a se centralizar na tela, e o texto
           descola dos cards que vêm logo abaixo. Foi o que aconteceu aqui. */}
       <div className="mv-shell relative mt-[var(--secao)] overflow-hidden">
-        <FundoAssinatura variante="b" className="text-marinho opacity-[.04]" />
+        <FundoNumero variante="b" className="text-marinho opacity-[.04]" />
 
         {/* texto novo, enviado pela campanha em 15/08/2026 */}
         <div className="relative flex max-w-[68ch] flex-col gap-4 text-center sm:text-left">

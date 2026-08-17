@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { candidato } from '@/content/candidato'
 import { CIDADES_028, numeroTexto } from '@/content/numero'
 import { Discagem } from '@/components/ui/discagem'
-import { FundoAssinatura } from '@/components/ui/simbolos'
+import { FundoNumero } from '@/components/ui/simbolos'
 import fone from '@/../public/fotos/marcao-orelhao.png'
 
 /**
@@ -27,8 +27,8 @@ import fone from '@/../public/fotos/marcao-orelhao.png'
 export function Numero() {
   return (
     <section id="numero" className="mv-fundo-fone mv-secao relative overflow-hidden">
-      {/* a assinatura no fundo, como nas outras seções sem as três economias */}
-      <FundoAssinatura variante="c" className="text-white opacity-[.06]" />
+      {/* o número no fundo, como nas outras seções sem as três economias */}
+      <FundoNumero variante="c" className="text-white opacity-[.06]" />
 
       <div className="mv-shell relative grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
 

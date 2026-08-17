@@ -102,10 +102,17 @@ export function LockupArte({
 }
 
 /**
- * ASSINATURA EM MARCA D'ÁGUA
+ * O NÚMERO EM MARCA D'ÁGUA
  *
- * O lockup desenhado em SVG, monocromático, para entrar no fundo das seções ao
- * lado do abacaxi, do peixe e da plataforma.
+ * Só o 36▲028, monocromático, para entrar no fundo das seções ao lado do
+ * abacaxi, do peixe e da plataforma.
+ *
+ * SÓ O NÚMERO desde 17/08/2026, a pedido. Antes daqui saía o lockup inteiro,
+ * com MARCÃO e VIVACQUA escritos, e o nome atrás do texto competia com o texto:
+ * marca d'água com palavra legível deixa de ser textura e vira uma segunda
+ * camada de leitura. O número não se lê, se reconhece, então ele repete à
+ * vontade sem atrapalhar — e repetir é exatamente o que faz o eleitor decorar o
+ * que precisa digitar na urna.
  *
  * POR QUE SVG, e não o PNG do acervo nem o lockup em HTML: a marca d'água tem
  * de tomar a cor da seção, como os outros três símbolos. O PNG é branco fixo e
@@ -113,50 +120,41 @@ export function LockupArte({
  * e o fundo posiciona tudo por largura (`w-[13rem]`). Em SVG ele aceita
  * `currentColor` e as mesmas classes de largura dos outros símbolos.
  *
- * A GEOMETRIA foi medida na arte oficial (`lockup-branco.png`, 3539×1500) e
- * está em unidades do viewBox: MARCÃO cheio na largura, VIVACQUA e a barra na
- * coluna da esquerda, o número à direita, todos apoiados na mesma base.
- *
  * `textLength` com `lengthAdjust="spacingAndGlyphs"` fixa a largura de cada
- * palavra. Sem isso, um fallback de fonte enquanto a Anton carrega mudaria a
- * largura e a marca chegaria torta na tela — aqui ela ocupa sempre a mesma
- * caixa, aconteça o que acontecer com a fonte.
+ * bloco de dígitos. Sem isso, um fallback de fonte enquanto a Anton carrega
+ * mudaria a largura e a marca chegaria torta na tela.
+ *
+ * As larguras saem de uma MESMA medida por dígito (118 unidades), e não das
+ * medidas do lockup: ali o "36" e o "028" ficavam lado a lado com o resto da
+ * arte e cada bloco tinha sua própria compressão. Sozinho e ampliado no fundo,
+ * dígito mais largo que o vizinho seria defeito visível.
  *
  * O separador é o TRIÂNGULO da marca, e não um ponto.
  */
-export function Assinatura({
-  className, tricolor = false,
-}: { className?: string; tricolor?: boolean }) {
-  const cores = tricolor
-    ? ['var(--verde)', 'var(--laranja)', 'var(--amarelo)']
-    : ['currentColor', 'currentColor', 'currentColor']
+export function NumeroMarca({ className }: { className?: string }) {
+  /* o dado continua sendo `36.028`, com ponto, porque é assim que a Justiça
+     Eleitoral registra e é assim que se escreve em texto corrido. Quem troca o
+     sinal pelo triângulo é só o desenho. */
+  const [antes, depois] = candidato.numero.split('.')
+  const DIGITO = 118
+  const largura = { antes: antes.length * DIGITO, depois: depois.length * DIGITO }
+  const xTri = largura.antes + 24
+  const xDepois = xTri + 45 + 24
 
   return (
     <svg
-      viewBox="0 0 1290 500"
+      viewBox={`0 0 ${xDepois + largura.depois} 120`}
       fill="currentColor"
       className={className}
       aria-hidden="true"
       style={{ fontFamily: 'var(--font-display)' }}
     >
-      <text x="0" y="285" fontSize="308" textLength="1290" lengthAdjust="spacingAndGlyphs">
-        MARCÃO
+      <text x="0" y="110" fontSize="147" textLength={largura.antes} lengthAdjust="spacingAndGlyphs">
+        {antes}
       </text>
-      <text x="0" y="420" fontSize="119" textLength="610" lengthAdjust="spacingAndGlyphs">
-        VIVACQUA
-      </text>
-
-      {/* a barra herda a largura do VIVACQUA, como na marca */}
-      {cores.map((cor, i) => (
-        <rect key={i} x={i * 205} y="440" width="205" height="48" fill={cor} />
-      ))}
-
-      <text x="645" y="455" fontSize="147" textLength="205" lengthAdjust="spacingAndGlyphs">
-        36
-      </text>
-      <polygon points="860,455 905,455 882.5,415" />
-      <text x="925" y="455" fontSize="147" textLength="365" lengthAdjust="spacingAndGlyphs">
-        028
+      <polygon points={`${xTri},110 ${xTri + 45},110 ${xTri + 22.5},68`} />
+      <text x={xDepois} y="110" fontSize="147" textLength={largura.depois} lengthAdjust="spacingAndGlyphs">
+        {depois}
       </text>
     </svg>
   )

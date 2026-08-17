@@ -1,7 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { momentos, galeriaTexto, proporcaoDosVideos } from '@/content/galeria'
+import { FundoNumero } from '@/components/ui/simbolos'
+import { anunciarMidia, midiaTocando } from '@/lib/midia'
 
 /**
  * PERTO DE QUEM PRECISA
@@ -18,13 +20,42 @@ import { momentos, galeriaTexto, proporcaoDosVideos } from '@/content/galeria'
  * domínio. O iframe do YouTube só entra depois. Sem isso, três iframes
  * carregariam perto de 3 MB e um punhado de cookies de terceiro sem ninguém
  * ter pedido, no 4G de quem mora aqui.
+ *
+ * UM VÍDEO DE CADA VEZ, e o jingle cala enquanto ele roda. `tocando` guarda um
+ * slug só, então abrir o segundo desmonta o iframe do primeiro — o vídeo
+ * anterior não fica tocando escondido atrás do quadro fechado. O `anunciarMidia`
+ * avisa o resto da página (hoje, o jingle) que o som agora é do vídeo.
  */
 export function Galeria() {
   const [tocando, setTocando] = useState<string | null>(null)
 
+  /* se a seção sair da tela com um vídeo aberto (navegação para outra rota),
+     o jingle precisa saber que o palco está livre de novo. A conferência do
+     `midiaTocando` evita o caso de trocar de vídeo: aí a limpeza do anterior
+     roda DEPOIS de o novo já ter se anunciado, e sem ela liberaria o som que
+     não é dela. */
+  useEffect(() => {
+    if (!tocando) return
+    return () => { if (midiaTocando() === tocando) anunciarMidia(null) }
+  }, [tocando])
+
+  function abrir(slug: string) {
+    setTocando(slug)
+    anunciarMidia(slug)
+  }
+
+  function fechar() {
+    setTocando(null)
+    anunciarMidia(null)
+  }
+
   return (
-    <section id="presenca" className="mv-secao bg-papel">
-      <div className="mv-shell flex flex-col gap-8">
+    <section id="presenca" className="mv-secao relative overflow-hidden bg-papel">
+      {/* variante "c": as vizinhas usam "a" (escuta) e as economias, então esta
+          não repete o arranjo de ninguém perto dela */}
+      <FundoNumero variante="c" className="text-marinho opacity-[.05]" />
+
+      <div className="mv-shell relative flex flex-col gap-8">
         <div className="flex max-w-[62ch] flex-col gap-4 text-center sm:text-left">
           <p className="mv-kicker text-[#2F5C1B]">{galeriaTexto.kicker}</p>
           <h2 className="text-[clamp(1.45rem,4.6vw,2.25rem)] font-extrabold tracking-tight">
@@ -50,27 +81,30 @@ export function Galeria() {
                 style={{ aspectRatio: proporcaoDosVideos }}
               >
                 {tocando === m.slug && m.src ? (
-                  m.tipo === 'youtube' ? (
-                    <iframe
-                      className="absolute inset-0 h-full w-full border-0"
-                      src={`https://www.youtube-nocookie.com/embed/${m.src}?autoplay=1&rel=0&modestbranding=1&hl=pt-BR`}
-                      title={m.titulo}
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      referrerPolicy="strict-origin-when-cross-origin"
-                      allowFullScreen
-                    />
-                  ) : (
-                    <video
-                      className="h-full w-full"
-                      src={m.src}
-                      poster={m.capa ?? undefined}
-                      controls autoPlay playsInline preload="metadata"
-                    />
-                  )
+                  <>
+                    {m.tipo === 'youtube' ? (
+                      <iframe
+                        className="absolute inset-0 h-full w-full border-0"
+                        src={`https://www.youtube-nocookie.com/embed/${m.src}?autoplay=1&rel=0&modestbranding=1&hl=pt-BR`}
+                        title={m.titulo}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerPolicy="strict-origin-when-cross-origin"
+                        allowFullScreen
+                      />
+                    ) : (
+                      <video
+                        className="h-full w-full"
+                        src={m.src}
+                        poster={m.capa ?? undefined}
+                        controls autoPlay playsInline preload="metadata"
+                        onEnded={fechar}
+                      />
+                    )}
+                  </>
                 ) : m.src ? (
                   <button
                     type="button"
-                    onClick={() => setTocando(m.slug)}
+                    onClick={() => abrir(m.slug)}
                     aria-label={`Assistir: ${m.titulo}`}
                     className="group absolute inset-0 grid cursor-pointer place-items-center border-0 p-0"
                     style={
@@ -105,6 +139,31 @@ export function Galeria() {
                   </span>
                 )}
               </div>
+
+              {/* FECHAR, e EMBAIXO do quadro, nunca por cima dele.
+                  Sem este botão, o único jeito de calar o vídeo seria pausar
+                  dentro do player do YouTube, e o jingle nunca voltaria: não
+                  temos como saber que ele parou sem carregar a API do YouTube,
+                  que é justamente o script de terceiro que a fachada existe
+                  para evitar.
+                  Dentro do quadro ele não cabe: o canto de cima é onde o
+                  YouTube põe título, compartilhar e assistir mais tarde, e um
+                  "x" nosso ali disputaria o toque com os controles deles. */}
+              {tocando === m.slug && m.src && (
+                <button
+                  type="button"
+                  onClick={fechar}
+                  aria-label={`Fechar o vídeo: ${m.titulo}`}
+                  className="mt-3 inline-flex min-h-[44px] items-center gap-2 rounded-full border-2 border-marinho/25 px-4 font-display text-[0.9375rem] font-bold text-marinho transition-colors hover:border-marinho hover:bg-marinho hover:text-white"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    strokeWidth="2.6" strokeLinecap="round" aria-hidden="true">
+                    <path d="m6 6 12 12M18 6 6 18" />
+                  </svg>
+                  Fechar o vídeo
+                </button>
+              )}
+
               {m.legenda && (
                 <p className="mt-3 text-[1.0625rem] leading-relaxed text-fraca">{m.legenda}</p>
               )}

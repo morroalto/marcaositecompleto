@@ -1,11 +1,17 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { midiaTocando, ouvirMidia } from '@/lib/midia'
 
 /**
  * JINGLE
  *
  * Toca a trilha do jingle da campanha em laço, com um botão fixo para mudar.
+ *
+ * O JINGLE SEMPRE PERDE PARA O VÍDEO. Quando alguém abre um dos vídeos, o
+ * jingle cala na hora e volta sozinho quando o vídeo é fechado, desde que a
+ * pessoa não o tenha desligado ela mesma. Duas fontes de som ao mesmo tempo
+ * não é decisão de ninguém, é defeito.
  *
  * ⚠️ A VERDADE SOBRE O AUTOPLAY: navegador nenhum deixa tocar som sozinho sem
  * o usuário ter interagido com a página. Chrome, Safari e Firefox bloqueiam, e
@@ -32,6 +38,9 @@ export function Jingle() {
   const [tocando, setTocando] = useState(false)
   const [bloqueado, setBloqueado] = useState(false)
   const [pronto, setPronto] = useState(false)
+  const [videoNoAr, setVideoNoAr] = useState(false)
+  /** estava tocando quando o vídeo entrou? então tem de voltar quando ele sair */
+  const retomarRef = useRef(false)
 
   useEffect(() => {
     const audio = audioRef.current
@@ -40,12 +49,12 @@ export function Jingle() {
     audio.volume = 0.45
     setPronto(true)
 
-    // quem já mandou calar, continua calado
-    if (localStorage.getItem('mv-jingle') === 'mudo') return
+    const mudo = () => localStorage.getItem('mv-jingle') === 'mudo'
 
     let destravou = false
     const tocar = () => {
-      if (destravou) return
+      // vídeo aberto manda em tudo: nem o autoplay nem o gesto furam a fila
+      if (destravou || mudo() || midiaTocando()) return
       destravou = true
       audio
         .play()
@@ -53,21 +62,47 @@ export function Jingle() {
         .catch(() => { destravou = false; setBloqueado(true) })
     }
 
-    tocar()
+    /* O VÍDEO SILENCIA O JINGLE.
+       `retomarRef` guarda se ele estava no ar: só volta o que foi interrompido
+       por nós. Quem apertou o botão de mudo continua no silêncio que pediu. */
+    const pararEscuta = ouvirMidia((id) => {
+      setVideoNoAr(id !== null)
+      if (id !== null) {
+        /* `if`, e NÃO `retomarRef.current = !audio.paused`. Trocar de vídeo
+           dispara este aviso outra vez, e nessa segunda vez o jingle já está
+           parado — a atribuição direta zerava a lembrança e ele nunca voltava
+           ao fechar. A marca só se levanta, quem a abaixa é o retorno. */
+        if (!audio.paused) retomarRef.current = true
+        audio.pause()
+        setTocando(false)
+        setBloqueado(false)
+        return
+      }
+      if (!retomarRef.current || mudo()) return
+      retomarRef.current = false
+      audio.play().then(() => setTocando(true)).catch(() => setBloqueado(true))
+    })
 
-    // qualquer gesto na página serve como destrave
-    const gestos = ['pointerdown', 'keydown', 'touchstart'] as const
-    const aoGesto = () => {
-      if (localStorage.getItem('mv-jingle') === 'mudo') return
+    if (!mudo()) {
       tocar()
+      // qualquer gesto na página serve como destrave
+      const gestos = ['pointerdown', 'keydown', 'touchstart'] as const
+      const aoGesto = () => tocar()
+      gestos.forEach((g) => document.addEventListener(g, aoGesto, { once: true, passive: true }))
+      return () => {
+        gestos.forEach((g) => document.removeEventListener(g, aoGesto))
+        pararEscuta()
+      }
     }
-    gestos.forEach((g) => document.addEventListener(g, aoGesto, { once: true, passive: true }))
-    return () => gestos.forEach((g) => document.removeEventListener(g, aoGesto))
+    return pararEscuta
   }, [])
 
   function alternar() {
     const audio = audioRef.current
     if (!audio) return
+    // decisão manual apaga a lembrança: o que a pessoa escolher agora vale mais
+    // do que o que estava tocando antes de algum vídeo
+    retomarRef.current = false
     if (tocando) {
       audio.pause()
       setTocando(false)
@@ -90,7 +125,10 @@ export function Jingle() {
         <source src="/audio/jingle.m4a" type="audio/mp4" />
       </audio>
 
-      {pronto && (
+      {/* com vídeo no ar o botão sai de cena: não existe jingle para controlar,
+          e um controle de som visível ao lado de um vídeo tocando só convida a
+          pessoa a ligar as duas coisas juntas */}
+      {pronto && !videoNoAr && (
         <button
           type="button"
           onClick={alternar}

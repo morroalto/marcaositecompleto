@@ -1,8 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { Video } from '@/content/videos'
 import { MOSTRAR_PENDENCIAS } from '@/content/flags'
+import { anunciarMidia, midiaTocando } from '@/lib/midia'
 
 /**
  * PLAYER
@@ -13,9 +14,18 @@ import { MOSTRAR_PENDENCIAS } from '@/content/flags'
  *
  * O quadro reserva a proporção declarada, então não há salto de layout.
  * Sem vídeo, o componente não renderiza: nada de player vazio.
+ *
+ * Enquanto ele toca, o jingle cala: `anunciarMidia` avisa a página que o som
+ * agora é daqui. Mesma regra da galeria, e vale para qualquer player do site.
  */
 export function Player({ video, className }: { video: Video; className?: string }) {
   const [tocando, setTocando] = useState(false)
+
+  /* desmontou com o vídeo aberto: o palco fica livre e o jingle pode voltar.
+     Só libera se o palco ainda for DESTE vídeo — quem sai de cena não pode
+     liberar o som de outro player que começou depois. */
+  const id = video.src
+  useEffect(() => () => { if (midiaTocando() === id) anunciarMidia(null) }, [id])
 
   if (!video.src) {
     if (!MOSTRAR_PENDENCIAS) return null
@@ -50,6 +60,7 @@ export function Player({ video, className }: { video: Video; className?: string 
             autoPlay
             playsInline
             preload="metadata"
+            onEnded={() => anunciarMidia(null)}
           >
             {video.legendas && (
               <track kind="captions" srcLang="pt-BR" label="Português" src={video.legendas} default />
@@ -58,7 +69,7 @@ export function Player({ video, className }: { video: Video; className?: string 
         ) : (
           <button
             type="button"
-            onClick={() => setTocando(true)}
+            onClick={() => { setTocando(true); anunciarMidia(id) }}
             className="group absolute inset-0 h-full w-full cursor-pointer border-0 p-0"
             aria-label={`Assistir: ${video.titulo}`}
           >
