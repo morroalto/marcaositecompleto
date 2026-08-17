@@ -141,11 +141,32 @@ export function NumeroMarca({ className }: { className?: string }) {
   const xTri = largura.antes + 24
   const xDepois = xTri + 45 + 24
 
+  /* A CAIXA CABE OS DÍGITOS INTEIROS, e é aqui que estava o número cortado.
+     Vale a medida, não a estimativa — esta saiu do `getBBox` do próprio texto
+     renderizado no navegador:
+
+         viewBox antigo   y de   0 a 120
+         tinta do "36"    y de -62,5 a 159,7   (222 de altura, em corpo 147)
+
+     Ou seja, o desenho era 85% mais alto que a caixa que o continha, e um
+     <svg> RECORTA no próprio viewBox: o que passava era decepado, e o que
+     chegava na tela era um 36▲028 sem o topo dos dígitos. A conta antiga
+     partia da altura de caixa-alta da fonte (~0,73 em); a caixa de texto do
+     SVG, porém, vai do ascendente ao descendente, bem mais alta — e é ela que
+     manda no recorte.
+     `textLength` não socorre em nada disso: ele ajusta largura, nunca altura.
+
+     `overflow-visible` é o cinto além do suspensório: se outra fonte entrar no
+     lugar da Anton e for ainda mais alta, ela transborda em vez de ser
+     cortada. Marca d'água transbordando não incomoda ninguém; marca d'água
+     decepada é o defeito que estamos consertando. */
+  const folgaX = 14
+
   return (
     <svg
-      viewBox={`0 0 ${xDepois + largura.depois} 120`}
+      viewBox={`${-folgaX} -66 ${xDepois + largura.depois + folgaX * 2} 232`}
       fill="currentColor"
-      className={className}
+      className={cn('overflow-visible', className)}
       aria-hidden="true"
       style={{ fontFamily: 'var(--font-display)' }}
     >
