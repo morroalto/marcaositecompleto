@@ -7,6 +7,7 @@ import { candidato } from '@/content/candidato'
 /** uma entrada por seção, na mesma ordem em que elas aparecem na página */
 const LINKS = [
   { href: '#numero',         texto: 'O 028' },
+  { href: '#agenda',         texto: 'Agenda' },
   { href: '#trajetoria',     texto: 'Trajetória' },
   { href: '#linha-do-tempo', texto: 'Linha do tempo' },
   { href: '#bandeiras',      texto: 'O que defendemos' },

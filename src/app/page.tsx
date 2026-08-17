@@ -1,6 +1,7 @@
 import { Topo } from '@/components/topo'
 import { Hero } from '@/components/secoes/hero'
 import { Numero } from '@/components/secoes/numero'
+import { Agenda } from '@/components/secoes/agenda'
 import { Trajetoria } from '@/components/secoes/trajetoria'
 import { LinhaDoTempo } from '@/components/secoes/linha-do-tempo'
 import { Territorio } from '@/components/secoes/territorio'
@@ -59,6 +60,10 @@ export default function Pagina() {
       <main id="conteudo">
         <Hero />
         <Numero />
+        {/* A AGENDA VOLTOU em 17/08/2026, com os dois eventos fundidos num só,
+            como a arte nova da campanha anuncia. Ela sai de novo quando não
+            houver evento marcado: agenda vazia é pior do que agenda nenhuma. */}
+        <Agenda />
         <Trajetoria />
         <LinhaDoTempo />
         <Territorio />

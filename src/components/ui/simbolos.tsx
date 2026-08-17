@@ -206,40 +206,47 @@ export function FundoNumero({
   variante?: 'a' | 'b' | 'c' | 'd'
   className?: string
 }) {
+  /* TODAS AS MARCAS CABEM INTEIRAS DENTRO DA SEÇÃO.
+     Elas sangravam para fora (`-right-10`, `-left-8`), como o abacaxi e o
+     peixe fazem, e ali o corte funciona: figura cortada continua sendo
+     figura. Com o número não: "36▲02" cortado no meio não é uma marca
+     sangrada, é um número errado, e número é a única coisa do site que o
+     eleitor precisa levar decorada. Daí os recuos positivos — e folga
+     suficiente para a rotação, que empurra os cantos para fora da caixa. */
   const arranjos = {
     a: [
-      'absolute -right-10 top-8 w-[12rem] -rotate-6 sm:w-[20rem]',
-      'absolute -left-8 bottom-10 w-[10rem] rotate-3 sm:w-[16rem]',
-      'absolute -right-6 bottom-1/3 w-[8rem] rotate-12 sm:w-[12rem]',
-      'absolute -left-12 top-1/3 hidden w-[18rem] -rotate-12 lg:block',
-      'absolute left-1/2 top-6 hidden w-[12rem] rotate-6 lg:block',
-      'absolute right-1/3 -bottom-4 hidden w-[15rem] -rotate-3 lg:block',
+      'absolute right-6 top-8 w-[11rem] -rotate-6 sm:w-[18rem]',
+      'absolute left-5 bottom-10 w-[9rem] rotate-3 sm:w-[15rem]',
+      'absolute right-8 bottom-1/3 w-[7rem] rotate-12 sm:w-[11rem]',
+      'absolute left-8 top-1/3 hidden w-[16rem] -rotate-12 lg:block',
+      'absolute left-[45%] top-6 hidden w-[12rem] rotate-6 lg:block',
+      'absolute right-1/3 bottom-6 hidden w-[14rem] -rotate-3 lg:block',
     ],
     b: [
       /* a maior fica embaixo, e não em cima: nesta variante o título fica no
          alto da esquerda, e ela passava por trás dele */
-      'absolute -left-10 bottom-6 w-[12rem] rotate-6 sm:w-[19rem]',
-      'absolute -right-6 top-8 w-[10rem] -rotate-3 sm:w-[14rem]',
-      'absolute -left-6 top-1/2 w-[8rem] rotate-12 sm:w-[12rem]',
-      'absolute -right-14 bottom-1/3 hidden w-[17rem] rotate-3 lg:block',
-      'absolute left-1/3 -top-6 hidden w-[13rem] -rotate-6 lg:block',
-      'absolute right-1/4 -bottom-6 hidden w-[11rem] rotate-12 lg:block',
+      'absolute left-6 bottom-8 w-[11rem] rotate-6 sm:w-[17rem]',
+      'absolute right-5 top-8 w-[9rem] -rotate-3 sm:w-[13rem]',
+      'absolute left-8 top-1/2 w-[7rem] rotate-12 sm:w-[11rem]',
+      'absolute right-10 bottom-1/3 hidden w-[15rem] rotate-3 lg:block',
+      'absolute left-1/3 top-5 hidden w-[12rem] -rotate-6 lg:block',
+      'absolute right-1/4 bottom-8 hidden w-[10rem] rotate-12 lg:block',
     ],
     c: [
-      'absolute -right-8 bottom-12 w-[12rem] rotate-3 sm:w-[19rem]',
-      'absolute -left-6 top-6 w-[10rem] -rotate-6 sm:w-[14rem]',
-      'absolute -left-8 bottom-1/4 w-[8rem] rotate-6 sm:w-[13rem]',
-      'absolute right-6 top-1/3 hidden w-[15rem] -rotate-12 lg:block',
-      'absolute left-1/3 bottom-2 hidden w-[12rem] rotate-6 lg:block',
-      'absolute -right-16 -top-4 hidden w-[18rem] -rotate-3 lg:block',
+      'absolute right-6 bottom-12 w-[11rem] rotate-3 sm:w-[17rem]',
+      'absolute left-5 top-6 w-[9rem] -rotate-6 sm:w-[13rem]',
+      'absolute left-8 bottom-1/4 w-[7rem] rotate-6 sm:w-[12rem]',
+      'absolute right-8 top-1/3 hidden w-[14rem] -rotate-12 lg:block',
+      'absolute left-1/3 bottom-6 hidden w-[12rem] rotate-6 lg:block',
+      'absolute right-10 top-6 hidden w-[16rem] -rotate-3 lg:block',
     ],
     d: [
-      'absolute -right-8 top-1/2 w-[11rem] -rotate-3 sm:w-[18rem]',
-      'absolute -left-10 bottom-8 w-[10rem] rotate-6 sm:w-[16rem]',
-      'absolute -left-4 top-10 w-[8rem] rotate-12 sm:w-[12rem]',
-      'absolute -right-12 -bottom-4 hidden w-[16rem] rotate-3 lg:block',
-      'absolute left-1/2 bottom-1/3 hidden w-[13rem] -rotate-6 lg:block',
-      'absolute right-1/3 top-4 hidden w-[11rem] rotate-6 lg:block',
+      'absolute right-6 top-1/2 w-[10rem] -rotate-3 sm:w-[16rem]',
+      'absolute left-6 bottom-8 w-[9rem] rotate-6 sm:w-[15rem]',
+      'absolute left-8 top-10 w-[7rem] rotate-12 sm:w-[11rem]',
+      'absolute right-8 bottom-8 hidden w-[15rem] rotate-3 lg:block',
+      'absolute left-[45%] bottom-1/3 hidden w-[12rem] -rotate-6 lg:block',
+      'absolute right-1/3 top-5 hidden w-[10rem] rotate-6 lg:block',
     ],
   }[variante]
 

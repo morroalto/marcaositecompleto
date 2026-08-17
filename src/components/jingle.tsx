@@ -1,12 +1,24 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { midiaTocando, ouvirMidia } from '@/lib/midia'
+import { jingles } from '@/content/jingles'
 
 /**
  * JINGLE
  *
- * Toca a trilha do jingle da campanha em laço, com um botão fixo para mudar.
+ * Toca os jingles da campanha EM LAÇO, um atrás do outro, com um botão fixo
+ * para mudar. Quando a última faixa acaba, volta a primeira.
+ *
+ * Antes era um arquivo só com `loop`, e a mesma faixa repetia do começo ao fim
+ * da visita. A lista mora em `content/jingles.ts`: acrescentar uma faixa é
+ * escrever uma linha lá, sem tocar neste componente.
+ *
+ * FAIXA QUE NÃO CARREGA É PULADA, e pulada para sempre naquela visita. É o que
+ * permite declarar as quatro faixas antes de os quatro arquivos existirem: o
+ * laço roda com as que estiverem na pasta e absorve as outras no dia em que
+ * chegarem. Se nenhuma carregar, o player desiste em silêncio em vez de ficar
+ * girando entre erros.
  *
  * O JINGLE SEMPRE PERDE PARA O VÍDEO. Quando alguém abre um dos vídeos, o
  * jingle cala na hora e volta sozinho quando o vídeo é fechado, desde que a
@@ -41,6 +53,28 @@ export function Jingle() {
   const [videoNoAr, setVideoNoAr] = useState(false)
   /** estava tocando quando o vídeo entrou? então tem de voltar quando ele sair */
   const retomarRef = useRef(false)
+  /** índice da faixa no ar. `-1` = acabaram as faixas que tocam */
+  const [faixa, setFaixa] = useState(0)
+  /** as que o navegador não conseguiu carregar; ficam de fora do laço */
+  const perdidasRef = useRef<Set<number>>(new Set())
+  /** trocou de faixa sozinho, então a próxima entra tocando */
+  const emendarRef = useRef(false)
+
+  /**
+   * A PRÓXIMA FAIXA QUE AINDA TOCA, a partir de uma dada.
+   *
+   * Percorre a lista uma volta inteira, pulando as perdidas, e volta ao começo
+   * ao chegar no fim — é isso que fecha o laço. Devolve `-1` quando todas
+   * falharam, e é esse caso que impede o player de girar para sempre entre
+   * arquivos que não existem.
+   */
+  const proxima = useCallback((atual: number) => {
+    for (let passo = 1; passo <= jingles.length; passo++) {
+      const i = (atual + passo) % jingles.length
+      if (!perdidasRef.current.has(i)) return i
+    }
+    return -1
+  }, [])
 
   useEffect(() => {
     const audio = audioRef.current
@@ -48,6 +82,9 @@ export function Jingle() {
 
     audio.volume = 0.45
     setPronto(true)
+    // a fonte precisa estar no lugar ANTES do primeiro `play()`: sem `src`, o
+    // navegador rejeita a promessa e o botão nasceria dizendo "bloqueado"
+    aplicarFonte(audio, 0)
 
     const mudo = () => localStorage.getItem('mv-jingle') === 'mudo'
 
@@ -97,6 +134,40 @@ export function Jingle() {
     return pararEscuta
   }, [])
 
+  /* TROCA DE FAIXA. `emendarRef` diz se a nova entra tocando: numa emenda
+     automática ela entra, porque a anterior acabou de terminar e o gesto do
+     usuário já foi dado lá atrás — o navegador não pede outro. */
+  useEffect(() => {
+    const audio = audioRef.current
+    if (!audio || faixa < 0) return
+    if (!aplicarFonte(audio, faixa)) {
+      // formato que este navegador não toca: some do laço e segue adiante
+      perdidasRef.current.add(faixa)
+      setFaixa((f) => proxima(f))
+      return
+    }
+    if (!emendarRef.current) return
+    emendarRef.current = false
+    audio.play().then(() => setTocando(true)).catch(() => setBloqueado(true))
+  }, [faixa, proxima])
+
+  /** a faixa acabou: entra a próxima, e depois da última volta a primeira */
+  function aoTerminar() {
+    const i = proxima(faixa)
+    if (i < 0) { setTocando(false); return }
+    emendarRef.current = tocando
+    setFaixa(i)
+  }
+
+  /** arquivo que não carregou sai do laço e a vez passa para o seguinte */
+  function aoFalhar() {
+    perdidasRef.current.add(faixa)
+    const i = proxima(faixa)
+    if (i < 0) { setTocando(false); setBloqueado(false); return }
+    emendarRef.current = tocando
+    setFaixa(i)
+  }
+
   function alternar() {
     const audio = audioRef.current
     if (!audio) return
@@ -117,13 +188,20 @@ export function Jingle() {
 
   return (
     <>
-      {/* `loop` mantém a trilha rodando. `preload="auto"` porque o arquivo tem
-          192 kb e precisa estar pronto no instante do gesto: carregar só depois
-          do toque atrasaria o som em segundos no 4G. */}
-      <audio ref={audioRef} loop preload="auto" aria-hidden="true">
-        <source src="/audio/jingle.opus" type="audio/ogg; codecs=opus" />
-        <source src="/audio/jingle.m4a" type="audio/mp4" />
-      </audio>
+      {/* SEM `loop`: o laço agora é sobre a LISTA, não sobre o arquivo, e quem
+          o fecha é `aoTerminar`. `src` é definido no efeito, e não como
+          atributo, porque trocar a fonte de um <audio> exige `load()` — o React
+          reescreveria o atributo e o navegador continuaria tocando o anterior.
+
+          `preload="auto"` porque a faixa precisa estar pronta no instante do
+          gesto: carregar só depois do toque atrasaria o som em segundos no 4G. */}
+      <audio
+        ref={audioRef}
+        preload="auto"
+        aria-hidden="true"
+        onEnded={aoTerminar}
+        onError={aoFalhar}
+      />
 
       {/* com vídeo no ar o botão sai de cena: não existe jingle para controlar,
           e um controle de som visível ao lado de um vídeo tocando só convida a
@@ -152,6 +230,41 @@ export function Jingle() {
       )}
     </>
   )
+}
+
+/** o tipo MIME de cada extensão que a lista aceita, para o `canPlayType` */
+const TIPOS: Record<string, string> = {
+  opus: 'audio/ogg; codecs=opus',
+  ogg: 'audio/ogg',
+  m4a: 'audio/mp4',
+  mp3: 'audio/mpeg',
+  wav: 'audio/wav',
+}
+
+/**
+ * Aponta o <audio> para o primeiro arquivo da faixa que ESTE navegador sabe
+ * tocar, e devolve se encontrou algum.
+ *
+ * A escolha é feita aqui, no código, e não por uma pilha de <source>, porque
+ * com fonte trocando em tempo de execução é preciso chamar `load()` — e é bom
+ * saber, na hora, se a faixa é tocável, em vez de descobrir por um evento de
+ * erro que chega depois.
+ */
+function aplicarFonte(audio: HTMLAudioElement, i: number): boolean {
+  const faixa = jingles[i]
+  if (!faixa) return false
+  const escolhido = faixa.arquivos.find((arquivo) => {
+    const ext = arquivo.split('.').pop() ?? ''
+    const tipo = TIPOS[ext]
+    return tipo ? audio.canPlayType(tipo) !== '' : false
+  })
+  if (!escolhido) return false
+  // `endsWith` porque `audio.src` vem absoluto ("http://host/audio/…"): sem
+  // isso a comparação nunca bate e todo render recarregaria a faixa do zero
+  if (audio.src.endsWith(escolhido)) return true
+  audio.src = escolhido
+  audio.load()
+  return true
 }
 
 function IconeSom() {

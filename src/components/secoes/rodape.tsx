@@ -10,6 +10,7 @@ import { candidato } from '@/content/candidato'
 /** uma entrada por seção que existe na página, na ordem dela */
 const NAVEGACAO = [
   { href: '#numero',         texto: 'O 028' },
+  { href: '#agenda',         texto: 'Agenda' },
   { href: '#trajetoria',     texto: 'Trajetória' },
   { href: '#linha-do-tempo', texto: 'Linha do tempo' },
   { href: '#bandeiras',      texto: 'O que defendemos' },

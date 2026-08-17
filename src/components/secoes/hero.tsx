@@ -10,7 +10,11 @@ import capa from '@/../public/fotos/marcao-hero.jpg'
  *
  * Refeito em 14/08/2026: a abertura agora é a ARTE OFICIAL da campanha
  * (`public/fotos/marcao-hero.jpg`), a mesma peça que roda no Instagram e no
- * impresso. Ela já traz o lockup e o slogan travados pelo designer, então
+ * impresso. Em 17/08/2026 o arquivo foi trocado pelo wallpaper novo, que é a
+ * mesma composição com o cargo — "DEPUTADO ESTADUAL" — escrito acima do nome.
+ * O caminho continua o mesmo de propósito: trocar a arte não deve exigir
+ * mexer no código de quem a exibe. Ela já traz o lockup e o slogan travados
+ * pelo designer, então
  * repetir "MARCÃO VIVACQUA" em HTML logo abaixo seria dizer duas vezes a mesma
  * coisa, com dois tratamentos tipográficos diferentes brigando na mesma tela.
  *
