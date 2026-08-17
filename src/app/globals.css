@@ -585,8 +585,39 @@
 }
 .mv-pulsa { animation: mv-pulsa 2s ease-out infinite; }
 
+/* ── BALÕES DO ZAP DO MARCÃO ──────────────────────────────────────────
+   Cada balão sobe, desce e gira um pouco, no seu próprio ritmo: `--dur` e
+   `--atraso` vêm do componente, e é a diferença entre eles que impede o
+   conjunto de subir junto, como uma bandeira só.
+
+   O brilho tem DUAS sombras: uma escura embaixo, que assenta o balão no
+   fundo, e uma verde em volta, que é o que faz ele parecer aceso em vez de
+   colado. Em `filter`, e não em `box-shadow`, porque a peça é um SVG
+   recortado — box-shadow desenharia a sombra do retângulo, não a do balão. */
+@keyframes mv-flutua {
+  0%, 100% { transform: translateY(0)      rotate(var(--giro, 0deg)); }
+  50%      { transform: translateY(-14px)  rotate(calc(var(--giro, 0deg) * -1)); }
+}
+.mv-flutua {
+  animation: mv-flutua var(--dur, 9s) ease-in-out infinite;
+  animation-delay: var(--atraso, 0s);
+  filter:
+    drop-shadow(0 10px 18px rgb(0 0 0 / .35))
+    drop-shadow(0 0 14px rgb(37 211 102 / .5));
+}
+
+/* pulsação discreta do botão do grupo: anel verde em vez do amarelo, e mais
+   lenta que a do jingle — aqui ela convida, não avisa */
+@keyframes mv-pulsa-suave {
+  0%, 100% { box-shadow: 0 5px 0 rgb(0 0 0 / .3), 0 0 0 0 rgb(37 211 102 / .55); }
+  50%      { box-shadow: 0 5px 0 rgb(0 0 0 / .3), 0 0 0 14px rgb(37 211 102 / 0); }
+}
+.mv-pulsa-suave { animation: mv-pulsa-suave 3.2s ease-out infinite; }
+
 @media (prefers-reduced-motion: reduce) {
   .mv-pulsa { animation: none; }
+  .mv-flutua { animation: none; }
+  .mv-pulsa-suave { animation: none; }
   .mv-abertura { display: none; }
   .mv-entra { animation: none; opacity: 1; transform: none; }
   html { scroll-behavior: auto; }

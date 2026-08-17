@@ -17,17 +17,16 @@
 export const grupo = {
   /** convite oficial, enviado pela campanha em 17/08/2026 */
   link: 'https://chat.whatsapp.com/Lxgyx7AsqXIFJ1KzdJJGVq?s=sw&p=i&mlu=4',
-  kicker: 'Grupo oficial',
-  titulo: 'Entre para o grupo do Marcão no WhatsApp',
+  /** o nome que a campanha deu ao grupo, e é assim que o eleitor vai chamá-lo */
+  titulo: 'Zap do Marcão',
   chamada:
     'É por lá que a campanha avisa primeiro: agenda, caminhada, adesivaço e o que ' +
     'está sendo decidido para o Triângulo do Sul. Entre e caminhe junto com a gente.',
   botao: 'Entrar no grupo',
-  foto: 'grupo-whatsapp',
+  /** a arte da foto fixada, com os óculos do 36▲028 */
+  foto: 'zap-marcao',
   largura: 900,
   altura: 1600,
-  alt:
-    'Arte da campanha: entre para o grupo do Marcão no WhatsApp. Marcão segura um ' +
-    'celular com o aplicativo aberto e convida a clicar no link',
+  alt: 'Marcão de óculos escuros com o número 36 numa lente e 028 na outra',
   revisado: true,
 }
