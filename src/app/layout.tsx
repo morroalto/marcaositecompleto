@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import localFont from 'next/font/local'
 import { candidato, site } from '@/content/candidato'
 import { Carregando } from '@/components/carregando'
+import { Jingle } from '@/components/jingle'
 import './globals.css'
 
 /**
@@ -85,6 +86,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </a>
         <Carregando />
         {children}
+        <Jingle />
       </body>
     </html>
   )

@@ -577,7 +577,16 @@
 /* já viu nesta sessão, ou pediu menos movimento: nem aparece */
 .mv-visto .mv-abertura { display: none; }
 
+/* botão do jingle quando o navegador barrou o autoplay: chama o toque que
+   ele mesmo está exigindo, sem gritar */
+@keyframes mv-pulsa {
+  0%, 100% { box-shadow: 0 4px 0 rgb(0 0 0 / .25), 0 0 0 0 rgb(255 212 0 / .55); }
+  50%      { box-shadow: 0 4px 0 rgb(0 0 0 / .25), 0 0 0 12px rgb(255 212 0 / 0); }
+}
+.mv-pulsa { animation: mv-pulsa 2s ease-out infinite; }
+
 @media (prefers-reduced-motion: reduce) {
+  .mv-pulsa { animation: none; }
   .mv-abertura { display: none; }
   .mv-entra { animation: none; opacity: 1; transform: none; }
   html { scroll-behavior: auto; }

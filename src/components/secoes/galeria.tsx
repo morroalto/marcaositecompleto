@@ -11,9 +11,13 @@ import { momentos, galeriaTexto, proporcaoDosVideos } from '@/content/galeria'
  * atrasa a leitura de quem passa.
  *
  * Sem arquivo, o quadro fica vazio, com a moldura e a proporção reservadas.
- * Com arquivo, o mesmo quadro vira player, sem mexer em layout. O vídeo só é
- * baixado depois do play, porque o público chega em 4G instável e um `<video>`
- * com preload come a franquia sem ninguém pedir.
+ * Com arquivo, o mesmo quadro vira player, sem mexer em layout.
+ *
+ * Padrão fachada, e ele importa aqui mais do que em qualquer outro lugar do
+ * site: até o toque, o que existe é uma imagem de capa servida do NOSSO
+ * domínio. O iframe do YouTube só entra depois. Sem isso, três iframes
+ * carregariam perto de 3 MB e um punhado de cookies de terceiro sem ninguém
+ * ter pedido, no 4G de quem mora aqui.
  */
 export function Galeria() {
   const [tocando, setTocando] = useState<string | null>(null)
@@ -46,15 +50,23 @@ export function Galeria() {
                 style={{ aspectRatio: proporcaoDosVideos }}
               >
                 {tocando === m.slug && m.src ? (
-                  <video
-                    className="h-full w-full"
-                    src={m.src}
-                    poster={m.capa ?? undefined}
-                    controls
-                    autoPlay
-                    playsInline
-                    preload="metadata"
-                  />
+                  m.tipo === 'youtube' ? (
+                    <iframe
+                      className="absolute inset-0 h-full w-full border-0"
+                      src={`https://www.youtube-nocookie.com/embed/${m.src}?autoplay=1&rel=0&modestbranding=1&hl=pt-BR`}
+                      title={m.titulo}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerPolicy="strict-origin-when-cross-origin"
+                      allowFullScreen
+                    />
+                  ) : (
+                    <video
+                      className="h-full w-full"
+                      src={m.src}
+                      poster={m.capa ?? undefined}
+                      controls autoPlay playsInline preload="metadata"
+                    />
+                  )
                 ) : m.src ? (
                   <button
                     type="button"
@@ -63,11 +75,16 @@ export function Galeria() {
                     className="group absolute inset-0 grid cursor-pointer place-items-center border-0 p-0"
                     style={
                       m.capa
-                        ? { backgroundImage: `url(${m.capa})`, backgroundSize: 'cover' }
+                        ? {
+                            backgroundImage: `url(${m.capa})`,
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                          }
                         : undefined
                     }
                   >
-                    <span className="grid h-[64px] w-[64px] place-items-center rounded-full bg-laranja shadow-[0_5px_0_#C45E00] transition-transform group-hover:scale-105">
+                    <span className="absolute inset-0 bg-[rgb(0_59_68/.34)] transition-colors group-hover:bg-[rgb(0_59_68/.2)]" />
+                    <span className="relative grid h-[64px] w-[64px] place-items-center rounded-full bg-laranja shadow-[0_5px_0_#C45E00] transition-transform group-hover:scale-105">
                       <svg width="26" height="26" viewBox="0 0 24 24" fill="#08222A" aria-hidden="true">
                         <path d="M8 5.2v13.6L19 12 8 5.2Z" />
                       </svg>
@@ -88,6 +105,9 @@ export function Galeria() {
                   </span>
                 )}
               </div>
+              {m.legenda && (
+                <p className="mt-3 text-[1.0625rem] leading-relaxed text-fraca">{m.legenda}</p>
+              )}
             </li>
           ))}
         </ul>

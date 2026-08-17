@@ -86,6 +86,8 @@ export function proxy(req: NextRequest) {
       "connect-src 'self'",
       "form-action 'self'",
       "frame-ancestors 'self'",
+      // o player é fachada: o iframe só entra depois do toque
+      "frame-src 'self' https://www.youtube-nocookie.com",
       "base-uri 'self'",
       "object-src 'none'",
       'upgrade-insecure-requests',

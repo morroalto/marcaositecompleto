@@ -22,16 +22,36 @@ export interface Momento {
   slug: string
   /** título do vídeo, usado no rótulo do botão de play */
   titulo: string
-  /** o arquivo do vídeo. `null` = ainda não chegou */
+  /** 'youtube' = `src` é o id do vídeo · 'arquivo' = `src` é o caminho */
+  tipo: 'youtube' | 'arquivo'
+  /** id do YouTube, ou o arquivo. `null` = ainda não chegou */
   src: string | null
-  /** quadro de abertura, opcional. Caminho a partir de `public/` */
+  /** quadro de abertura. Baixado do YouTube e servido do nosso domínio,
+      porque a CSP não deixa carregar imagem de fora. */
   capa: string | null
+  /** legenda curta, do próprio título publicado no canal */
+  legenda?: string
 }
 
 export const momentos: Momento[] = [
-  { slug: 'video-1', titulo: 'Vídeo da campanha, primeiro quadro', src: null, capa: null },
-  { slug: 'video-2', titulo: 'Vídeo da campanha, segundo quadro', src: null, capa: null },
-  { slug: 'video-3', titulo: 'Vídeo da campanha, terceiro quadro', src: null, capa: null },
+  {
+    slug: 'marco', tipo: 'youtube', src: 'dTKezkBZHv8',
+    capa: '/videos/dTKezkBZHv8.webp',
+    titulo: 'O que define um verdadeiro Marco',
+    legenda: 'Dividir o antes e o depois: é isso que define um verdadeiro Marco.',
+  },
+  {
+    slug: 'voz', tipo: 'youtube', src: 'uRHsv36X3Uw',
+    capa: '/videos/uRHsv36X3Uw.webp',
+    titulo: 'Uma voz na Assembleia',
+    legenda: 'Há 20 anos, o Sul do Espírito Santo espera por uma voz na Assembleia Legislativa.',
+  },
+  {
+    slug: 'raizes', tipo: 'youtube', src: 'i6kPYbc0rMc',
+    capa: '/videos/i6kPYbc0rMc.webp',
+    titulo: 'As raízes do lugar',
+    legenda: 'Conhecer o passado é olhar com carinho para as raízes de um lugar que carrega tantas histórias.',
+  },
 ]
 
 /**
@@ -46,7 +66,7 @@ export const momentos: Momento[] = [
  * a deixar tarja preta em cima e embaixo, ou nas laterais, e o vídeo aparece
  * menor do que o espaço que ocupa na tela.
  */
-export const proporcaoDosVideos: '9/16' | '16/9' | '1/1' = '9/16'
+export const proporcaoDosVideos: '9/16' | '16/9' | '1/1' = '16/9'
 
 /** Texto da seção 6 do copy oficial, palavra por palavra. */
 export const galeriaTexto = {
