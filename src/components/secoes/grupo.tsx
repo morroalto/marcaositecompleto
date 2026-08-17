@@ -36,9 +36,15 @@ export function Grupo() {
        CTA e sai no petróleo do rodapé — três blocos escuros seguidos, em que a
        fronteira sumia. Entre seções claras a própria mudança de cor já separa,
        e ali o fio seria só enfeite. */
+    /* O FUNDO É O PETRÓLEO DA SEÇÃO DE CIMA, e não mais o verde do WhatsApp.
+       Com o verde chapado, a página terminava em três cores seguidas —
+       petróleo, verde, petróleo — e a seção lia como um bloco colado de outro
+       site. No petróleo ela volta a ser parte da página, e o verde não se
+       perde: ele sai do fundo e vai para onde é informação, que são os balões
+       e o halo do retrato. Menos verde, mais verde percebido. */
     <section
       id="grupo"
-      className="mv-secao relative overflow-hidden border-y-[5px] border-amarelo bg-[radial-gradient(120%_90%_at_50%_0%,#0E7A46_0%,#0A5C38_45%,#063E28_100%)] text-white"
+      className="mv-secao bg-petroleo relative overflow-hidden border-y-[5px] border-amarelo text-white"
     >
       <MalhaDeContato />
       <BaloesFlutuando />
@@ -66,7 +72,7 @@ export function Grupo() {
           {/* A FAIXA, como na capa do grupo: o nome dentro de uma tarja, e não
               solto sobre o fundo. Inclinada 1,5°, com o fio tricolor por baixo. */}
           <div className="-rotate-[1.5deg]">
-            <h2 className="inline-block rounded-[10px] bg-[#04352A]/85 px-6 py-3 text-[clamp(1.75rem,6vw,3.1rem)] leading-none font-extrabold tracking-tight text-white uppercase shadow-[0_10px_30px_rgba(0,0,0,.35)]">
+            <h2 className="inline-block rounded-[10px] bg-[#00272E]/85 px-6 py-3 text-[clamp(1.75rem,6vw,3.1rem)] leading-none font-extrabold tracking-tight text-white uppercase shadow-[0_10px_30px_rgba(0,0,0,.35)]">
               {grupo.titulo}
             </h2>
             <span aria-hidden="true" className="mt-2 flex h-[6px] w-full overflow-hidden rounded-full">
