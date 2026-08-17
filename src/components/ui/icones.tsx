@@ -220,6 +220,27 @@ export function IconeTiktok({ className, tamanho = 24 }: Props) {
   )
 }
 
+/**
+ * WHATSAPP
+ *
+ * VOLTOU em 17/08/2026. Ele tinha sido removido em 15/08 porque a campanha
+ * não tinha grupo, e ícone de canal que não existe é promessa quebrada; agora
+ * o grupo existe e tem link.
+ *
+ * Sólido, como os outros de rede social: o balão com o fone dentro, em peça
+ * única com `fill-rule` cuidando do vazado — assim ele se lê a 20 px, que é o
+ * tamanho em que aparece dentro do botão.
+ */
+export function IconeWhatsapp({ className, tamanho = 24 }: Props) {
+  return (
+    <svg className={className} width={tamanho} height={tamanho} viewBox="0 0 24 24"
+      fill="currentColor" aria-hidden="true" focusable="false">
+      <path d="M12.04 2c-5.5 0-9.96 4.46-9.96 9.96 0 1.76.46 3.48 1.34 5L2 22l5.16-1.35a9.94 9.94 0 0 0 4.88 1.27h.01c5.5 0 9.96-4.46 9.96-9.96A9.9 9.9 0 0 0 19.1 4.9 9.9 9.9 0 0 0 12.04 2Zm0 1.86a8.07 8.07 0 0 1 8.1 8.1c0 4.47-3.63 8.1-8.1 8.1a8.07 8.07 0 0 1-4.11-1.13l-.3-.17-3.06.8.82-2.99-.19-.31a8.03 8.03 0 0 1-1.24-4.3c0-4.47 3.63-8.1 8.08-8.1Z" />
+      <path d="M9.4 7.1c-.2-.44-.4-.45-.58-.46h-.5c-.17 0-.45.06-.69.31-.24.25-.9.88-.9 2.15s.93 2.5 1.06 2.67c.13.17 1.79 2.87 4.42 3.9 2.19.87 2.63.7 3.11.65.48-.04 1.54-.63 1.76-1.24.22-.61.22-1.13.15-1.24-.06-.11-.24-.17-.5-.3-.26-.13-1.54-.76-1.78-.85-.24-.09-.41-.13-.59.13-.17.26-.67.85-.82 1.02-.15.18-.3.2-.56.07-.26-.13-1.1-.4-2.09-1.29-.77-.69-1.29-1.53-1.44-1.79-.15-.26-.02-.4.11-.53.12-.12.26-.3.39-.46.13-.15.17-.26.26-.44.09-.17.04-.33-.02-.46-.07-.13-.57-1.4-.79-1.92Z" />
+    </svg>
+  )
+}
+
 export function IconeInstagram({ className, tamanho }: Props) {
   return (
     <Svg className={className} tamanho={tamanho}>

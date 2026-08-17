@@ -9,6 +9,7 @@ import { Escuta } from '@/components/secoes/escuta'
 import { Bandeiras } from '@/components/secoes/bandeiras'
 import { Galeria } from '@/components/secoes/galeria'
 import { Apoie } from '@/components/secoes/apoie'
+import { Grupo } from '@/components/secoes/grupo'
 import { Rodape } from '@/components/secoes/rodape'
 import { candidato, site } from '@/content/candidato'
 
@@ -73,6 +74,10 @@ export default function Pagina() {
             do canal oficial da campanha. */}
         <Galeria />
         <Apoie />
+        {/* O GRUPO fecha a página, logo depois do pedido de apoio: o CTA acima
+            pede que a pessoa entre na caminhada, e esta seção é onde ela
+            efetivamente entra. */}
+        <Grupo />
       </main>
       <Rodape />
       <script

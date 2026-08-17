@@ -15,9 +15,11 @@ import { candidato } from '@/content/candidato'
  * sobre uma caixa de largura inteira, com tudo boiando no meio. Fecho de
  * página não precisa de grade: precisa de uma frase, um botão e para onde ir.
  *
- * O copy pedia um segundo botão, "Entrar no Grupo Oficial". Ele saiu junto: a
- * campanha não tem grupo de WhatsApp, e botão que não leva a lugar nenhum
- * queima quem clicou.
+ * O copy pedia um segundo botão, "Entrar no Grupo Oficial". Ele saiu em
+ * 15/08/2026 porque a campanha não tinha grupo, e botão que não leva a lugar
+ * nenhum queima quem clicou. O grupo passou a existir em 17/08 e ganhou seção
+ * própria (`secoes/grupo.tsx`), logo abaixo desta: o convite vem depois do
+ * pedido de apoio, e não disputando espaço com ele.
  *
  * O formulário que vivia aqui levou junto o cadastro, a validação, o honeypot
  * e o consentimento de LGPD. Duas consequências ficam registradas: o site não
