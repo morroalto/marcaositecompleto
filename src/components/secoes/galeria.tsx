@@ -73,11 +73,9 @@ export function Galeria() {
             desktop, os três dividem a largura do shell; no celular cada um
             ocupa a largura inteira, com teto de altura para o quadro vertical
             não tomar a tela toda. */}
-        {/* QUATRO VÍDEOS desde 17/08/2026: dois por linha no tablet e os quatro
-            numa linha só no desktop. Com `grid-cols-3` o quarto caía sozinho
-            numa segunda linha, ocupando um terço da largura ao lado de dois
-            vazios. */}
-        <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {/* A grade acompanha a quantidade de vídeos: são TRÊS de novo, depois
+            que o de Itapemirim saiu, e três dividem a largura numa linha só. */}
+        <ul className="grid gap-5 sm:grid-cols-3">
           {momentos.map((m) => (
             <li key={m.slug}>
               <div

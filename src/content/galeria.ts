@@ -46,12 +46,9 @@ export const momentos: Momento[] = [
     titulo: 'Uma voz na Assembleia',
     legenda: 'Há 20 anos, o Sul do Espírito Santo espera por uma voz na Assembleia Legislativa.',
   },
-  {
-    slug: 'raizes', tipo: 'youtube', src: 'i6kPYbc0rMc',
-    capa: '/videos/i6kPYbc0rMc.webp',
-    titulo: 'As raízes do lugar',
-    legenda: 'Conhecer o passado é olhar com carinho para as raízes de um lugar que carrega tantas histórias.',
-  },
+  /* "As raízes do lugar" (i6kPYbc0rMc), o de Itapemirim, saiu em 17/08/2026 a
+     pedido. Para voltar: uma entrada aqui, com a capa baixada do YouTube para
+     `public/videos/` — a CSP não deixa carregar imagem de fora do domínio. */
   {
     /* enviado em 17/08/2026. Título e legenda vieram do próprio canal, e a
        capa é a do YouTube baixada para `public/videos/`: a CSP não deixa
