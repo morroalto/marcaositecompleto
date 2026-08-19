@@ -74,8 +74,15 @@ export function Topo() {
           aria-label={`${candidato.nomeUrna}, ir para o topo`}
         >
           {/* arquivo oficial, não a reconstrução em HTML: aqui a marca aparece
-              sozinha e precisa estar exata */}
-          <LockupArte altura={34} prioridade className="sm:h-[38px]" />
+              sozinha e precisa estar exata.
+
+              44 px, e não 34: a logo nova tem TRÊS linhas — "DEPUTADO
+              ESTADUAL" entrou acima do nome — e, na altura antiga, as três
+              dividiam o espaço que duas ocupavam, então o "MARCÃO" encolheu
+              quase um terço. A altura aqui compensa a linha a mais e devolve
+              ao nome o tamanho que ele tinha na barra. O teto é a própria
+              barra (`--topo-h`, 56 px no celular e 72 no desktop). */}
+          <LockupArte altura={44} prioridade className="sm:h-[50px]" />
         </a>
 
         <nav aria-label="Navegação principal" className="hidden lg:block">
