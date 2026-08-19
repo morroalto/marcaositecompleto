@@ -56,7 +56,13 @@ export function Lockup({
  * ali ela escala sem perder nitidez e não custa uma requisição.
  *
  * `altura` é o que manda no tamanho; a largura vem da proporção do arquivo,
- * que é 3539 por 1500. Sempre com `alt` de verdade, porque é o nome dele.
+ * que é 3200 por 1474. Sempre com `alt` de verdade, porque é o nome dele.
+ *
+ * ARQUIVO TROCADO em 17/08/2026 pela logo oficial completa, que traz o cargo
+ * ("DEPUTADO ESTADUAL") acima do nome. A proporção mudou junto — era 2,36 para
+ * 1, agora é 2,17 —, e por isso as medidas declaradas abaixo mudaram: com as
+ * antigas, o navegador reservaria uma caixa mais larga do que a marca e o
+ * layout pularia quando ela terminasse de carregar.
  */
 export function LockupArte({
   className, altura = 40, prioridade = false, fluido = false,
@@ -79,15 +85,15 @@ export function LockupArte({
      ganha vira uma disputa de ordem no CSS. Envolva a marca numa div com a
      largura desejada.
 
-     E AS DIMENSÕES DECLARADAS PASSAM A SER AS DO ARQUIVO (3539×1500), com
+     E AS DIMENSÕES DECLARADAS PASSAM A SER AS DO ARQUIVO (3200×1474), com
      `sizes` dizendo quanto da tela a marca ocupa. Isso não é detalhe: o Next
      escolhe QUAL versão do PNG servir a partir da largura declarada. Com uma
      altura de 40 declarada, a largura vira 94 px, ele serve um arquivo de 94
      px, e o CSS estica esse arquivo até os 300 px da caixa — marca borrada.
      Com o tamanho real mais `sizes`, ele serve a versão do tamanho certo. */
   const fluidoProps = fluido
-    ? { width: 3539, height: 1500, sizes: tamanhos }
-    : { width: Math.round((altura * 3539) / 1500), height: altura }
+    ? { width: 3200, height: 1474, sizes: tamanhos }
+    : { width: Math.round((altura * 3200) / 1474), height: altura }
 
   return (
     <Image

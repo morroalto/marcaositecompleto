@@ -52,6 +52,15 @@ export const momentos: Momento[] = [
     titulo: 'As raízes do lugar',
     legenda: 'Conhecer o passado é olhar com carinho para as raízes de um lugar que carrega tantas histórias.',
   },
+  {
+    /* enviado em 17/08/2026. Título e legenda vieram do próprio canal, e a
+       capa é a do YouTube baixada para `public/videos/`: a CSP não deixa
+       carregar imagem de fora do domínio. */
+    slug: 'hora', tipo: 'youtube', src: 'SY8Tczx70fc',
+    capa: '/videos/SY8Tczx70fc.webp',
+    titulo: 'É hora de um novo marco',
+    legenda: 'Chegou a hora de representar o Sul com força e compromisso. É hora de um novo marco.',
+  },
 ]
 
 /**
