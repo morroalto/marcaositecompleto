@@ -18,7 +18,7 @@ export const molduraTexto = {
   botao: 'Escolher a minha foto',
   trocar: 'Trocar a foto',
   tirar: 'Tirar uma foto agora',
-  baixar: 'Baixar a minha moldura',
+  baixar: 'Salvar a minha moldura',
   arraste: 'ou arraste a foto para cá',
   vazio: 'A sua foto entra aqui',
   montando: 'Montando...',

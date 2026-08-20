@@ -48,6 +48,8 @@ export function Moldura() {
   const entradaRef = useRef<HTMLInputElement>(null)
   const cameraRef = useRef<HTMLInputElement>(null)
   const urlRef = useRef<string | null>(null)
+  /* o Blob em si, e não só a URL: `navigator.share` recebe File, não link */
+  const blobRef = useRef<Blob | null>(null)
 
   const [url, setUrl] = useState<string | null>(null)
   const [erro, setErro] = useState<string | null>(null)
@@ -79,6 +81,7 @@ export function Moldura() {
       }
 
       const blob = await exportar(canvas)
+      blobRef.current = blob
       if (urlRef.current) URL.revokeObjectURL(urlRef.current)
       urlRef.current = URL.createObjectURL(blob)
       setUrl(urlRef.current)
@@ -92,6 +95,41 @@ export function Moldura() {
          um caminho real. */
       if (entradaRef.current) entradaRef.current.value = ''
       if (cameraRef.current) cameraRef.current.value = ''
+    }
+  }
+
+  /**
+   * SALVAR.
+   *
+   * NO CELULAR, `<a download>` NÃO VAI PARA A GALERIA. Ele joga o arquivo na
+   * pasta de downloads, e no Safari do iPhone costuma nem baixar: abre a
+   * imagem numa aba. Quem coloca a foto no rolo da câmera é a folha de
+   * compartilhamento do sistema, com o "Salvar imagem" dela — e o caminho para
+   * chamá-la é `navigator.share` com um File.
+   *
+   * O link continua existindo por baixo, com `href` e `download`, e é ele que
+   * responde no desktop e em qualquer navegador sem a API. Só cancelamos o
+   * comportamento padrão quando temos certeza de que o compartilhamento vai
+   * funcionar: `canShare` com o arquivo na mão, não `'share' in navigator` —
+   * há navegador que anuncia a API e recusa arquivo.
+   *
+   * A checagem acontece NO CLIQUE, e não na montagem, de propósito: decidir na
+   * montagem exigiria estado, e estado que muda depois da hidratação faz o
+   * botão trocar de cara na frente da pessoa.
+   */
+  async function aoSalvar(e: React.MouseEvent<HTMLAnchorElement>) {
+    const blob = blobRef.current
+    if (!blob) return
+    const ficheiro = new File([blob], arquivo.nome, { type: arquivo.tipo })
+    if (!navigator.canShare?.({ files: [ficheiro] })) return   // segue como download
+
+    e.preventDefault()
+    try {
+      await navigator.share({ files: [ficheiro], title: molduraTexto.titulo })
+    } catch {
+      /* cancelar a folha lança AbortError, e cancelar não é erro: a pessoa
+         mudou de ideia. Sem este catch, uma promessa rejeitada suja o console
+         e, no modo estrito, derruba a página em desenvolvimento. */
     }
   }
 
@@ -177,20 +215,30 @@ export function Moldura() {
               id="moldura-arquivo"
             />
 
-            {/* TIRAR NA HORA. `capture="user"` abre a câmera FRONTAL direto,
-                sem passar pela galeria — é foto de perfil, então é a de frente
-                que interessa.
+            {/* TIRAR NA HORA.
+
+                `capture` SEM LADO ESCOLHIDO, a pedido: assim a câmera abre
+                direto, e quem decide entre frontal e traseira é a pessoa, no
+                botão de virar do próprio aplicativo de câmera.
+
+                Passou por `user` e por `environment` antes disto. `user` força
+                a frontal, e frontal entrega foto espelhada em quase todo
+                aparelho — o preview funciona como espelho de banheiro e boa
+                parte grava assim. Desespelhar no canvas não resolve: quem grava
+                certo passaria a sair invertido, e não há como saber pelo
+                arquivo se o aparelho espelhou. `environment` resolvia o espelho
+                mas tirava a selfie da mesa. Sem lado, as duas ficam a um toque
+                de distância e o espelho vira escolha de quem fotografa.
 
                 `accept="image/*"` aqui, e não a lista dos três formatos: o
-                aparelho decide em que formato grava, e alguns iPhones gravam
-                em HEIC. Restringir aqui faria a câmera nem abrir; quem barra
-                formato que não serve é a checagem de bytes, depois, com
-                mensagem explicando o que houve. */}
+                aparelho decide como grava e alguns iPhones gravam HEIC, então
+                restringir faria a câmera nem abrir. Quem barra formato que não
+                serve é a checagem de bytes, depois, com mensagem. */}
             <input
               ref={cameraRef}
               type="file"
               accept="image/*"
-              capture="user"
+              capture
               onChange={(e) => void usar(e.target.files?.[0])}
               className="mv-sr"
               id="moldura-camera"
@@ -219,6 +267,7 @@ export function Moldura() {
                 <a
                   href={url}
                   download={arquivo.nome}
+                  onClick={aoSalvar}
                   className="mv-btn w-full justify-center border-2 border-white/45 text-white sm:w-auto"
                 >
                   {molduraTexto.baixar}
