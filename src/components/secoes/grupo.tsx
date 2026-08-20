@@ -46,10 +46,14 @@ export function Grupo() {
       id="grupo"
       className="mv-secao bg-petroleo relative overflow-hidden border-y-[5px] border-amarelo text-white"
     >
+      {/* `z-0` na decoração e `z-10` no conteúdo, escrito e não deduzido.
+          Sem índice declarado, quem pinta por cima é a ordem do DOM, e basta
+          alguém reordenar duas linhas aqui para o balão subir por cima do
+          texto sem ninguém entender por quê. */}
       <MalhaDeContato />
       <BaloesFlutuando />
 
-      <div className="mv-shell relative grid items-center gap-10 lg:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:gap-14">
+      <div className="mv-shell relative z-10 grid items-center gap-10 lg:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:gap-14">
         {/* O RETRATO. O halo verde atrás é o que descola a foto do fundo — sem
             ele, um retângulo escuro sobre verde escuro vira um buraco. */}
         <div className="relative mx-auto w-full max-w-[20rem]">
@@ -126,7 +130,7 @@ function MalhaDeContato() {
   return (
     <svg
       aria-hidden="true"
-      className="pointer-events-none absolute inset-0 h-full w-full text-white opacity-[.13]"
+      className="pointer-events-none absolute inset-0 z-0 h-full w-full text-white opacity-[.13]"
       viewBox="0 0 100 100"
       preserveAspectRatio="none"
     >
@@ -158,17 +162,24 @@ function BaloesFlutuando() {
   const baloes = [
     { classe: 'left-[4%] top-[14%] w-[3.4rem] blur-[2px] opacity-40', dur: '9s', atraso: '0s', giro: '-8deg' },
     { classe: 'left-[27%] top-[8%] w-[2.4rem] blur-[3px] opacity-30', dur: '11s', atraso: '1.4s', giro: '10deg' },
-    { classe: 'right-[6%] top-[10%] w-[5rem] opacity-90', dur: '7.5s', atraso: '.6s', giro: '6deg' },
+    /* OS TRÊS NÍTIDOS SÓ NO DESKTOP. As posições foram escolhidas para o
+       layout de duas colunas, onde a direita é do texto e a esquerda é da
+       foto. No celular tudo vira uma coluna só, e aí `right-[13%]
+       bottom-[14%]` — um balão de 6,5 rem com 95% de opacidade — cai em cima
+       do parágrafo. Ficar atrás do texto não resolvia: branco sobre verde
+       vivo não se lê, e o problema é de contraste, não de ordem.
+       No celular sobram os borrados e apagados, que são textura de verdade. */
+    { classe: 'right-[6%] top-[10%] w-[5rem] opacity-90 hidden lg:block', dur: '7.5s', atraso: '.6s', giro: '6deg' },
     { classe: 'right-[30%] top-[16%] w-[3rem] blur-[1px] opacity-55', dur: '10s', atraso: '2.1s', giro: '-5deg' },
-    { classe: 'right-[13%] bottom-[14%] w-[6.5rem] opacity-95', dur: '8s', atraso: '1s', giro: '-7deg' },
-    { classe: 'right-[34%] bottom-[10%] w-[3.4rem] opacity-70', dur: '12s', atraso: '.3s', giro: '9deg' },
+    { classe: 'right-[13%] bottom-[14%] w-[6.5rem] opacity-95 hidden lg:block', dur: '8s', atraso: '1s', giro: '-7deg' },
+    { classe: 'right-[34%] bottom-[10%] w-[3.4rem] opacity-70 hidden lg:block', dur: '12s', atraso: '.3s', giro: '9deg' },
     { classe: 'right-[46%] top-[46%] w-[2.4rem] blur-[2px] opacity-35 hidden lg:block', dur: '9s', atraso: '3.2s', giro: '12deg' },
     { classe: 'left-[36%] bottom-[12%] w-[2.2rem] blur-[3px] opacity-30', dur: '9.5s', atraso: '2.6s', giro: '-11deg' },
     { classe: 'left-[8%] bottom-[6%] w-[3.8rem] opacity-55 hidden lg:block', dur: '10.5s', atraso: '1.8s', giro: '4deg' },
   ]
 
   return (
-    <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+    <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
       {baloes.map((b, i) => (
         <span
           key={i}

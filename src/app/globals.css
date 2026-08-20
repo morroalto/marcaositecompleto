@@ -614,6 +614,21 @@
 }
 .mv-pulsa-suave { animation: mv-pulsa-suave 3.2s ease-out infinite; }
 
+/* SÓ EM TELA DE TOQUE.
+   `pointer: coarse` é o dedo; `fine` é o mouse. Serve para o botão de TIRAR
+   FOTO: `capture` só abre a câmera em aparelho que tem uma à mão, e no desktop
+   o mesmo botão abriria de novo o seletor de arquivos, ou seja, dois botões
+   fazendo a mesma coisa com nomes diferentes.
+
+   Em CSS escrito à mão, e não pela variante do Tailwind: se a variante não
+   existir na versão instalada, a classe some sem erro nenhum e o botão sumiria
+   de todo aparelho — falha silenciosa, e justo no caminho que o público do
+   celular vai usar. */
+.mv-so-toque { display: none; }
+@media (pointer: coarse) {
+  .mv-so-toque { display: inline-flex; }
+}
+
 /* MESMA FLUTUAÇÃO, SEM O HALO VERDE. `.mv-flutua` carrega o brilho de WhatsApp
    dos balões do grupo, que ali é a marca do app e aqui seria uma cor solta.
    As peças de exemplo da moldura só precisam da sombra que as descola do

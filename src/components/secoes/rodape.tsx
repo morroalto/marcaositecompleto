@@ -75,12 +75,22 @@ export function Rodape() {
           {candidato.slogan}
         </p>
 
-        {/* ── três colunas ── */}
-        <div className="grid gap-10 text-center sm:text-left md:grid-cols-3 md:gap-8">
+        {/* ── três colunas ──
+            ALINHADO À ESQUERDA TAMBÉM NO CELULAR, a pedido. O resto do site
+            centraliza texto no celular, e aqui isso não funcionava: são treze
+            links empilhados um sob o outro, e centralizados eles viram uma
+            fita estreita no meio da tela, com a borda esquerda serrilhada
+            porque cada link tem um comprimento. Lista se lê por uma margem
+            comum, não por um eixo. */}
+        <div className="grid gap-10 text-left md:grid-cols-3 md:gap-8">
 
           <nav aria-label="Seções do site" className="flex flex-col gap-4">
             <h2 className="mv-kicker text-white/60">Navegar</h2>
-            <ul className="flex flex-col gap-1">
+            {/* DUAS COLUNAS NO CELULAR. Sete itens em coluna única faziam o
+                rodapé rolar sem fim; em duas, a lista cabe de uma olhada. Volta
+                a coluna única no desktop, onde ela já divide o espaço com as
+                outras duas seções. */}
+            <ul className="grid grid-cols-2 gap-x-5 gap-y-0 md:grid-cols-1 md:gap-1">
               {NAVEGACAO.map((l) => (
                 <li key={l.href}>
                   <a
@@ -96,7 +106,9 @@ export function Rodape() {
 
           <nav aria-label="Redes sociais" className="flex flex-col gap-4">
             <h2 className="mv-kicker text-white/60">Acompanhar</h2>
-            <ul className="flex flex-col gap-1">
+            {/* mesmas duas colunas da lista de cima: seis redes empilhadas
+                davam mais meia tela de rolagem sem nenhuma informação nova */}
+            <ul className="grid grid-cols-2 gap-x-5 gap-y-0 md:grid-cols-1 md:gap-1">
               {/* As seis contas oficiais dele. O copy §8 pedia Instagram e
                   TikTok; a campanha mandou as outras quatro depois. O
                   Instagram do Triângulo do Sul continua fora: é do movimento,
@@ -134,7 +146,7 @@ export function Rodape() {
                   {candidato.campanha.email}
                 </a>
               </li>
-              <li className="flex items-start justify-center gap-3 text-[1.0625rem] leading-relaxed text-white/85 sm:justify-start">
+              <li className="flex items-start gap-3 text-[1.0625rem] leading-relaxed text-white/85">
                 <IconeLocal tamanho={22} className="mt-1 shrink-0 text-amarelo" />
                 <span>
                   {candidato.campanha.endereco}

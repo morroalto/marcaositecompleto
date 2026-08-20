@@ -17,6 +17,7 @@ export const molduraTexto = {
     'Sua foto não sai do seu aparelho, o desenho é montado aqui mesmo, no seu navegador.',
   botao: 'Escolher a minha foto',
   trocar: 'Trocar a foto',
+  tirar: 'Tirar uma foto agora',
   baixar: 'Baixar a minha moldura',
   arraste: 'ou arraste a foto para cá',
   vazio: 'A sua foto entra aqui',

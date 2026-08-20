@@ -46,6 +46,7 @@ import { cn } from '@/lib/utils'
 export function Moldura() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const entradaRef = useRef<HTMLInputElement>(null)
+  const cameraRef = useRef<HTMLInputElement>(null)
   const urlRef = useRef<string | null>(null)
 
   const [url, setUrl] = useState<string | null>(null)
@@ -85,9 +86,12 @@ export function Moldura() {
       setErro(erros.quebrado)
     } finally {
       setOcupado(false)
-      // limpa o input: sem isso, escolher DE NOVO o mesmo arquivo não dispara
-      // `change`, e a pessoa acha que o site travou
+      /* limpa OS DOIS inputs: sem isso, escolher de novo o mesmo arquivo não
+         dispara `change`, e a pessoa acha que o site travou. Os dois, e não só
+         o usado, porque tirar uma foto e depois escolher a mesma da galeria é
+         um caminho real. */
       if (entradaRef.current) entradaRef.current.value = ''
+      if (cameraRef.current) cameraRef.current.value = ''
     }
   }
 
@@ -173,12 +177,42 @@ export function Moldura() {
               id="moldura-arquivo"
             />
 
+            {/* TIRAR NA HORA. `capture="user"` abre a câmera FRONTAL direto,
+                sem passar pela galeria — é foto de perfil, então é a de frente
+                que interessa.
+
+                `accept="image/*"` aqui, e não a lista dos três formatos: o
+                aparelho decide em que formato grava, e alguns iPhones gravam
+                em HEIC. Restringir aqui faria a câmera nem abrir; quem barra
+                formato que não serve é a checagem de bytes, depois, com
+                mensagem explicando o que houve. */}
+            <input
+              ref={cameraRef}
+              type="file"
+              accept="image/*"
+              capture="user"
+              onChange={(e) => void usar(e.target.files?.[0])}
+              className="mv-sr"
+              id="moldura-camera"
+            />
+
             <div className="flex w-full flex-col items-center gap-3">
               <label
                 htmlFor="moldura-arquivo"
                 className="mv-btn mv-btn-amarelo w-full cursor-pointer justify-center sm:w-auto"
               >
                 {url ? molduraTexto.trocar : molduraTexto.botao}
+              </label>
+
+              {/* só em tela de toque: no desktop este botão abriria o mesmo
+                  seletor de arquivos do botão de cima, dois botões fazendo a
+                  mesma coisa com nomes diferentes */}
+              <label
+                htmlFor="moldura-camera"
+                className="mv-btn mv-so-toque w-full cursor-pointer justify-center border-2 border-white/45 text-white"
+              >
+                <IconeCamera />
+                {molduraTexto.tirar}
               </label>
 
               {url && (
@@ -258,6 +292,17 @@ export function Moldura() {
         </div>
       </div>
     </section>
+  )
+}
+
+function IconeCamera() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+      strokeLinecap="round" strokeLinejoin="round" className="h-[22px] w-[22px] shrink-0"
+      aria-hidden="true">
+      <path d="M3 8.5h3.2l1.6-2.4h8.4l1.6 2.4H21v11H3v-11Z" />
+      <circle cx="12" cy="13.6" r="3.6" />
+    </svg>
   )
 }
 
