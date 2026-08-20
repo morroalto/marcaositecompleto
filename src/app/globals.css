@@ -614,9 +614,22 @@
 }
 .mv-pulsa-suave { animation: mv-pulsa-suave 3.2s ease-out infinite; }
 
+/* MESMA FLUTUAÇÃO, SEM O HALO VERDE. `.mv-flutua` carrega o brilho de WhatsApp
+   dos balões do grupo, que ali é a marca do app e aqui seria uma cor solta.
+   As peças de exemplo da moldura só precisam da sombra que as descola do
+   fundo. */
+.mv-flutua-limpa {
+  animation: mv-flutua var(--dur, 9s) ease-in-out infinite;
+  animation-delay: var(--atraso, 0s);
+  filter: drop-shadow(0 14px 26px rgb(0 0 0 / .45));
+}
+
 @media (prefers-reduced-motion: reduce) {
   .mv-pulsa { animation: none; }
   .mv-flutua { animation: none; }
+  /* sem animação a inclinação sumiria junto, porque ela mora no keyframe.
+     Aqui ela volta como transform fixo. */
+  .mv-flutua-limpa { animation: none; transform: rotate(var(--giro, 0deg)); }
   .mv-pulsa-suave { animation: none; }
   .mv-abertura { display: none; }
   .mv-entra { animation: none; opacity: 1; transform: none; }

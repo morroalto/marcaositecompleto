@@ -225,40 +225,34 @@ export function FundoNumero({
        · recuo mínimo de 2,5 rem (`top-10`) em toda marca colada numa borda.
      As posicionadas em porcentagem (`top-1/3`, `left-1/2`) ficam no miolo e
      não entram nessa conta. */
+  /* SÃO TRÊS POR SEÇÃO, e UMA no celular, desde 17/08/2026.
+     O caminho foi duas por seção só no desktop (fundo praticamente liso),
+     depois seis com três no celular — e seis poluiu, que foi o que o Matheus
+     viu. Três dá textura sem o olho começar a contar marca d'água.
+     No celular só uma: a tela estreita já tem a coluna de texto ocupando a
+     largura inteira, e o que sobra de fundo livre é a borda. */
   const arranjos = {
     a: [
       'absolute right-10 top-12 w-[11rem] -rotate-6 sm:w-[18rem]',
-      'absolute left-10 bottom-12 w-[9rem] rotate-3 sm:w-[15rem]',
-      'absolute right-12 bottom-1/3 w-[7rem] rotate-6 sm:w-[11rem]',
       'absolute left-10 top-1/3 hidden w-[16rem] -rotate-6 lg:block',
-      'absolute left-[45%] top-12 hidden w-[12rem] rotate-6 lg:block',
       'absolute right-1/3 bottom-12 hidden w-[14rem] -rotate-3 lg:block',
     ],
     b: [
       /* a maior fica embaixo, e não em cima: nesta variante o título fica no
          alto da esquerda, e ela passava por trás dele */
       'absolute left-10 bottom-12 w-[11rem] rotate-6 sm:w-[17rem]',
-      'absolute right-10 top-12 w-[9rem] -rotate-3 sm:w-[13rem]',
-      'absolute left-12 top-1/2 w-[7rem] rotate-6 sm:w-[11rem]',
       'absolute right-12 bottom-1/3 hidden w-[15rem] rotate-3 lg:block',
       'absolute left-1/3 top-12 hidden w-[12rem] -rotate-6 lg:block',
-      'absolute right-1/4 bottom-14 hidden w-[10rem] rotate-6 lg:block',
     ],
     c: [
       'absolute right-10 bottom-14 w-[11rem] rotate-3 sm:w-[17rem]',
-      'absolute left-10 top-12 w-[9rem] -rotate-6 sm:w-[13rem]',
-      'absolute left-12 bottom-1/4 w-[7rem] rotate-6 sm:w-[12rem]',
-      'absolute right-12 top-1/3 hidden w-[14rem] -rotate-6 lg:block',
+      'absolute left-10 top-1/4 hidden w-[15rem] -rotate-6 lg:block',
       'absolute left-1/3 bottom-12 hidden w-[12rem] rotate-6 lg:block',
-      'absolute right-14 top-12 hidden w-[16rem] -rotate-3 lg:block',
     ],
     d: [
-      'absolute right-10 top-1/2 w-[10rem] -rotate-3 sm:w-[16rem]',
-      'absolute left-10 bottom-12 w-[9rem] rotate-6 sm:w-[15rem]',
-      'absolute left-12 top-14 w-[7rem] rotate-6 sm:w-[11rem]',
-      'absolute right-12 bottom-12 hidden w-[15rem] rotate-3 lg:block',
-      'absolute left-[45%] bottom-1/3 hidden w-[12rem] -rotate-6 lg:block',
-      'absolute right-1/3 top-12 hidden w-[10rem] rotate-6 lg:block',
+      'absolute right-10 top-1/2 w-[11rem] -rotate-3 sm:w-[16rem]',
+      'absolute left-10 bottom-12 hidden w-[15rem] rotate-6 lg:block',
+      'absolute right-1/4 top-12 hidden w-[12rem] -rotate-6 lg:block',
     ],
   }[variante]
 

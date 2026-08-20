@@ -1,4 +1,4 @@
-import { arquivo, limites, erros } from '@/content/moldura'
+import { arquivo, limites, erros, pe, marcaNaPeca } from '@/content/moldura'
 
 /**
  * A MOLDURA, DESENHADA NO NAVEGADOR
@@ -124,20 +124,19 @@ export async function desenhar(canvas: HTMLCanvasElement, bmp: ImageBitmap) {
      aqui significa a marca ilegível na foto de perfil de um apoiador. A rampa
      começa alta e longa, então o rosto não é atingido; o que fica sólido é só
      a faixa onde a marca se apoia. */
-  const g = ctx.createLinearGradient(0, lado * 0.36, 0, lado)
-  g.addColorStop(0.00, 'rgba(47,92,27,0)')
-  g.addColorStop(0.30, 'rgba(43,84,25,.52)')
-  g.addColorStop(0.55, 'rgba(36,72,21,.88)')
-  g.addColorStop(0.76, 'rgba(30,62,16,.98)')
-  g.addColorStop(1.00, 'rgb(26,54,13)')
+  /* AS PARADAS VÊM DE `content/moldura.ts`, e é o mesmo dado que os exemplos
+     em HTML da seção usam. Duas cópias se separariam no primeiro ajuste, e o
+     exemplo existe para prometer exatamente o que sai daqui. */
+  const g = ctx.createLinearGradient(0, lado * pe.inicio, 0, lado)
+  for (const [parada, cor] of pe.paradas) g.addColorStop(parada, cor)
   ctx.fillStyle = g
   ctx.fillRect(0, 0, lado, lado)
 
   // a marca oficial, em arquivo: o desenho do lockup é do designer, não meu
   const marca = await carregarMarca()
-  const larguraMarca = Math.round(lado * 0.68)
+  const larguraMarca = Math.round(lado * marcaNaPeca.largura)
   const alturaMarca = Math.round((larguraMarca * marca.height) / marca.width)
-  const margem = Math.round(lado * 0.085)
+  const margem = Math.round(lado * marcaNaPeca.margem)
   ctx.drawImage(
     marca,
     Math.round((lado - larguraMarca) / 2),

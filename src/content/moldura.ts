@@ -19,6 +19,8 @@ export const molduraTexto = {
   trocar: 'Trocar a foto',
   baixar: 'Baixar a minha moldura',
   arraste: 'ou arraste a foto para cá',
+  vazio: 'A sua foto entra aqui',
+  montando: 'Montando...',
   revisado: false,
 }
 
@@ -71,3 +73,29 @@ export const erros = {
   pequena: 'A foto é pequena demais e sairia borrada. Escolha uma maior.',
   quebrado: 'Não consegui abrir essa foto. Tente outra.',
 }
+
+/**
+ * O PÉ VERDE E O TAMANHO DA MARCA, EM UM LUGAR SÓ
+ *
+ * Estes números são usados DUAS vezes: pelo canvas, que desenha o arquivo de
+ * verdade, e pelos exemplos em HTML que aparecem na seção. Se cada lado tivesse
+ * a sua cópia, o exemplo e o resultado iam se separar na primeira vez que
+ * alguém ajustasse um deles — e o exemplo existe justamente para prometer o que
+ * a pessoa vai receber.
+ *
+ * `inicio` é onde a rampa começa, em fração da altura. As `paradas` são
+ * posições DENTRO da rampa, de 0 a 1, do jeito que o canvas pede.
+ */
+export const pe = {
+  inicio: 0.36,
+  paradas: [
+    [0.00, 'rgba(47,92,27,0)'],
+    [0.30, 'rgba(43,84,25,.52)'],
+    [0.55, 'rgba(36,72,21,.88)'],
+    [0.76, 'rgba(30,62,16,.98)'],
+    [1.00, 'rgb(26,54,13)'],
+  ] as const,
+}
+
+/** onde a marca se apoia dentro da peça, em fração do lado */
+export const marcaNaPeca = { largura: 0.68, margem: 0.085 }
