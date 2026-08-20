@@ -26,10 +26,21 @@ export const molduraTexto = {
 
 /** A foto dele que aparece ao lado, recortada, sem fundo. */
 export const molduraFoto = {
-  src: '/fotos/marcao-aponta.webp',
+  /* RECORTE PRÓPRIO, cortado acima da mão. No arquivo original o recorte
+     comeu os dedos da mão esquerda e deixou blocos azuis soltos em volta
+     dela — sujeira de recorte, que sobre fundo chapado aparece de longe. O
+     corte em y=1430 tira a mão inteira e o problema junto.
+
+     O ORIGINAL CONTINUA NA PASTA, intocado: a outra sessão pode estar
+     contando com o recorte inteiro em outro lugar. */
+  src: '/fotos/marcao-aponta-corte.webp',
   alt: `${candidato.nomeUrna} apontando para quem olha, convidando a participar`,
-  largura: 1002,
-  altura: 1650,
+  /* MEDIDAS DO ARQUIVO, conferidas nele e não estimadas. As anteriores
+     (1002 por 1650) não eram as do original (1007 por 1600), e o Next usa
+     esses números para reservar a caixa: a foto vinha esticada uns 4% na
+     vertical sem ninguém notar. */
+  largura: 1007,
+  altura: 1430,
 }
 
 /**

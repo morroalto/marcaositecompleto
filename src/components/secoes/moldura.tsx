@@ -6,7 +6,6 @@ import {
   molduraTexto, molduraFoto, arquivo, limites, erros,
 } from '@/content/moldura'
 import { conferir, abrir, desenhar, exportar } from '@/lib/moldura'
-import { NumeroMarca } from '@/components/ui/marca'
 import { IconeSeta } from '@/components/ui/icones'
 import { cn } from '@/lib/utils'
 
@@ -237,9 +236,10 @@ export function Moldura() {
               style={{ background: 'var(--marinho-2)' }}
             />
             <span className="absolute h-[31rem] w-[31rem] translate-y-[-6%] rounded-full border-2 border-amarelo/30" />
-            {/* o número precisa de largura EXPLÍCITA: o SVG não tem `width`
-                próprio, e sem uma classe de largura nele o pai não o dimensiona */}
-            <NumeroMarca className="absolute w-[17rem] translate-y-[-52%] text-white/[.13]" />
+            {/* O NÚMERO SAIU DAQUI. Ele ficava no miolo do disco, e o corpo
+                dele cobria justamente o meio: sobrava um pedaço de dígito de
+                cada lado, que não se lê como marca, se lê como borrão. Marca
+                d'água tapada pela metade é sujeira, não textura. */}
           </div>
 
           <Image
