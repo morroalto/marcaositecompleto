@@ -1,4 +1,4 @@
-import { arquivo, limites, erros } from '@/content/moldura'
+import { arquivo, limites, erros, filtro as ajusteDoFiltro } from '@/content/moldura'
 
 /**
  * A MOLDURA, DESENHADA NO NAVEGADOR
@@ -131,7 +131,11 @@ export async function desenhar(canvas: HTMLCanvasElement, bmp: ImageBitmap) {
   const filtro = await carregarFiltro()
   ctx.imageSmoothingEnabled = true
   ctx.imageSmoothingQuality = 'high'
-  ctx.drawImage(filtro, 0, 0, lado, lado)
+  /* A ARTE DESCE `ajusteDoFiltro.desce`, e o que passar da borda de baixo é
+     cortado pelo próprio canvas. Não sobra costura: o pé da arte é um véu
+     contínuo, então ele simplesmente termina na borda em vez de terminar
+     antes dela. */
+  ctx.drawImage(filtro, 0, Math.round(lado * ajusteDoFiltro.desce), lado, lado)
 }
 
 /** O PNG final, como Blob. `toBlob` é assíncrono e não trava a aba. */

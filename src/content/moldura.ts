@@ -95,3 +95,20 @@ export const erros = {
  * ⚠️ Ela vem em 800 e a peça sai em 1500, ou seja, é ampliada 1,9 vez. Vale
  * pedir ao designer uma versão em 1500 para o selo sair com o contorno nítido.
  */
+export const filtro = {
+  /**
+   * QUANTO A ARTE DESCE, em fração do lado da peça.
+   *
+   * Pedido: o selo mais para baixo. O teto NÃO é gosto, é geometria — a peça é
+   * foto de PERFIL, e todo aplicativo corta o quadrado num círculo.
+   *
+   * Medido na arte: o selo vai de 20,0% a 79,9% na horizontal e sua base está
+   * em 86,0%. Nessa largura, o círculo do avatar termina em 90,0%. Ou seja,
+   * existem 4,0% de folga, e passar disso corta as pontas do selo na foto de
+   * perfil de quem usar.
+   *
+   * 3% desce 45 px numa peça de 1500 e guarda 1% de margem. Se a peça um dia
+   * for para post quadrado, e não para avatar, esse teto deixa de valer.
+   */
+  desce: 0.03,
+}
