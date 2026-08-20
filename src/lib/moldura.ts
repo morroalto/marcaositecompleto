@@ -1,4 +1,4 @@
-import { arquivo, limites, erros, pe, marcaNaPeca } from '@/content/moldura'
+import { arquivo, limites, erros } from '@/content/moldura'
 
 /**
  * A MOLDURA, DESENHADA NO NAVEGADOR
@@ -68,13 +68,23 @@ export async function abrir(file: File): Promise<ImageBitmap | string> {
 
 /* ─────────────────────── desenho ─────────────────────── */
 
-/** a marca oficial, buscada uma vez por visita */
-let marcaCache: Promise<ImageBitmap> | null = null
-function carregarMarca(): Promise<ImageBitmap> {
-  marcaCache ??= fetch('/marca/lockup-branco.png')
+/**
+ * A ARTE DO FILTRO, buscada uma vez por visita.
+ *
+ * É um PNG com transparência de verdade: a metade de cima é 100% transparente
+ * e a de baixo traz o selo e o véu claro. Ou seja, ele é uma CAMADA, não uma
+ * moldura — basta assentar por cima da foto no tamanho da peça.
+ *
+ * Antes deste arquivo existir, o pé verde e a marca eram desenhados aqui, à
+ * mão. Isso saiu inteiro: quando existe a arte do designer, reconstruí-la em
+ * código é só uma chance a mais de errar o desenho dele.
+ */
+let filtroCache: Promise<ImageBitmap> | null = null
+function carregarFiltro(): Promise<ImageBitmap> {
+  filtroCache ??= fetch('/marca/filtro-avatar.png')
     .then((r) => r.blob())
     .then((b) => createImageBitmap(b))
-  return marcaCache
+  return filtroCache
 }
 
 /**
@@ -113,44 +123,15 @@ export async function desenhar(canvas: HTMLCanvasElement, bmp: ImageBitmap) {
 
   preencher(ctx, bmp, lado)
 
-  /* O VERDE QUE SOBE DO PÉ. Uma cor só, do transparente ao verde da marca:
-     misturar verde com petróleo aqui embaixo dava um tom pardo que não existe
-     em peça nenhuma da campanha.
-
-     O QUARTO DE BAIXO É PRATICAMENTE CHAPADO, e isso não é excesso. A foto que
-     entra aqui é desconhecida: pode ser noturna, pode ser uma praia estourada
-     de sol, pode ter uma camisa branca exatamente onde vai cair o "MARCÃO". Um
-     véu suave funciona em metade das fotos e falha na outra metade, e falhar
-     aqui significa a marca ilegível na foto de perfil de um apoiador. A rampa
-     começa alta e longa, então o rosto não é atingido; o que fica sólido é só
-     a faixa onde a marca se apoia. */
-  /* AS PARADAS VÊM DE `content/moldura.ts`, e é o mesmo dado que os exemplos
-     em HTML da seção usam. Duas cópias se separariam no primeiro ajuste, e o
-     exemplo existe para prometer exatamente o que sai daqui. */
-  const g = ctx.createLinearGradient(0, lado * pe.inicio, 0, lado)
-  for (const [parada, cor] of pe.paradas) g.addColorStop(parada, cor)
-  ctx.fillStyle = g
-  ctx.fillRect(0, 0, lado, lado)
-
-  // a marca oficial, em arquivo: o desenho do lockup é do designer, não meu
-  const marca = await carregarMarca()
-  const larguraMarca = Math.round(lado * marcaNaPeca.largura)
-  const alturaMarca = Math.round((larguraMarca * marca.height) / marca.width)
-  const margem = Math.round(lado * marcaNaPeca.margem)
-  ctx.drawImage(
-    marca,
-    Math.round((lado - larguraMarca) / 2),
-    lado - margem - alturaMarca,
-    larguraMarca,
-    alturaMarca,
-  )
-
-  /* A FAIXA LEGAL saiu em 17/08/2026, a pedido. Ela trazia a razão social e o
-     CNPJ da campanha deitados na borda direita, como na arte oficial.
-     ⚠️ Confirmar com o advogado eleitoral: a Resolução TSE 23.610/2019 exige a
-     identificação de quem pagou no material de propaganda, e falta definir se
-     uma foto de perfil montada pelo próprio apoiador entra nessa regra. Para
-     devolver, o desenho está no histórico do git. */
+  /* A CAMADA DO FILTRO, esticada de 800 para 1500.
+     `imageSmoothingQuality` em 'high' porque a arte vem em 800 e a peça sai em
+     1500: sem isso o navegador usa uma interpolação barata e o contorno branco
+     do selo chega serrilhado. Com 'high' ele suaviza, mas ampliar 1,9 vez
+     ainda custa nitidez — uma versão da arte em 1500 sairia melhor. */
+  const filtro = await carregarFiltro()
+  ctx.imageSmoothingEnabled = true
+  ctx.imageSmoothingQuality = 'high'
+  ctx.drawImage(filtro, 0, 0, lado, lado)
 }
 
 /** O PNG final, como Blob. `toBlob` é assíncrono e não trava a aba. */
