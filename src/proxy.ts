@@ -77,8 +77,17 @@ export function proxy(req: NextRequest) {
     'Content-Security-Policy',
     [
       "default-src 'self'",
-      // o Next injeta script inline no App Router; sem 'unsafe-inline' a página não hidrata
-      "script-src 'self' 'unsafe-inline'",
+      /* o Next injeta script inline no App Router; sem 'unsafe-inline' a página
+         não hidrata.
+
+         'unsafe-eval' SÓ EM DESENVOLVIMENTO. O React em modo dev usa `eval`
+         para remontar pilha de erro e para as ferramentas de depuração, e com
+         a CSP barrando isso o console enche de aviso e a mensagem de erro
+         chega pela metade justamente na hora em que ela é mais útil. Em
+         produção a permissão não existe: `NODE_ENV` é definido pelo `next
+         build`, não por variável de ambiente que alguém possa virar no
+         servidor. */
+      `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === 'production' ? '' : " 'unsafe-eval'"}`,
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob:",
       "media-src 'self' blob:",
