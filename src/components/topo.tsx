@@ -67,10 +67,31 @@ export function Topo() {
       ].join(' ')}
     >
       <div className="mv-shell flex h-[var(--topo-h)] items-center justify-between gap-5">
+        {/* A MARCA SÓ APARECE DEPOIS QUE A PÁGINA ROLA.
+            No topo absoluto ela some, porque a poucos centímetros dali a mesma
+            marca já está na arte de abertura, em tamanho de cartaz — a versão
+            pequena do cabeçalho só repetia o que o olho acabou de ler e
+            atravessava a peça com um retângulo escuro de sombra.
+
+            INVISÍVEL, e não removida: o cabeçalho é `justify-between`, então
+            tirar a marca do fluxo jogaria o menu e o botão de três barras para
+            a esquerda e de volta a cada rolagem. Assim ela guarda o próprio
+            lugar e só aparece, no mesmo tempo da cor de fundo da barra.
+
+            Invisível também para quem não enxerga a tela: `aria-hidden` mais
+            `tabIndex={-1}` tiram o link do leitor e do Tab enquanto ele não
+            está lá. Ninguém perde nada — o primeiro atalho da página continua
+            sendo "pular para o conteúdo", e o topo se alcança pelo Home. */}
         <a
           href="#topo"
           onClick={() => setAberto(false)}
-          className="shrink-0 no-underline drop-shadow-[0_2px_6px_rgba(0,0,0,.45)]"
+          aria-hidden={!solido || undefined}
+          tabIndex={solido ? undefined : -1}
+          className={[
+            'shrink-0 no-underline drop-shadow-[0_2px_6px_rgba(0,0,0,.45)]',
+            'transition-opacity duration-300',
+            solido ? 'opacity-100' : 'pointer-events-none opacity-0',
+          ].join(' ')}
           aria-label={`${candidato.nomeUrna}, ir para o topo`}
         >
           {/* arquivo oficial, não a reconstrução em HTML: aqui a marca aparece
