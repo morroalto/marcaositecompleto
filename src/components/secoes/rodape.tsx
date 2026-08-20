@@ -15,6 +15,7 @@ const NAVEGACAO = [
   { href: '#linha-do-tempo', texto: 'Linha do tempo' },
   { href: '#bandeiras',      texto: 'O que defendemos' },
   { href: '#presenca',       texto: 'Perto de quem precisa' },
+  { href: '#moldura',        texto: 'Sua moldura' },
 ]
 
 /**

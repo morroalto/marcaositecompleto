@@ -8,6 +8,7 @@ import { Territorio } from '@/components/secoes/territorio'
 import { Escuta } from '@/components/secoes/escuta'
 import { Bandeiras } from '@/components/secoes/bandeiras'
 import { Galeria } from '@/components/secoes/galeria'
+import { Moldura } from '@/components/secoes/moldura'
 import { Apoie } from '@/components/secoes/apoie'
 import { Grupo } from '@/components/secoes/grupo'
 import { Rodape } from '@/components/secoes/rodape'
@@ -73,6 +74,12 @@ export default function Pagina() {
         {/* PERTO DE QUEM PRECISA — no ar desde 16/08/2026, com os três vídeos
             do canal oficial da campanha. */}
         <Galeria />
+        {/* VISTA A CAMPANHA. Entra entre a galeria e o pedido de apoio de
+            propósito: quem acabou de ver os videos e ainda nao decidiu apoiar
+            ja pode levar alguma coisa da campanha para o proprio perfil. E a
+            unica secao escura entre duas claras, o que tambem separa a
+            Galeria do CTA. */}
+        <Moldura />
         <Apoie />
         {/* O GRUPO fecha a página, logo depois do pedido de apoio: o CTA acima
             pede que a pessoa entre na caminhada, e esta seção é onde ela

@@ -12,6 +12,7 @@ const LINKS = [
   { href: '#linha-do-tempo', texto: 'Linha do tempo' },
   { href: '#bandeiras',      texto: 'O que defendemos' },
   { href: '#presenca',       texto: 'Presença' },
+  { href: '#moldura',        texto: 'Sua moldura' },
 ]
 
 /**
