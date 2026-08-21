@@ -22,6 +22,7 @@ export const molduraTexto = {
   baixar: 'Salvar a minha moldura',
   arraste: 'ou arraste a foto para cá',
   vazio: 'A sua foto entra aqui',
+  formato: 'Escolha o formato',
   montando: 'Montando...',
   /* Texto da campanha, entregue em 21/08/2026. O anterior era meu, de
      rascunho, e falava da segurança do navegador; este fala com o eleitor. */
@@ -61,22 +62,54 @@ export const molduraFoto = {
 }
 
 /**
- * O ARQUIVO QUE SAI
+ * OS FORMATOS QUE SAEM
  *
- * 1500 por 1500, a pedido. É a medida que serve nos três lugares em que a peça
- * vai parar: foto de perfil do WhatsApp, do Instagram e do Facebook. Os três
- * cortam em círculo a partir do quadrado, então o que importa é que nada
- * essencial encoste na borda.
+ * PERFIL, 1500 por 1500. É a medida que serve nos três lugares onde a peça vai
+ * parar: foto de perfil do WhatsApp, do Instagram e do Facebook. Os três
+ * cortam o quadrado num círculo, e é esse corte que limita o quanto o selo
+ * pode descer (ver `filtro.desce`).
  *
- * PNG, e não JPEG: a marca tem tipografia branca de contorno duro sobre
- * gradiente, e é exatamente aí que o JPEG suja, com aquela franja cinza em
- * volta das letras.
+ * STORIES, 1080 por 1920. A medida do story do Instagram e do WhatsApp, e a
+ * mesma do Reels e do TikTok. Aqui não existe corte circular, então o selo
+ * pode encostar no pé sem perder as pontas.
+ *
+ * PNG nos dois, e não JPEG: o selo tem tipografia branca de contorno duro
+ * sobre gradiente, e é exatamente aí que o JPEG suja, com aquela franja cinza
+ * em volta das letras.
  */
-export const arquivo = {
-  lado: 1500,
-  tipo: 'image/png' as const,
-  nome: `moldura-${candidato.numero.replace('.', '')}.png`,
+export interface Formato {
+  chave: 'perfil' | 'stories'
+  rotulo: string
+  ajuda: string
+  largura: number
+  altura: number
+  nome: string
+  /** largura máxima da prévia na tela: o story é alto e não pode tomar a tela */
+  previa: string
 }
+
+export const formatos: Formato[] = [
+  {
+    chave: 'perfil',
+    rotulo: 'Foto de perfil',
+    ajuda: 'Quadrada, para WhatsApp, Instagram e Facebook',
+    largura: 1500,
+    altura: 1500,
+    nome: `moldura-${candidato.numero.replace('.', '')}-perfil.png`,
+    previa: '25rem',
+  },
+  {
+    chave: 'stories',
+    rotulo: 'Story',
+    ajuda: 'Em pé, para o story do Instagram e do WhatsApp',
+    largura: 1080,
+    altura: 1920,
+    nome: `moldura-${candidato.numero.replace('.', '')}-story.png`,
+    previa: '15rem',
+  },
+]
+
+export const tipoDoArquivo = 'image/png' as const
 
 /**
  * LIMITES DE ENTRADA

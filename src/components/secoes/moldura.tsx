@@ -3,8 +3,9 @@
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import {
-  molduraTexto, molduraFoto, arquivo, limites, erros,
+  molduraTexto, molduraFoto, formatos, tipoDoArquivo, limites, erros,
 } from '@/content/moldura'
+import type { Formato } from '@/content/moldura'
 import { conferir, abrir, desenhar, exportar } from '@/lib/moldura'
 import { IconeSeta } from '@/components/ui/icones'
 import { cn } from '@/lib/utils'
@@ -55,12 +56,18 @@ export function Moldura() {
   const [erro, setErro] = useState<string | null>(null)
   const [ocupado, setOcupado] = useState(false)
   const [arrastando, setArrastando] = useState(false)
+  const [formato, setFormato] = useState<Formato>(formatos[0])
+  /* o ÚLTIMO ARQUIVO ESCOLHIDO fica guardado para poder redesenhar quando a
+     pessoa troca de formato. Sem ele, trocar de formato exigiria pedir a foto
+     de novo, e ninguém escolhe a mesma foto duas vezes de boa vontade. */
+  const escolhidaRef = useRef<File | null>(null)
 
   // só devolve a memória do último blob ao sair; sem estado, sem cascata
   useEffect(() => () => { if (urlRef.current) URL.revokeObjectURL(urlRef.current) }, [])
 
-  async function usar(file: File | undefined) {
+  async function usar(file: File | undefined, alvo: Formato = formato) {
     if (!file) return
+    escolhidaRef.current = file
     setErro(null)
     setOcupado(true)
     try {
@@ -73,7 +80,7 @@ export function Moldura() {
       const canvas = canvasRef.current
       if (!canvas) return
       try {
-        await desenhar(canvas, aberta)
+        await desenhar(canvas, aberta, alvo)
       } finally {
         // a memória do bitmap é liberada na mão: uma foto de 40 megapixels
         // ocupa mais de 150 MB, e o coletor do navegador não tem pressa
@@ -98,6 +105,16 @@ export function Moldura() {
     }
   }
 
+  /* TROCAR DE FORMATO redesenha na hora, com a mesma foto. O redesenho roda
+     no CLIQUE, e não num efeito que observa o formato: efeito que chama
+     `setState` é exatamente o que a regra `react-hooks/set-state-in-effect`
+     proíbe neste projeto, e aqui ele nem seria necessário. */
+  function trocarFormato(f: Formato) {
+    if (f.chave === formato.chave) return
+    setFormato(f)
+    if (escolhidaRef.current) void usar(escolhidaRef.current, f)
+  }
+
   /**
    * SALVAR.
    *
@@ -120,7 +137,7 @@ export function Moldura() {
   async function aoSalvar(e: React.MouseEvent<HTMLAnchorElement>) {
     const blob = blobRef.current
     if (!blob) return
-    const ficheiro = new File([blob], arquivo.nome, { type: arquivo.tipo })
+    const ficheiro = new File([blob], formato.nome, { type: tipoDoArquivo })
     if (!navigator.canShare?.({ files: [ficheiro] })) return   // segue como download
 
     e.preventDefault()
@@ -180,15 +197,22 @@ export function Moldura() {
               arrastando && 'bg-[rgb(255_212_0/.12)] p-4 outline outline-3 outline-amarelo',
             )}
           >
-            {/* O QUADRO NUNCA MUDA DE TAMANHO: o canvas fica sempre montado, em
-                1500 por 1500, e só é escondido enquanto está vazio. Trocar um
-                bloco vazio por um canvas depois pularia a página inteira no
-                exato momento em que a pessoa está olhando para ela. */}
-            <div className="relative w-full max-w-[25rem] overflow-hidden rounded-[14px] bg-petroleo shadow-[0_10px_30px_rgba(0,0,0,.35)]">
+            {/* O QUADRO TEM A FORMA DO FORMATO ESCOLHIDO, e o canvas fica
+                sempre montado, escondido enquanto está vazio: trocar um bloco
+                vazio por um canvas depois pularia a página no exato momento em
+                que a pessoa está olhando para ela.
+
+                A largura máxima vem do formato porque o story é alto: com os
+                mesmos 25 rem do quadrado, ele passaria de 700 px de altura e
+                empurraria os botões para fora da tela do celular. */}
+            <div
+              className="relative w-full overflow-hidden rounded-[14px] bg-petroleo shadow-[0_10px_30px_rgba(0,0,0,.35)]"
+              style={{ maxWidth: formato.previa }}
+            >
               <canvas
                 ref={canvasRef}
-                width={arquivo.lado}
-                height={arquivo.lado}
+                width={formato.largura}
+                height={formato.altura}
                 aria-label="A sua moldura, pronta para baixar"
                 className={cn('block h-auto w-full', !url && 'invisible')}
               />
@@ -211,6 +235,35 @@ export function Moldura() {
                   {molduraTexto.montando}
                 </span>
               )}
+            </div>
+
+            {/* ── ESCOLHA DO FORMATO ──
+                Dois botões de verdade, com `aria-pressed`, e não um seletor:
+                são duas opções e as duas cabem na tela, então esconder uma
+                atrás de um menu só acrescentaria um toque. Trocar redesenha na
+                hora, com a mesma foto. */}
+            <div role="group" aria-label={molduraTexto.formato} className="flex w-full flex-wrap justify-center gap-2">
+              {formatos.map((f) => {
+                const ativo = f.chave === formato.chave
+                return (
+                  <button
+                    key={f.chave}
+                    type="button"
+                    onClick={() => trocarFormato(f)}
+                    aria-pressed={ativo}
+                    title={f.ajuda}
+                    className={cn(
+                      'inline-flex min-h-[48px] items-center gap-2 rounded-full border-2 px-4 font-display text-[0.9375rem] font-bold transition-colors',
+                      ativo
+                        ? 'border-amarelo bg-amarelo text-[#08222A]'
+                        : 'border-white/35 text-white hover:border-white/70',
+                    )}
+                  >
+                    <IconeFormato retrato={f.chave === 'stories'} />
+                    {f.rotulo}
+                  </button>
+                )
+              })}
             </div>
 
             <input
@@ -273,7 +326,7 @@ export function Moldura() {
               {url && (
                 <a
                   href={url}
-                  download={arquivo.nome}
+                  download={formato.nome}
                   onClick={aoSalvar}
                   className="mv-btn w-full justify-center border-2 border-white/45 text-white sm:w-auto"
                 >
@@ -372,6 +425,18 @@ export function Moldura() {
         </div>
       </div>
     </section>
+  )
+}
+
+/** um retângulo em pé ou deitado, que é a diferença entre os dois formatos */
+function IconeFormato({ retrato }: { retrato: boolean }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+      className="h-[18px] w-[18px] shrink-0" aria-hidden="true">
+      {retrato
+        ? <rect x="7.5" y="3" width="9" height="18" rx="2" />
+        : <rect x="3.5" y="3.5" width="17" height="17" rx="2" />}
+    </svg>
   )
 }
 

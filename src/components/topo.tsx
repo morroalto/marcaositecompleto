@@ -4,15 +4,20 @@ import { useEffect, useState } from 'react'
 import { LockupArte, BarraTricolor } from '@/components/ui/marca'
 import { candidato } from '@/content/candidato'
 
+/* ÂNCORAS ABSOLUTAS (`/#secao`), e não relativas (`#secao`).
+   O menu é o mesmo nas duas páginas, e a partir de `/fotos` uma âncora
+   relativa apontaria para `/fotos#secao`, que não existe: o clique não faria
+   nada e ninguém entenderia por quê. Com a barra na frente, ele volta para a
+   home e desce até a seção. */
 /** uma entrada por seção, na mesma ordem em que elas aparecem na página */
 const LINKS = [
-  { href: '#numero',         texto: 'O 028' },
-  { href: '#agenda',         texto: 'Agenda' },
-  { href: '#trajetoria',     texto: 'Trajetória' },
-  { href: '#linha-do-tempo', texto: 'Linha do tempo' },
-  { href: '#bandeiras',      texto: 'O que defendemos' },
-  { href: '#presenca',       texto: 'Presença' },
-  { href: '#moldura',        texto: 'Sua moldura' },
+  { href: '/#numero',         texto: 'O 028' },
+  { href: '/#agenda',         texto: 'Agenda' },
+  { href: '/#trajetoria',     texto: 'Trajetória' },
+  { href: '/#linha-do-tempo', texto: 'Linha do tempo' },
+  { href: '/#bandeiras',      texto: 'O que defendemos' },
+  { href: '/#presenca',       texto: 'Presença' },
+  { href: '/fotos',          texto: 'Sua moldura' },
 ]
 
 /**

@@ -1,4 +1,5 @@
-import { arquivo, limites, erros, filtro as ajusteDoFiltro } from '@/content/moldura'
+import { limites, erros, tipoDoArquivo, filtro as ajusteDoFiltro } from '@/content/moldura'
+import type { Formato } from '@/content/moldura'
 
 /**
  * A MOLDURA, DESENHADA NO NAVEGADOR
@@ -98,11 +99,11 @@ function carregarFiltro(): Promise<ImageBitmap> {
  */
 const FOCO_Y = 0.35
 
-function preencher(ctx: CanvasRenderingContext2D, bmp: ImageBitmap, lado: number) {
-  const escala = Math.max(lado / bmp.width, lado / bmp.height)
+function preencher(ctx: CanvasRenderingContext2D, bmp: ImageBitmap, larg: number, alt: number) {
+  const escala = Math.max(larg / bmp.width, alt / bmp.height)
   const l = bmp.width * escala
   const a = bmp.height * escala
-  ctx.drawImage(bmp, (lado - l) / 2, (lado - a) * FOCO_Y, l, a)
+  ctx.drawImage(bmp, (larg - l) / 2, (alt - a) * FOCO_Y, l, a)
 }
 
 /**
@@ -112,30 +113,41 @@ function preencher(ctx: CanvasRenderingContext2D, bmp: ImageBitmap, lado: number
  * na tela. Desenhar no tamanho da tela e ampliar na hora de salvar devolveria
  * uma marca serrilhada.
  */
-export async function desenhar(canvas: HTMLCanvasElement, bmp: ImageBitmap) {
-  const lado = arquivo.lado
-  canvas.width = lado
-  canvas.height = lado
+export async function desenhar(
+  canvas: HTMLCanvasElement,
+  bmp: ImageBitmap,
+  formato: Formato,
+) {
+  const { largura, altura } = formato
+  canvas.width = largura
+  canvas.height = altura
 
   const ctx = canvas.getContext('2d')
   if (!ctx) throw new Error('canvas sem contexto 2d')
-  ctx.clearRect(0, 0, lado, lado)
+  ctx.clearRect(0, 0, largura, altura)
 
-  preencher(ctx, bmp, lado)
+  preencher(ctx, bmp, largura, altura)
 
-  /* A CAMADA DO FILTRO, esticada de 800 para 1500.
-     `imageSmoothingQuality` em 'high' porque a arte vem em 800 e a peça sai em
-     1500: sem isso o navegador usa uma interpolação barata e o contorno branco
-     do selo chega serrilhado. Com 'high' ele suaviza, mas ampliar 1,9 vez
-     ainda custa nitidez — uma versão da arte em 1500 sairia melhor. */
   const filtro = await carregarFiltro()
   ctx.imageSmoothingEnabled = true
   ctx.imageSmoothingQuality = 'high'
-  /* A ARTE DESCE `ajusteDoFiltro.desce`, e o que passar da borda de baixo é
-     cortado pelo próprio canvas. Não sobra costura: o pé da arte é um véu
-     contínuo, então ele simplesmente termina na borda em vez de terminar
-     antes dela. */
-  ctx.drawImage(filtro, 0, Math.round(lado * ajusteDoFiltro.desce), lado, lado)
+
+  /* A ARTE É QUADRADA, e entra como um bloco quadrado da LARGURA da peça,
+     apoiado embaixo. É isso que faz o mesmo arquivo servir aos dois formatos
+     sem deformar: no perfil o quadrado cobre a peça inteira; no story ele
+     cobre o terço de baixo, que é justamente onde o selo mora.
+
+     Esticar a arte para 1080 por 1920 seria o caminho óbvio e o errado: o selo
+     sairia achatado na horizontal e as letras dele, que são do designer,
+     chegariam distorcidas na tela de quem posta.
+
+     `desce` só se aplica ao PERFIL. Ele existe por causa do corte circular do
+     avatar, e story não é cortado em círculo — ali a arte encosta no pé. */
+  const bloco = largura
+  const y = formato.chave === 'perfil'
+    ? Math.round(altura * ajusteDoFiltro.desce)
+    : altura - bloco
+  ctx.drawImage(filtro, 0, y, bloco, bloco)
 }
 
 /** O PNG final, como Blob. `toBlob` é assíncrono e não trava a aba. */
@@ -143,7 +155,7 @@ export function exportar(canvas: HTMLCanvasElement): Promise<Blob> {
   return new Promise((ok, erro) => {
     canvas.toBlob(
       (b) => (b ? ok(b) : erro(new Error('canvas não exportou'))),
-      arquivo.tipo,
+      tipoDoArquivo,
     )
   })
 }
