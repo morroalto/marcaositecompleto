@@ -11,10 +11,11 @@ import { candidato } from '@/content/candidato'
 
 export const molduraTexto = {
   kicker: 'Vista a campanha',
-  titulo: 'Coloque a sua cara nessa',
+  titulo: 'Mostre a sua força e venha com a gente nessa caminhada!',
   chamada:
-    'Escolha uma foto sua e leve de volta a sua foto de perfil com a marca da campanha. ' +
-    'Sua foto não sai do seu aparelho, o desenho é montado aqui mesmo, no seu navegador.',
+    'Tire uma foto agora ou escolha a sua preferida no celular para colocar o selo ' +
+    'oficial da Campanha do Marcão. É super simples, rápido e a imagem sai prontinha ' +
+    'para você usar e postar!',
   botao: 'Escolher a minha foto',
   trocar: 'Trocar a foto',
   tirar: 'Tirar uma foto agora',
@@ -22,26 +23,24 @@ export const molduraTexto = {
   arraste: 'ou arraste a foto para cá',
   vazio: 'A sua foto entra aqui',
   montando: 'Montando...',
+  /* Texto da campanha, entregue em 21/08/2026. O anterior era meu, de
+     rascunho, e falava da segurança do navegador; este fala com o eleitor. */
   revisado: false,
 }
 
 /** A foto dele que aparece ao lado, recortada, sem fundo. */
 export const molduraFoto = {
-  /* RECORTE PRÓPRIO, cortado acima da mão. No arquivo original o recorte
-     comeu os dedos da mão esquerda e deixou blocos azuis soltos em volta
-     dela — sujeira de recorte, que sobre fundo chapado aparece de longe. O
-     corte em y=1430 tira a mão inteira e o problema junto.
+  /* RECORTE PRÓPRIO. O arquivo da campanha vem em 1920 por 1080 com ele
+     pequeno no meio e o resto transparente; aqui ele está cortado na
+     silhueta, com 12 px de folga. Sem esse corte, nove décimos do peso e da
+     caixa reservada seriam vazio, e ele apareceria minúsculo na coluna.
 
-     O ORIGINAL CONTINUA NA PASTA, intocado: a outra sessão pode estar
-     contando com o recorte inteiro em outro lugar. */
-  src: '/fotos/marcao-aponta-corte.webp',
-  alt: `${candidato.nomeUrna} apontando para quem olha, convidando a participar`,
-  /* MEDIDAS DO ARQUIVO, conferidas nele e não estimadas. As anteriores
-     (1002 por 1650) não eram as do original (1007 por 1600), e o Next usa
-     esses números para reservar a caixa: a foto vinha esticada uns 4% na
-     vertical sem ninguém notar. */
-  largura: 1007,
-  altura: 1430,
+     Os originais continuam na pasta, intocados. */
+  src: '/fotos/marcao-forca.webp',
+  alt: `${candidato.nomeUrna} de camisa branca, sorrindo, com o polegar para cima`,
+  /* medidas do arquivo recortado, conferidas nele */
+  largura: 424,
+  altura: 733,
 }
 
 /**

@@ -144,7 +144,14 @@ export function Moldura() {
         <div className="flex flex-col gap-7">
           <div className="mx-auto flex max-w-[62ch] flex-col gap-4 text-center lg:mx-0 lg:text-left">
             <p className="mv-kicker text-amarelo">{molduraTexto.kicker}</p>
-            <h2 className="text-[clamp(1.45rem,4.6vw,2.25rem)] font-extrabold tracking-tight">
+            {/* `leading-[1.15]` só aqui. A entrelinha padrão dos títulos é
+                1,05, apertada de propósito para a Anton, que é alta e
+                condensada — e funciona enquanto o título cabe numa linha. Este
+                texto quebra em duas no celular, e a cedilha de "força" encosta
+                nas maiúsculas da linha de baixo. Não mexi no padrão do site
+                porque ele serve às outras seções; quem pediu ar foi este
+                título. */}
+            <h2 className="text-[clamp(1.45rem,4.6vw,2.25rem)] font-extrabold leading-[1.15] tracking-tight">
               {molduraTexto.titulo}
             </h2>
             <p className="text-[1.0625rem] leading-relaxed text-white/85 sm:text-[1.15rem]">
@@ -292,8 +299,6 @@ export function Moldura() {
         </div>
 
         {/* ── O PALCO ──
-            Ele fica à direita porque aponta para a esquerda: do outro lado, o
-            dedo apontaria para fora da página.
 
             TRÊS ELEMENTOS, e não sete: o disco, o anel e o número. Os cartões
             que flutuavam aqui saíram — eles caíam em cima do ombro e da mão
