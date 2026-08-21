@@ -340,12 +340,18 @@ export function Moldura() {
               da seção, e um círculo centrado na coluna cairia na altura da
               cintura. Em cima, ele emoldura a cabeça e o tronco, que é onde o
               olho vai. */}
-          <div aria-hidden="true" className="absolute inset-0 overflow-hidden">
+          {/* SEM `overflow-hidden` AQUI, e as duas figuras cabendo na coluna.
+              O anel tinha 116% da largura e a caixa recortava o que passasse,
+              então ele chegava na tela com os dois lados decepados, como um
+              arco quebrado. Agora o disco tem 96% e o anel 108%: o anel ainda
+              sangra um pouco, mas o pouco que sangra cai no vão entre as
+              colunas, não numa borda que corta. */}
+          <div aria-hidden="true" className="absolute inset-0">
             <span
-              className="absolute left-1/2 top-[5%] aspect-square w-[102%] -translate-x-1/2 rounded-full"
+              className="absolute left-1/2 top-[6%] aspect-square w-[96%] -translate-x-1/2 rounded-full"
               style={{ background: 'var(--marinho-2)' }}
             />
-            <span className="absolute left-1/2 top-[1%] aspect-square w-[116%] -translate-x-1/2 rounded-full border-2 border-amarelo/30" />
+            <span className="absolute left-1/2 top-[1%] aspect-square w-[108%] -translate-x-1/2 rounded-full border-2 border-amarelo/30" />
           </div>
 
           <div className="absolute inset-x-0 top-0 bottom-[calc(var(--secao)*-1)]">

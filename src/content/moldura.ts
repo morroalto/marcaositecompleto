@@ -30,17 +30,34 @@ export const molduraTexto = {
 
 /** A foto dele que aparece ao lado, recortada, sem fundo. */
 export const molduraFoto = {
-  /* RECORTE PRÓPRIO. O arquivo da campanha vem em 1920 por 1080 com ele
-     pequeno no meio e o resto transparente; aqui ele está cortado na
-     silhueta, com 12 px de folga. Sem esse corte, nove décimos do peso e da
-     caixa reservada seriam vazio, e ele apareceria minúsculo na coluna.
-
-     Os originais continuam na pasta, intocados. */
+  /**
+   * RECORTE PRÓPRIO, FEITO DO ORIGINAL EM ALTA.
+   *
+   * A campanha entregou duas coisas: um PNG recortado de 1920 por 1080, onde
+   * ele ocupa só 424 px de largura, e a foto original em 3707 por 5560. Eu
+   * vinha usando o PNG, e essa era a razão da imagem borrada: a tela mostra
+   * ele com 512 px em CSS, que num aparelho 2x são 1024 px reais — o arquivo
+   * de 424 estava sendo esticado duas vezes e meia.
+   *
+   * COMO O RECORTE FOI FEITO: a máscara é a do PNG, ou seja, o recorte do
+   * designer, ampliada 7,19 vezes e assentada sobre a foto original. Recorte
+   * automático não foi tentado de novo de propósito — `erros-que-a-ia-comete`
+   * já registra que ele come camisa branca, e a camisa aqui é branca sobre
+   * fundo de estúdio quase branco.
+   *
+   * O alinhamento saiu de dois pontos que existem nas duas imagens: o topo da
+   * cabeça e o centro dela. A base bate porque o designer cortou exatamente na
+   * borda de baixo da foto.
+   *
+   * 1100 px de largura cobrem a tela 2x com folga e deixam o Next servir
+   * versões menores para telas 1x. Sem folga transparente embaixo: ali a
+   * folga vira espaço entre a perna dele e a borda da seção.
+   */
   src: '/fotos/marcao-forca.webp',
   alt: `${candidato.nomeUrna} de camisa branca, sorrindo, com o polegar para cima`,
-  /* medidas do arquivo recortado, conferidas nele */
-  largura: 424,
-  altura: 733,
+  /* medidas do arquivo, conferidas nele */
+  largura: 1100,
+  altura: 1947,
 }
 
 /**
