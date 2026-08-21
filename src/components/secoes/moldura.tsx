@@ -140,7 +140,7 @@ export function Moldura() {
           resultado foi o que parecia: cinco coisas disputando, nenhuma
           mandando. O único número desta seção é o grande, dentro do disco. */}
 
-      <div className="mv-shell relative grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,24rem)] lg:gap-14">
+      <div className="mv-shell relative grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,32rem)] lg:gap-12">
         <div className="flex flex-col gap-7">
           <div className="mx-auto flex max-w-[62ch] flex-col gap-4 text-center lg:mx-0 lg:text-left">
             <p className="mv-kicker text-amarelo">{molduraTexto.kicker}</p>
@@ -309,40 +309,60 @@ export function Moldura() {
             Ele encosta no pé da seção (`-mb`) em vez de boiar no meio: gente
             recortada apoiada na borda parece de pé, gente recortada centrada
             no vazio parece adesivo. */}
-        <div className="relative hidden self-end lg:block">
-          <div aria-hidden="true" className="absolute inset-0 grid place-items-center">
-            {/* O DISCO, chapado. Ele é o que descola o recorte do azul: sem um
-                fundo próprio, camisa escura sobre marinho vira vulto.
+        {/* ── O PALCO ──
 
-                A COR VEM DA VARIÁVEL CSS, não de uma classe. `--marinho-2`
-                existe em `globals.css` como token de cor, mas não foi exportada
-                no `@theme` do Tailwind, então `bg-marinho-2` não gera regra
-                nenhuma — foi por isso que o disco não apareceu na primeira
-                tentativa: a classe existia no HTML e não existia no CSS. */}
+            ELE OCUPA A ALTURA DA SEÇÃO, e não um pedaço dela. Antes a coluna
+            tinha 24 rem e a foto saía com 664 px de altura numa seção de 932:
+            encostava no pé, sim, mas sobrava um terço de azul vazio sobre a
+            cabeça dele, e o que se lia era uma figura pequena num canto.
+
+            COMO A ALTURA MANDA AGORA: a coluna estica com a linha
+            (`self-stretch`), e dentro dela um bloco absoluto vai do topo até
+            `-var(--secao)`, ou seja, até a borda de baixo da seção, por baixo
+            do respiro. A foto preenche esse bloco com `object-contain`, que
+            respeita a proporção, e `object-bottom`, que a apoia embaixo.
+
+            `h-full w-full` juntos, e não `h-full w-auto`: com as duas medidas
+            declaradas o Next não avisa "width or height modified, but not the
+            other", e quem cuida da proporção passa a ser o `object-contain`.
+
+            A coluna foi para 32 rem porque com 24 a LARGURA limitava o
+            `contain` antes da altura, e ele continuaria do mesmo tamanho por
+            mais que a caixa crescesse na vertical. */}
+        <div className="relative hidden self-stretch lg:block">
+          {/* O DISCO E O ANEL, medidos em porcentagem da COLUNA e não em rem
+              fixo. Com ele em 24 rem eles funcionavam; quando ele foi para 32
+              e cresceu um terço, os mesmos 27 rem viraram um borrão atrás do
+              peito, pequeno demais para emoldurar e grande demais para passar
+              despercebido. Em porcentagem, os dois crescem junto com ele.
+
+              Ancorados no ALTO, e não no centro: ele agora vai do topo ao pé
+              da seção, e um círculo centrado na coluna cairia na altura da
+              cintura. Em cima, ele emoldura a cabeça e o tronco, que é onde o
+              olho vai. */}
+          <div aria-hidden="true" className="absolute inset-0 overflow-hidden">
             <span
-              className="absolute h-[27rem] w-[27rem] translate-y-[-6%] rounded-full"
+              className="absolute left-1/2 top-[5%] aspect-square w-[102%] -translate-x-1/2 rounded-full"
               style={{ background: 'var(--marinho-2)' }}
             />
-            <span className="absolute h-[31rem] w-[31rem] translate-y-[-6%] rounded-full border-2 border-amarelo/30" />
-            {/* O NÚMERO SAIU DAQUI. Ele ficava no miolo do disco, e o corpo
-                dele cobria justamente o meio: sobrava um pedaço de dígito de
-                cada lado, que não se lê como marca, se lê como borrão. Marca
-                d'água tapada pela metade é sujeira, não textura. */}
+            <span className="absolute left-1/2 top-[1%] aspect-square w-[116%] -translate-x-1/2 rounded-full border-2 border-amarelo/30" />
           </div>
 
-          <Image
-            src={molduraFoto.src}
-            alt={molduraFoto.alt}
-            width={molduraFoto.largura}
-            height={molduraFoto.altura}
-            sizes="24rem"
-            loading="lazy"
-            /* SEM SOMBRA. O `drop-shadow` desenhava um halo escuro rente ao
-               contorno do recorte, e sobre azul chapado isso lê como sujeira de
-               recorte mal feito, não como profundidade. Quem separa ele do
-               fundo agora é o disco atrás. */
-            className="relative z-10 -mb-[var(--secao)] h-auto w-full"
-          />
+          <div className="absolute inset-x-0 top-0 bottom-[calc(var(--secao)*-1)]">
+            <Image
+              src={molduraFoto.src}
+              alt={molduraFoto.alt}
+              width={molduraFoto.largura}
+              height={molduraFoto.altura}
+              sizes="32rem"
+              loading="lazy"
+              /* SEM SOMBRA: o `drop-shadow` desenhava um halo escuro rente ao
+                 contorno do recorte, e sobre azul chapado isso lê como recorte
+                 mal feito, não como profundidade. Quem o separa do fundo é o
+                 disco atrás. */
+              className="h-full w-full object-contain object-bottom"
+            />
+          </div>
         </div>
       </div>
     </section>
