@@ -19,7 +19,7 @@ function faltam(alvoISO: string): Tempo {
  * CONTAGEM REGRESSIVA
  *
  * Relógio de verdade: dias, horas, minutos e segundos, andando de segundo em
- * segundo até as 8h do dia 4 de outubro de 2026, que é a abertura das urnas.
+ * segundo até as 9h do dia 4 de outubro de 2026, que é a abertura das urnas.
  *
  * HIDRATAÇÃO. O servidor e o navegador não leem o relógio no mesmo instante,
  * então calcular o tempo no primeiro render dos dois lados dá HTML diferente e

@@ -10,7 +10,7 @@
 
   /* ---------- COUNTDOWN — 4 de outubro de 2026 ---------- */
   (function () {
-    var alvo = new Date('2026-10-04T08:00:00-03:00');
+    var alvo = new Date('2026-10-04T09:00:00-03:00');
     var el = document.getElementById('dias');
     if (!el) return;
     var dias = Math.max(0, Math.ceil((alvo - new Date()) / 86400000));
