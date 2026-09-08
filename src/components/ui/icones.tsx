@@ -157,6 +157,17 @@ export function IconeMaleta({ className, tamanho }: Props) {
   )
 }
 
+/* Entrou em 08/09/2026 com a frente "Indústria, Energia e Inovação 4.0". Não
+   havia nada de energia no conjunto, e usar a maleta ali seria ícone
+   emprestado dizendo a coisa errada. */
+export function IconeRaio({ className, tamanho }: Props) {
+  return (
+    <Svg className={className} tamanho={tamanho}>
+      <path d="M13 2.5 5 13.5h6l-.5 7.5L19 10.5h-6Z" />
+    </Svg>
+  )
+}
+
 /** chave do conteúdo → desenho */
 const MAPA_ICONES: Record<string, (p: Props) => React.ReactElement> = {
   pino: IconePino,
@@ -172,6 +183,7 @@ const MAPA_ICONES: Record<string, (p: Props) => React.ReactElement> = {
   estrada: IconeEstrada,
   onibus: IconeOnibus,
   maleta: IconeMaleta,
+  raio: IconeRaio,
 }
 
 export function IconeDe({ nome, className, tamanho }: Props & { nome: string }) {
