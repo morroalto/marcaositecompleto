@@ -51,9 +51,6 @@ export interface Bandeira {
  */
 export const fraseForca = {
   principal: 'Meu compromisso é com o Sul, mas meu projeto é para o Espírito Santo.',
-  apoio:
-    'O Espírito Santo não é pequeno. Pequena é a nossa capacidade de imaginar ' +
-    'o seu futuro.',
   revisado: true,
 }
 

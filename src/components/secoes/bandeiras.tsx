@@ -71,9 +71,6 @@ export function Bandeiras() {
             <p className="font-display text-[clamp(1.125rem,3vw,1.4rem)] font-extrabold leading-snug">
               {fraseForca.principal}
             </p>
-            <p className="text-[1.0625rem] leading-relaxed text-fraca">
-              {fraseForca.apoio}
-            </p>
           </div>
         </div>
 
