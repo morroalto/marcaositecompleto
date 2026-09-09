@@ -168,6 +168,27 @@ export function IconeRaio({ className, tamanho }: Props) {
   )
 }
 
+/* Entraram em 09/09/2026 com os dez compromissos. A arte oficial usa uma loja
+   no 06 e uma lupa no 10, e não havia equivalente no conjunto. */
+export function IconeLoja({ className, tamanho }: Props) {
+  return (
+    <Svg className={className} tamanho={tamanho}>
+      <path d="M3.5 9.5 5 4.5h14l1.5 5Z" />
+      <path d="M5 9.5V20h14V9.5" />
+      <path d="M10 20v-5.5h4V20" />
+    </Svg>
+  )
+}
+
+export function IconeLupa({ className, tamanho }: Props) {
+  return (
+    <Svg className={className} tamanho={tamanho}>
+      <circle cx="10.5" cy="10.5" r="6.5" />
+      <path d="m15.4 15.4 4.6 4.6" />
+    </Svg>
+  )
+}
+
 /** chave do conteúdo → desenho */
 const MAPA_ICONES: Record<string, (p: Props) => React.ReactElement> = {
   pino: IconePino,
@@ -184,6 +205,8 @@ const MAPA_ICONES: Record<string, (p: Props) => React.ReactElement> = {
   onibus: IconeOnibus,
   maleta: IconeMaleta,
   raio: IconeRaio,
+  loja: IconeLoja,
+  lupa: IconeLupa,
 }
 
 export function IconeDe({ nome, className, tamanho }: Props & { nome: string }) {
